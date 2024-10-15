@@ -1,3 +1,23 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw; /* 전체 뷰포트 너비 사용 */
+    height: 100vh; /* 전체 뷰포트 높이 사용 */
+}
+
+.background_wrap {
+    width: 1920px; /* 고정 너비 */
+    height: 1080px; /* 고정 높이 */
+    margin: auto; /* 중앙 정렬 */
+}
+
+@media (max-width: 1920px) {
+    .container {
+        width: 100%; /* 화면이 1920px 이하일 때 100% 너비 사용 */
+        height: auto; /* 자동 높이 조정 */
+    }
+}
+
 .background_wrap {
     display: flex;
     justify-content: center;
