@@ -1,0 +1,33 @@
+.loginarea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logoarea {
+    width: 300px;
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width:300px;
+}
+
+/* 전체 회원가입 박스 */
+.signupbox {
+    width: 1471px;
+    height: 735px;
+    background-image: url('../img/계정생성.png');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputarea {
+    overflow-y: auto;
+}

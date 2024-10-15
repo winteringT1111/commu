@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="overlay"></div> <!-- 흐림 효과 적용 영역 -->
+
+<div class="content">
+
+<!-- 캐릭터 -->
+<div class="character_wrap">
+    <div class="cha">
+        <img class="character" src="{% static 'img/' %}{{ char.charImage }}.png"></img>
+    </div>
+
+    <div class="inven">
+        <button class="infobtn" onclick="show1grade()">1학년</button>
+        <button class="infobtn">4학년</button>
+        <button class="infobtn">7학년</button>
+        <button class="infobtn">성인</button>
+        <button class="infobtn" onclick="showInventory()">인벤토리</button>
+    </div>
+</div>
+
+ <!-- 기본정보 -->
+ <div class="info_wrap" id="profile-section">
+
+    <div class="info_content">
+        <div class="catchphrase">
+            [ {{char.charCatchPhrase}} ]
+        </div>
+        <div class="name_wrap">
+            <div class="name_content">
+                <p class="name1">
+                    {{char.charEngName}}
+                </p>
+                <p class="name2">
+                    {{char.charName}}
+                </p>
+            </div>
+        </div>
+        <div class="phrase">
+            <p>" {{char.charPhrase}} "</p>
+        </div>
+        <div class="spec_wrap">
+            <div class="spec_content">
+                <div class="spec_info_content">
+                    <div class="info_line_content">
+                        <p>{{char.charSex}} | {{char.charHeight}}cm | {{char.charWeight}}kg | {{char.charNationality}} | {{char.charBlood}}</p>
+                    </div>
+                </div>
+
+                <img src={% static "img/후플푸프.png" %}></img>
+            </div>
+        </div>
+    </div>
+
+    <div class="button_content">
+        <div class="button_wrap">
+            <button class="infobtn" onclick="showImgInfo()">외관</button>
+            <button class="infobtn" onclick="showProfile()">기본 정보</button>
+            <button class="infobtn" onclick="showEtc()">상세 정보</button>
+            <button class="infobtn" onclick="showWand()">지팡이</button>
+        </div>
+    </div>
+
+    <div class="imgInfo_content hidden" id="imgInfo_section">
+        외관 설명 들어가는 란
+    </div>
+
+    <div class="personality_content" id="personality_section">
+        <div class="personality_wrap">
+            <div class="keywords">
+                <button class="keywordbtn">{{char.charKeyword1}}</button>
+                <button class="keywordbtn">{{char.charKeyword2}}</button>
+                <button class="keywordbtn">{{char.charKeyword3}}</button>
+            </div>
+            <hr/>
+            <div class="info_scrollbox">
+                {{char.charPersonality|linebreaksbr|safe}}
+            </div>
+            <hr/>
+        </div>
+    </div>
+
+    <div class="etc_content hidden" id="etc_section">
+        기타란 들어가는 란
+    </div>
+
+    <div class="wand_content hidden" id="wand_section">
+        지팡이 정보 들어가는 란
+    </div>
+
+    <div class="music_content">
+        <audio id="profile-music" loop>
+            <source src="{% static 'bgm2.mp3' %}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        
+        <!-- 오디오 -->
+        <div class="profile-audio">
+            <button id="play-pause-button2">Play</button>
+            <input type="range" id="volume-slider2" min="0" max="1" step="0.01" value="0.5">
+        </div>
+    </div>
+</div>
+
+
+ <!-- 인벤토리 -->
+ <div class="inventory_wrap hidden" id="inventory-section">
+    인벤토리 들어가는 란
+    
+</div>
+
+
+
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const audio = document.getElementById('background-music'); //bgm
+        const audio2 = document.getElementById('profile-music'); //profile bgm
+        const playPauseButton = document.getElementById('play-pause-button');
+        const playPauseButton2 = document.getElementById('play-pause-button2');
+        const volumeSlider2 = document.getElementById('volume-slider2');
+
+        let isPlaying = false; // 음악 재생 상태를 추적
+        let isPlaying2 = false; // 음악 재생 상태를 추적
+
+        // 재생/일시 정지 버튼 클릭 이벤트
+        playPauseButton2.addEventListener('click', () => {
+            if (audio2.paused) {
+                audio.pause();
+                audio2.play();
+                isPlaying2 = true;
+                playPauseButton2.textContent = 'Pause';
+                playPauseButton.textContent = 'Play';
+            } else {
+                audio2.pause();
+                isPlaying2 = false;
+                playPauseButton2.textContent = 'Play';
+            }
+        });
+
+        // 음량 슬라이더 이벤트
+        volumeSlider2.addEventListener('input', () => {
+            if (isPlaying2) {
+                audio2.volume = volumeSlider2.value;
+            }
+        });
+
+    });
+
+    function showImgInfo() {
+        document.getElementById('imgInfo_section').classList.remove('hidden');
+        document.getElementById('personality_section').classList.add('hidden');
+        document.getElementById('etc_section').classList.add('hidden');
+        document.getElementById('wand_section').classList.add('hidden');
+    }
+
+    function showProfile() {
+        document.getElementById('imgInfo_section').classList.add('hidden');
+        document.getElementById('personality_section').classList.remove('hidden');
+        document.getElementById('etc_section').classList.add('hidden');
+        document.getElementById('wand_section').classList.add('hidden');
+    }
+
+    function showEtc() {
+        document.getElementById('imgInfo_section').classList.add('hidden');
+        document.getElementById('personality_section').classList.add('hidden');
+        document.getElementById('etc_section').classList.remove('hidden');
+        document.getElementById('wand_section').classList.add('hidden');
+    }
+
+    function showWand() {
+        document.getElementById('imgInfo_section').classList.add('hidden');
+        document.getElementById('personality_section').classList.add('hidden');
+        document.getElementById('etc_section').classList.add('hidden');
+        document.getElementById('wand_section').classList.remove('hidden');
+    }
+
+    function show1grade() {
+        document.getElementById('profile-section').classList.remove('hidden');
+        document.getElementById('inventory-section').classList.add('hidden');
+    }
+    function showInventory() {
+        document.getElementById('profile-section').classList.add('hidden');
+        document.getElementById('inventory-section').classList.remove('hidden');
+    }
+
+
+</script>
+
+{% endblock %}

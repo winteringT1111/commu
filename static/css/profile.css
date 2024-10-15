@@ -1,0 +1,282 @@
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(3px); /* 흐림 효과 적용 */
+    z-index: -1; /* 배경 위에 표시되도록 설정 */
+}
+
+.content {
+    display: flex;
+}
+
+.character_wrap {
+    width: 60vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    position: relative; /* 버튼의 절대 위치를 위한 기준 설정 */
+}
+
+.character {
+    height: 140vh;
+}
+
+.info_wrap {
+    width: 780px;
+    height: 100vh;
+    background: url("../img/프로필_오른박스.png");
+    box-shadow: 5px 5px 5px 13px rgba(0, 0, 0, 0.2);
+    justify-content: center; 
+    position: relative;
+    isolation: isolate;
+}
+
+.inventory_wrap {
+    width: 780px;
+    height: 100vh;
+    background: url("../img/프로필_오른박스.png");
+    box-shadow: 5px 5px 5px 13px rgba(0, 0, 0, 0.2);
+    justify-content: center; 
+    position: relative;
+    isolation: isolate;
+}
+
+
+.cha {
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+}
+
+
+/* 버튼들 나열 */
+.inven {
+    position: absolute; 
+    top: 30px; /* 상단에서의 거리 */
+    right: 10px; /* 오른쪽에서의 거리 */
+    z-index: 1; /* 다른 콘텐츠 위로 배치 */
+    display: flex;
+    flex-direction: column; /* 버튼을 수직으로 나열 */
+    gap: 10px; /* 버튼 간의 간격 */
+}
+
+/* 숨긴 상태의 섹션 */
+.hidden {
+    display: none !important;
+}
+
+/* 기본정보 */
+.info_content {
+    height: 37vh;
+}
+
+.catchphrase {
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    margin-top: 24px;
+}
+
+.name_wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.name_content {
+    width: 447px;
+    height: 110px;
+    background: url("../img/이름띠.png");
+    background-repeat: no-repeat;
+}
+
+/* 영어이름 */
+.name1 {
+    text-align: center;
+    height: 86px;
+    line-height: 86px;
+    margin: 0px;
+    font-size: 33px;
+    font-weight: bold;
+
+}
+/* 한국이름 */
+.name2 {
+    height: 24px;
+    margin: 0px 40px 0px 0px;
+    line-height: 24px;
+    text-align: right;
+
+}
+
+.phrase {
+    height: 65px;
+    line-height: 90px;
+    text-align: center;
+    font-size: 18px;
+    font-style: italic;
+}
+
+.phrase p {
+    margin: 0px;
+}
+
+.spec_wrap {
+    display: flex;
+    justify-content: center;
+    height: 125px;
+}
+
+.spec_content {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.spec_info_content {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info_line_content {
+    width: 100%;
+    height: 45px;
+    border-radius: 7px;
+    background-image: linear-gradient(to left, transparent, rgb(65, 87, 107) 20%)
+}
+
+.info_line_content p {
+    line-height: 45px;
+    color: white;
+    margin: 0px 0px 0px 30px;
+}
+
+.icon_content img {
+    width: 120px;
+}
+
+/* 버튼정보 */
+.button_content {
+    height: 3vh;
+}
+
+.button_wrap {
+    text-align: right;
+    margin: 20px 30px 0px 0px;
+}
+
+/* 프로필 버튼들 */
+.infobtn {
+    width: 95px;
+    height: 30px;
+    border-width: 0;
+    border-radius: 15px;
+    color: white;
+    background-color: rgb(125, 149, 170);
+}
+
+.infobtn:hover {
+    transition-duration: 0.3s;
+    color: rgb(125, 149, 170);
+    background-color: rgb(221, 225, 230);
+}
+
+
+
+
+
+
+/* 성격란 */
+.personality_content {
+    height: 44vh;
+    display: flex;
+    justify-content: center;
+}
+
+.personality_wrap {
+    width: 90%;
+}
+
+.keywords {
+    text-align: center;
+    margin-top: 45px;
+    margin-bottom: 15px;
+}
+
+.keywordbtn {
+    background-color: transparent;
+    padding: 5px 15px;
+    border: solid 3px #2b3d63;
+    border-radius: 18px;
+}
+
+hr {
+    width: 100%;
+    height: 3px;
+    background-color: #111d38;
+    border: none;
+}
+
+.info_scrollbox {
+    width: 100%;
+    height: 270px;
+    overflow-y: auto;
+}
+
+.info_scrollbox::-webkit-scrollbar {
+    width: 12px;
+}
+.info_scrollbox::-webkit-scrollbar-thumb {
+    background-color: #3f4a61;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.info_scrollbox::-webkit-scrollbar-track {
+    background-color: rgb(186, 189, 197);
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+
+
+
+
+
+/* 외관란 */
+.imgInfo_content {
+    height: 44vh;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* 기타란 */
+.etc_content {
+    height: 44vh;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* 지팡이란 */
+.wand_content {
+    height: 44vh;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+
+
+/* 음악란 */
+.music_content {
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+}

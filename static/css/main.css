@@ -1,0 +1,245 @@
+.background_wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.background_box {
+    width: 1558px;
+    height: 995px;
+    position: relative;
+    display: flex;
+}
+
+.navbar {
+    width: 300px;
+    height: 995px;
+    background-image: url('../img/메인띠.png');
+    display: flex;
+    /* 겹치기 */
+    position: absolute;
+    left: 0; 
+    top: 0;
+    z-index: 1;
+    filter: drop-shadow(4px 4px 4px);
+}
+
+.main_wrap {
+    width: 1364px;
+    height: 698px;
+    margin-top: 245px;
+    background-image: url('../img/메인배경.png');
+    /* 겹치기 */
+    position: absolute;
+    right: 0; 
+    top: 0;
+    filter: drop-shadow(4px 4px 4px);
+}
+
+.navbar_content {
+    width: 100%;
+    height: 57.5%;
+    margin-bottom: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar_content a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar_content a img {
+    width: 110%;
+    filter: drop-shadow(4px 4px 4px #353535);
+}
+
+nav {
+    margin-top: 60px;
+    margin-left: 10px;
+}
+
+
+
+nav ul {
+    list-style-type: none; /* 점 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+    margin: 0; /* 기본 마진 제거 */
+    font-family: "Hahmlet", serif;
+    font-weight:500;
+    font-size: 20px;
+}
+
+.navbar_content nav ul li {
+    margin: 44.5px 0px 0px 0px; /* 항목 사이의 간격 조정 */
+    display: flex;
+    justify-content: left; /* 아이콘을 중앙에 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+.navbar_content nav ul li a {
+    color: #dbdbdb; 
+    text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+/* 메인 콘텐츠 */
+
+.carousel_wrap {
+    height: 150px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
+
+#carouselExampleInterval {
+    width: 934px;
+    height: 116px;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  display: inline-block;
+  width: 20px; /* 너비를 줄여서 얇게 */
+  height: 20px;
+  background-image: none !important; /* 기본 Bootstrap 화살표 강제로 제거 */
+  background: none; /* 배경도 제거 */
+  border: solid rgb(255, 255, 255); /* 화살표 색상 */
+  border-width: 0 3px 3px 0; /* 두께 조절 */
+  padding: 3px;
+}
+
+.carousel-control-next-icon {
+  transform: rotate(-45deg); /* 오른쪽 방향 화살표 */
+}
+
+.carousel-control-prev-icon {
+  transform: rotate(135deg); /* 왼쪽 방향 화살표 */
+}
+
+
+
+.weather_wrap {
+    width: 100%;
+    height: 70px;
+}
+
+.contents_wrap {
+    width: 100%;
+    height: 415px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.etc_wrap {
+    width: 870px;
+    height: 405px;
+    display: flex;
+    position: relative;
+}
+
+.calender {
+    /* 겹치기 */
+    position: absolute;
+    left: 0; 
+    top: 0;
+    z-index: 1;
+    filter: drop-shadow(2px 2px 2px #a3a3a3);
+}
+
+
+.etc_wrap .loginbox {
+    /* 겹치기 */
+    position: absolute;
+    right: 0; 
+    top: 3.5px;
+    filter: drop-shadow(4px 4px 4px);
+}
+
+.twitter {
+    width: 320px;
+    height: 405px;
+    margin-left: 55px;
+    margin-right: 20px;
+    /*background-color: aqua;*/
+}
+
+.inputbox input {
+    font-size: 13px;
+}
+
+
+
+/*snow*/
+
+* {
+    cursor: url('../cur/Sapphire_Normal.cur') 2 2, auto;
+  }
+  
+  html, body {
+    height: 100%; /* 전체 높이 설정 */
+    margin: 0; /* 기본 마진 제거 */
+    position: relative; /* 자식 요소의 절대 위치를 위한 기준 설정 */
+    overflow: hidden; /* 스크롤바 제거 */
+  }
+  
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/bg2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -2; /* 네비게이션 바와 다른 콘텐츠 아래로 배치 */
+  }
+  
+  .snowflake {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    pointer-events: none;
+    animation: fall linear infinite;
+    /* 초기 위치 설정 */
+    top: -10px; /* 화면 위쪽 바깥에서 시작 */
+  }
+  
+  @keyframes fall {
+    to {
+        transform: translateY(100vh); /* 화면 전체 높이만큼 떨어지게 설정 */
+    }
+  }
+  
+  #background-music {
+    display: none;
+  }
+
+.audio-controls button {
+    background: none;
+    border: none;
+}
+
+.audio-controls button i {
+    color: #dbdbdb; 
+    font-size: 14px;
+}
+
+#status {
+    font-size: 16px;
+}
+
+.audio-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 45px;
+    cursor: default;
+}

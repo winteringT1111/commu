@@ -1,0 +1,16 @@
+<nav>
+    <ul>
+    <li><a href="/"><i class="fa-solid fa-house"></i></a></li>
+    <li><a href="/store"><i class="fa-solid fa-store"></i></a></li>
+    <li><a href="/member/C04"><i class="fa-solid fa-id-card-clip"></i></a></li>
+    <li>
+        <form action="{% url 'users:logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" style="background: none; border: none; cursor: pointer;">
+                <i class="fa-solid fa-user-group"></i>
+            </button>
+        </form>
+    </li>
+    <li><a href="/login"><i class="fa-solid fa-circle-user"></i></a></li>
+    </ul> 
+</nav>
