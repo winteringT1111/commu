@@ -24,15 +24,15 @@ body {
 }
 
 .background_box {
-    width: 1558px;
-    height: 995px;
+    width: 81%;
+    height: auto;
     position: relative;
     display: flex;
 }
 
 .navbar {
-    width: 300px;
-    height: 995px;
+    width: 15%;
+    height: auto;
     background-image: url('../img/메인띠.png');
     display: flex;
     /* 겹치기 */
