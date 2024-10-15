@@ -24,14 +24,14 @@ body {
 }
 
 .background_box {
-    width: 81%;
+    width: 81vw;
     height: auto;
     position: relative;
     display: flex;
 }
 
 .navbar {
-    width: 15%;
+    width: 15vw;
     height: auto;
     background-image: url('../img/메인띠.png');
     display: flex;
@@ -44,8 +44,8 @@ body {
 }
 
 .main_wrap {
-    width: 1364px;
-    height: 698px;
+    width: 70vw;
+    height: auto;
     margin-top: 245px;
     background-image: url('../img/메인배경.png');
     /* 겹치기 */
