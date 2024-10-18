@@ -40,7 +40,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 2;
+    z-index: 1;
 }
 
 #wrap_background2 {
@@ -57,7 +57,7 @@
 
     position: absolute;
     left: 0;
-    z-index: 3;
+    z-index: 2;
     display: flex;
     
     flex-direction: column;
@@ -115,6 +115,7 @@ nav ul {
 
 .carousel_wrap {
     margin-top: 2%;
+    background-color: #683232;
     display: flex;
     align-items: end;
     justify-content: center;
@@ -122,7 +123,7 @@ nav ul {
 
 #carouselExampleInterval {
     width: 70%;
-    height: auto;
+    height: 15%;
 }
 
 .carousel-control-next-icon,
@@ -149,7 +150,8 @@ nav ul {
 
 .weather_wrap {
     width: 100%;
-    height: 70px;
+    height: 10%;
+    background-color: aqua;
 }
 
 .contents_wrap {
@@ -162,12 +164,14 @@ nav ul {
 
 .etc_wrap {
     width: 64%;
+    height: 280%; /* 나중에 지우기 */
     display: flex;
     position: relative;
-    background-color: #796d6d;
+    background-color: #683232;
 }
 
 .calender {
+    width: 63%;
     /* 겹치기 */
     position: absolute;
     left: 0; 
@@ -181,10 +185,6 @@ nav ul {
     margin-left: 55px;
     margin-right: 20px;
     background-color: aqua;
-}
-
-.inputbox input {
-    font-size: 13px;
 }
 
 
@@ -265,11 +265,13 @@ nav ul {
 
 
 
-
+/* 전체 로그인 박스 */
 
 .loginbox_wrap {
     width: 38%; /* 332px */
-    position: relative;
+    position: absolute;
+    top: 0;
+    right: 2%;
 }
 
 #loginbox_background {
@@ -279,7 +281,6 @@ nav ul {
     filter: drop-shadow(4px 4px 4px);
 }
 
-/* 전체 로그인 박스 */
 .loginbox {
     width: 100%;
     position: absolute;
@@ -310,6 +311,7 @@ form {
 
 .inputbox {
     width: 100%;
+    margin-bottom: 3%;
 }
 
 .inputbox div {
@@ -329,7 +331,8 @@ form {
     border-radius: 5px;
     border-width: 0 0 2px;
     color: #ffffff;
-    margin-bottom: 10px;
+    margin-bottom: 1.5;
+    font-size: 0.9vw;
 }
 
 .inputbox input:focus {
@@ -355,7 +358,6 @@ form {
 /* 회원가입 버튼 */
 .signup {
     width: 27%;
-    
     margin-top: -5%;
 }
 
