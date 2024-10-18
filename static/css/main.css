@@ -1,53 +1,64 @@
+/* Keep the background full screen */
 .background_wrap {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
+    overflow: hidden; /* Hide overflowing content */
 }
 
 .background_box {
-    width: 81%; /* 1558px */
-    height: 92%; /* 995px */
+    width: 1558px; /* Fixed width */
+    height: 995px; /* Fixed height */
     position: relative;
     display: flex;
+    overflow: hidden; /* Hide overflow */
 }
 
+
 .navbar {
-    width: 19%; /* 300px */
-    height: auto; /* 995px */
-    /* 겹치기 */
+    width: 300px; /* Fixed width */
+    height: 995px; /* Fixed height */
     position: absolute;
-    left: 0; 
+    left: 0;
     top: 0;
     z-index: 1;
     filter: drop-shadow(4px 4px 4px);
+    overflow: hidden; /* Prevent navbar content from spilling over */
 }
 
 .main_wrap {
-    width: 87.5%; /* 1364px */
-    height: 70%; /* 698px */
+    width: 1364px; /* Fixed width */
+    height: 698px; /* Fixed height */
     margin-top: 12%;
-    /* 겹치기 */
     position: absolute;
-    right: 0; 
+    right: 0;
     top: 0;
     filter: drop-shadow(4px 4px 4px);
+    overflow: hidden; /* Crop overflowing content */
+}
+
+/* Body overflow settings */
+html, body {
+    overflow: hidden; /* Prevent scrolling when content overflows */
 }
 
 #wrap_background1 {
     width: 100%;
-    height: auto;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
+    object-fit: fill;
 }
 
 #wrap_background2 {
     width: 100%;
-    height: auto;
+    height: 100%;
     position: absolute;
     z-index: 0;
+    object-fit: fill;
 }
 
 .navbar_content {
