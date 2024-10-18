@@ -1,3 +1,8 @@
+/* Body overflow settings */
+html, body {
+    overflow: hidden; /* Prevent scrolling when content overflows */
+}
+
 /* Keep the background full screen */
 .background_wrap {
     width: 100vw;
@@ -14,7 +19,6 @@
     display: flex;
     overflow: hidden; /* Hide overflow */
 }
-
 
 .navbar {
     width: 300px; /* Fixed width */
@@ -36,12 +40,7 @@
     top: 0;
     filter: drop-shadow(4px 4px 4px);
     overflow: hidden; /* Crop overflowing content */
-}
-
-/* Body overflow settings */
-html, body {
-    overflow: hidden; /* Prevent scrolling when content overflows */
-}
+}           
 
 #wrap_background1 {
     width: 100%;
@@ -63,11 +62,7 @@ html, body {
 
 .navbar_content {
     width: 100%;
-    height: 57.5%;
-    margin-bottom: 70%;
-
-    position: absolute;
-    left: 0;
+    height: 700px;
     z-index: 2;
     display: flex;
     
@@ -88,8 +83,8 @@ html, body {
 }
 
 nav {
-    margin-top: 60px;
-    margin-left: 10px;
+    margin-top: 35px;
+    margin-left: 25px;
 }
 
 nav ul {
@@ -98,11 +93,11 @@ nav ul {
     margin: 0; /* 기본 마진 제거 */
     font-family: "Hahmlet", serif;
     font-weight:500;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .navbar_content nav ul li {
-    margin: 44.5px 0px 0px 0px; /* 항목 사이의 간격 조정 */
+    margin: 47.3px 0px 0px 0px; /* 항목 사이의 간격 조정 */
     display: flex;
     justify-content: left; /* 아이콘을 중앙에 정렬 */
     align-items: center; /* 수직 중앙 정렬 */
@@ -111,6 +106,22 @@ nav ul {
 .navbar_content nav ul li a {
     color: #dbdbdb; 
     text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+.copyright {
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.copyright p {
+    margin: 0px;
+    font-size: 12px;
+    color: #a3a3a3;
+    font-family: "Hahmlet", serif;
+    opacity: 0.7;
 }
 
 
@@ -126,7 +137,6 @@ nav ul {
 
 .carousel_wrap {
     margin-top: 2%;
-    background-color: #683232;
     display: flex;
     align-items: end;
     justify-content: center;
@@ -162,12 +172,24 @@ nav ul {
 .weather_wrap {
     width: 100%;
     height: 10%;
-    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
 }
+
+
+.weather_wrap p {
+    position: absolute;
+    bottom: 2px;
+    color: #dbdbdb; 
+    font-family: "Hahmlet", serif;
+}
+
 
 .contents_wrap {
     width: 100%;
-    background-color: #dbdbdb;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -175,14 +197,15 @@ nav ul {
 
 .etc_wrap {
     width: 64%;
-    height: 280%; /* 나중에 지우기 */
     display: flex;
     position: relative;
     background-color: #683232;
+    margin-bottom: 7.5px;
 }
 
 .calender {
-    width: 63%;
+    width: 566px;
+    height: 427px;
     /* 겹치기 */
     position: absolute;
     left: 0; 
@@ -279,10 +302,10 @@ nav ul {
 /* 전체 로그인 박스 */
 
 .loginbox_wrap {
-    width: 38%; /* 332px */
+    width: 338px; 
     position: absolute;
     top: 0;
-    right: 2%;
+    right: 0.5%;
 }
 
 #loginbox_background {
