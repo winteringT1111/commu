@@ -1,6 +1,7 @@
 /* Body overflow settings */
 html, body {
     overflow: hidden; /* Prevent scrolling when content overflows */
+    user-select: none;
 }
 
 /* Keep the background full screen */
@@ -10,6 +11,7 @@ html, body {
     display: flex;
     justify-content: center;
     overflow: hidden; /* Hide overflowing content */
+    animation: slideIn 1s ease forwards;
 }
 
 .background_box {
@@ -83,7 +85,7 @@ html, body {
 }
 
 nav {
-    margin-top: 35px;
+    margin-top: -1px;
     margin-left: 25px;
 }
 
@@ -103,9 +105,31 @@ nav ul {
     align-items: center; /* 수직 중앙 정렬 */
 }
 
-.navbar_content nav ul li a {
+.navhover {
     color: #dbdbdb; 
-    text-decoration: none; /* 링크 밑줄 제거 */
+    text-decoration: none !important; /* 링크 밑줄 제거 */
+    position: relative;
+}
+
+.navhover::after {
+    content: "";
+    position: absolute;
+    bottom: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, rgba(220, 197, 153, 0), rgba(220, 197, 153, 1), rgba(220, 197, 153, 0));
+    transition: all 0.3s ease;
+}
+
+.navhover:hover::after {
+    width: 80px;
+}
+
+.navhover, .navhover:visited, .navhover:hover, .navhover:active {
+    text-decoration: none !important;
+    color: #dbdbdb !important; 
 }
 
 .copyright {
@@ -269,34 +293,6 @@ nav ul {
     }
   }
   
-  #background-music {
-    display: none;
-  }
-
-.audio-controls button {
-    background: none;
-    border: none;
-}
-
-.audio-controls button i {
-    color: #dbdbdb; 
-    font-size: 14px;
-}
-
-#status {
-    font-size: 16px;
-}
-
-.audio-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 45px;
-    cursor: default;
-}
-
-
-
 
 
 /* 전체 로그인 박스 */
@@ -395,3 +391,16 @@ form {
     margin-top: -5%;
 }
 
+
+
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(-2%); /* 시작 위치: 화면 왼쪽 */
+        opacity: 0; /* 시작 시 투명도 */
+    }
+    100% {
+        transform: translateX(0); /* 최종 위치: 원래 위치 */
+        opacity: 1; /* 최종 투명도: 완전히 보임 */
+    }
+}

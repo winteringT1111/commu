@@ -1,0 +1,44 @@
+{% extends "notice_base.html" %}
+{% load static %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block content %}
+
+<div class="notice_wrap">
+    <div class="decor">
+        <img src={% static "img/decor.png" %}>
+    </div>
+    <div class="content_box">
+       
+    </div>
+</div>
+
+
+
+<p><span></span></p>
+
+
+<div>
+
+</div>
+
+<script>
+    document.addEventListener('scroll', function() {
+        const contentBox = document.querySelector('.content_box');
+        const scrollPosition = window.scrollY;
+    
+        console.log('스크롤 위치:', scrollPosition); // 현재 스크롤 위치 출력
+    
+        if (scrollPosition > 100) {
+            contentBox.style.marginTop = '0px'; // 스크롤이 100px 이상일 때 위로 이동
+        } else {
+            contentBox.style.marginTop = '100px'; // 스크롤이 100px 미만일 때 원래 위치로 돌아옴
+        }
+    });
+</script>
+
+{% endblock %}

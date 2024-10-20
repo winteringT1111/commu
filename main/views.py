@@ -5,5 +5,14 @@ from django.shortcuts import render,redirect
 def main_page(request):
     return render(request, "main.html")
 
+def notice(request):
+    return render(request, "notice/notice.html")
+
+def world(request):
+    return render(request, "notice/world.html")
+
+def system(request):
+    return render(request, "notice/system.html")
+
 def test(request):
-    return render(request, "test.html")
+    return render(request, "notice/test.html")

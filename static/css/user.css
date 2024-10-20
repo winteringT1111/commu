@@ -1,0 +1,115 @@
+.user {
+    width: 290px !important;
+    height: 150px !important;
+    position: fixed;
+    bottom: 20px;
+    left: -5px;
+    z-index: 5;
+    background: rgba(59, 61, 73, 0.7);
+    border: 2px solid #DCC599;
+    color: white;
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    transition: left 0.5s ease; /* 왼쪽으로 움직일 때 애니메이션 효과 */
+}
+
+.user.collapsed {
+    left: -250px; /* 박스를 숨길 위치 설정 */
+}
+
+#background-music {
+    display: none;
+  }
+
+.audio-controls button {
+    background: none;
+    border: none;
+}
+
+.audio-controls button i {
+    color: #dbdbdb; 
+    font-size: 14px;
+}
+
+#status {
+    font-size: 16px;
+}
+
+.audio-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    border-radius: 10px;
+    padding: 5px 15px;
+    border: 1.5px solid #dbdbdb;
+    background-color: rgba(48, 47, 53, 0.5);
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.profile_name {
+    max-width: 120px;
+    text-align: center;
+    margin-top: 5px;
+    font-family: "Hahmlet", serif;
+}
+
+.profile_image img {
+    width: 80px;
+    border: 2px solid #dbdbdb;
+    border-radius: 50%;
+}
+
+.arrow {
+    margin-left: 25px;
+    cursor: pointer;
+}
+
+.arrow i {
+    font-size: 16px;
+    color: #dbdbdb !important; 
+}
+
+.profile_content {
+    margin-left: 30px;
+}
+
+.profile_content a {
+    text-decoration: none !important;
+    color: #dbdbdb !important; 
+    position: relative;
+}
+
+.profile_content a::after {
+    content: "";
+    position: absolute;
+    bottom: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, rgba(220, 197, 153, 0), rgba(220, 197, 153, 1), rgba(220, 197, 153, 0));
+    transition: all 0.3s ease;
+}
+
+.profile_content a:hover::after {
+    width: 100px;
+}
+
+.goto_twitter label {
+    font-size: 14px;
+    font-family: "Hahmlet", serif;
+    margin-right: 2px;
+}
+
+.goto_twitter {
+    margin-bottom: 5px;
+}
