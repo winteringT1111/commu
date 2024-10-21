@@ -21,7 +21,7 @@
 .loginbox {
     width: 330px;
     height: 400px;
-    background-image: url('../img/로그인화면.png');
+    background-image: url('../../img/로그인화면.png');
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -102,6 +102,12 @@
     
         // 페이지 로드 시 저장된 상태 불러오기
         loadAudioState();
+
+        // 페이지가 로드될 때 음악을 재생합니다.
+    window.onload = () => {
+        audio.currentTime = 0; // 항상 처음부터 시작
+        playAudio();
+    };
     });
     
 

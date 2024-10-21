@@ -2,11 +2,14 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/store.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'css/store/store.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/store/purchase_modal.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 {% endblock %}
 
 {% block content %}
@@ -93,15 +96,6 @@
     </div>
     
     <div class="store-items-specify-wrap">
-        <div class="char_item_info">
-            <div class="char_item_content">
-                <img src={% static "img/갈레온.png" %}>
-                <p id="char_info">{{user.galeon}}</p>
-                <img src={% static "img/갈레온.png" %}>
-                <p id="char_info">{{user.classToken}}</p>     
-            </div>
-        </div>
-
         <div class="item-spec-content">
             <div class="spec-image">
                 <div class="spec-image-content">

@@ -40,7 +40,7 @@ html, body {
     height: 3000px;
     padding: 80px 100px;
     border: 2px solid #3D485A;
-    margin-top: 140px;
+    margin-top: 100px;
     transition: margin-top 0.3s ease;
     animation: slideIn 1.5s ease forwards;
     border-radius: 10px; /* 모서리 둥글게 */

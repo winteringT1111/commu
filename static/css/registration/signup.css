@@ -21,7 +21,7 @@
 .signupbox {
     width: 1471px;
     height: 735px;
-    background-image: url('../img/계정생성.png');
+    background-image: url('../../img/계정생성.png');
     display: flex;
     flex-direction: column;
     justify-content: center;

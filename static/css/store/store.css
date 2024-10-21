@@ -20,12 +20,13 @@
 #carouselExampleIndicators {
     width: 1137px;
     height: 820px;
-    background: url("../img/상점_왼배경.png");
+    background: url("../../img/상점_왼배경.png");
     margin-bottom: 50px;
 }
 
 .store-content {
     display: flex;
+
 }
 
 .store-items-wrap {
@@ -52,7 +53,7 @@
 #card_wrap {
     width: 318px;
     height: 345px;
-    background: url("../img/상점_카드.png");
+    background: url("../../img/상점_카드.png");
     border: none;
 }
 
@@ -75,13 +76,14 @@
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+    font-family: "Hahmlet", serif;
 }
 
 
 .item-spec-content {
     width: 545px;
     height: 820px;
-    background: url("../img/상점_오른배경.png");
+    background: url("../../img/상점_오른배경.png");
     margin-bottom: 53px;
 }
 
@@ -96,7 +98,7 @@
     width: 407px;
     height: 407px;
     margin-left: 4px;
-    background: url("../img/상점_오른이미지.png");
+    background: url("../../img/상점_오른이미지.png");
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,6 +141,7 @@
 
 .spec_info_name p {
     margin: 10px 0px 0px 0px;
+    font-family: "Hahmlet", serif;
 }
 
 .spec_info_category {

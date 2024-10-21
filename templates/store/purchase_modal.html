@@ -1,30 +1,32 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
         <div class="modal-content">
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-body">    
 
                 <form method="post" id="purchaseForm">
                     {% csrf_token %}
                     <input class="hidden" value="" type="text" name="itemName" id="itemName">
 
-                    <h5 id="modalTitle">Modal title</h5>
-                    <h5 id="modalPrice">10</h5>
+                    <h5 id="modalTitle">title</h5>
+                    <h5 id="modalTitleEng">Howler</h5>
 
-                    <div class="quantity-spinner">
-                        <button type="button" onclick="decreaseValue()">-</button>
-                        <input type="number" name="quantity" id="quantity" value="1" min="1">
-                        <button type="button" onclick="increaseValue()">+</button>
+                    <div class="priceline"><h5 id="modalPrice">10</h5><h5>G</h5></div>
+
+                    <div class="lastline">
+                        <div class="quantity-spinner">
+                            <button type="button" onclick="decreaseValue()">-</button>
+                            <input type="number" name="quantity" id="quantity" value="1" min="1" disabled>
+                            <button type="button" onclick="increaseValue()">+</button>
+                        </div>
+    
+                        <input type="hidden" id="modalTotalPrice" name="totalPrice" value="10" readonly>
+    
+                        <button type="button" id="submitButton" data-toggle="popover" data-placement="top" data-content="갈레온이 부족합니다.">
+                            구매
+                        </button>
                     </div>
-
-                    <input type="text" id="modalTotalPrice" name="totalPrice" value="10" readonly>
-
-                    <button type="button" id="submitButton" data-toggle="popover" data-placement="top" data-content="갈레온이 부족합니다.">
-                        구매하기
-                    </button>
+                    
                 </form>
 
             </div>

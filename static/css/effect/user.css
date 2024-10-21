@@ -14,6 +14,7 @@
     display: flex;
     align-items: center;
     transition: left 0.5s ease; /* 왼쪽으로 움직일 때 애니메이션 효과 */
+    font-family: "Hahmlet", serif;
 }
 
 .user.collapsed {
@@ -59,7 +60,6 @@
     max-width: 120px;
     text-align: center;
     margin-top: 5px;
-    font-family: "Hahmlet", serif;
 }
 
 .profile_image img {
@@ -106,7 +106,6 @@
 
 .goto_twitter label {
     font-size: 14px;
-    font-family: "Hahmlet", serif;
     margin-right: 2px;
 }
 

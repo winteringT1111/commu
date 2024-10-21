@@ -27,7 +27,7 @@
 .info_wrap {
     width: 780px;
     height: 100vh;
-    background: url("../img/프로필_오른박스.png");
+    background: url("../../img/프로필_오른박스.png");
     box-shadow: 5px 5px 5px 13px rgba(0, 0, 0, 0.2);
     justify-content: center; 
     position: relative;
@@ -37,7 +37,7 @@
 .inventory_wrap {
     width: 780px;
     height: 100vh;
-    background: url("../img/프로필_오른박스.png");
+    background: url("../../img/프로필_오른박스.png");
     box-shadow: 5px 5px 5px 13px rgba(0, 0, 0, 0.2);
     justify-content: center; 
     position: relative;
@@ -88,7 +88,7 @@
 .name_content {
     width: 447px;
     height: 110px;
-    background: url("../img/이름띠.png");
+    background: url("../../img/이름띠.png");
     background-repeat: no-repeat;
 }
 
