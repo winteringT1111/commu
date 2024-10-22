@@ -58,7 +58,7 @@
                             <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active" data-interval="8000">
-                                        <img src="{% static 'img/공지사항배너.png' %}" class="d-block w-100" alt="...">
+                                        <a href="https://url.kr/531v7o"><img src="{% static 'img/공지사항배너.png' %}" class="d-block w-100" alt="..."></a>
                                     </div>
                                     <div class="carousel-item" data-interval="8000">
                                         <img src="{% static 'img/시스템배너.png' %}" class="d-block w-100" alt="...">
@@ -81,34 +81,26 @@
                         <div class="weather_wrap">
                             <p>Today ✵ 쌀쌀한 바람</p>
                         </div>
-                        <div class="contents_wrap">
-                            <div class="twitter">
-                                ddd
-                            </div>
-                    
-                            <div class="etc_wrap">
+                        <div class="contents_wrap">                   
+                                <a class="qna" href="https://docs.google.com/document/d/1NSzKG74twRQAQ2bYEXLGjRfVFh9bIi_zJkhzRrMsjDI/edit?usp=sharing" target="_blank"><img src={% static "img/qna.png" %}></a>
                                 <img class="calender" src={% static "img/10월달력.png" %}>
-                                <div class="loginbox_wrap">
-                                    <img id="loginbox_background" src={% static "img/로그인화면.png" %}>
-                                    <div class="loginbox">
-                                        <form method="post" action="{% url 'users:users_login' %}">
-                                            {% csrf_token %}
-                                            <div class="inputarea">
-                                                <div class="inputbox">
-                                                    <div>
-                                                        <input placeholder="아이디" type="text" name="username" id="username">
-                                                    </div>
-                                                    <div>
-                                                        <input placeholder="비밀번호" type="password" name="password" id="password">
-                                                    </div>
-                                                </div>
-                                                <input class="loginbtn" type="image" src="{% static 'img/로그인버튼.png' %}">
+                                <div class="loginbox">
+                                    <form method="post" action="{% url 'users:users_login' %}">
+                                        {% csrf_token %}
+                                        <div class="inputarea">
+                                            <div class="inputbox">
+                                                <div>
+                                                    <input placeholder="아이디" type="text" name="username" id="username">
+                                                  </div>
+                                                  <div>
+                                                    <input placeholder="비밀번호" type="text" name="password" id="password">
+                                                  </div>
                                             </div>
-                                        </form>
-                                        <a class="signup_link" href="/signup"><img class="signup" src="{% static 'img/회원가입버튼.png' %}"></img></a>
-                                    </div>
+                                            <input class="loginbtn" type="image" src="{% static 'img/로그인버튼.png' %}">
+                                        </div>
+                                    </form>
+                                    <a href="/signup"><img class="signup" src="{% static 'img/회원가입버튼.png' %}"></img></a>
                                 </div>
-                            </div>
                         </div>
                     </div>
                     

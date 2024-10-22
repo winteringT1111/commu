@@ -1,0 +1,52 @@
+{% extends "notice_base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/notice/system.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="notice_wrap">
+    
+    
+    <div class="decor1">
+        <img src={% static "img/decor.png" %}>
+    </div>
+    <div class="decor2">
+        <img src={% static "img/decor2.png" %}>
+    </div>
+    <div class="goback">
+        <a href="/"><i class="fa-solid fa-chevron-left"></i></a>
+    </div>
+    <div class="content_box">
+        
+    </div>
+
+</div>
+
+
+<p><span></span></p>
+
+
+<div>
+
+</div>
+
+<script>
+    document.addEventListener('scroll', function() {
+        const contentBox = document.querySelector('.content_box');
+        const scrollPosition = window.scrollY;
+    
+        console.log('스크롤 위치:', scrollPosition); // 현재 스크롤 위치 출력
+    
+        if (scrollPosition > 100) {
+            contentBox.style.marginTop = '0px'; // 스크롤이 100px 이상일 때 위로 이동
+        } else {
+            contentBox.style.marginTop = '100px'; // 스크롤이 100px 미만일 때 원래 위치로 돌아옴
+        }
+    });
+</script>
+
+{% endblock %}

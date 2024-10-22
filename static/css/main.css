@@ -67,7 +67,6 @@ html, body {
     height: 700px;
     z-index: 2;
     display: flex;
-    
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
@@ -153,10 +152,10 @@ nav ul {
 
 /* 메인 콘텐츠 */
 
-
 .main_contents_wrap { 
     width: 100%;
     height: 100%;
+    z-index: 10;
 }
 
 .carousel_wrap {
@@ -200,9 +199,7 @@ nav ul {
     justify-content: center;
     align-items: center;
     position: relative;
-    z-index: 10;
 }
-
 
 .weather_wrap p {
     position: absolute;
@@ -212,37 +209,27 @@ nav ul {
 }
 
 
+
 .contents_wrap {
     width: 100%;
-    display: flex;
+    display: flex !important;
     justify-content: center;
     align-items: center;
 }
 
-.etc_wrap {
-    width: 64%;
-    display: flex;
-    position: relative;
-    background-color: #683232;
-    margin-bottom: 7.5px;
-}
-
 .calender {
-    width: 566px;
-    height: 427px;
-    /* 겹치기 */
-    position: absolute;
-    left: 0; 
-    top: 0;
-    z-index: 1;
+    width: 553px;
+    margin-bottom: 2px;
+    margin-left: -15px;
+    z-index: 12 !important;
     filter: drop-shadow(2px 2px 2px #a3a3a3);
 }
 
-.twitter {
-    width: 23.4%;
-    margin-left: 55px;
-    margin-right: 20px;
-    background-color: aqua;
+.qna {
+    width: 405px;
+    height: 480px;
+    margin-left: 30px;
+    z-index: 5;
 }
 
 
@@ -294,75 +281,47 @@ nav ul {
   }
   
 
-
 /* 전체 로그인 박스 */
-
-.loginbox_wrap {
-    width: 338px; 
-    position: absolute;
-    top: 0;
-    right: 0.5%;
-}
-
-#loginbox_background {
-    width: 100%;
-    position: absolute;
-    z-index: 0;
-    filter: drop-shadow(4px 4px 4px);
-}
-
 .loginbox {
-    width: 100%;
-    position: absolute;
-    z-index: 1;
+    width: 330px;
+    height: 400px;
+    background-image: url('../img/로그인화면.png');
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    z-index: 11 !important;
+    margin-left: -30px;
+    margin-bottom: 20px;
+    filter: drop-shadow(2px 2px 2px #232425);
 }
 
 /* 인풋 로그인 박스 */
 .loginbox .inputarea {
-    width: 84%;
+    width: 280px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 55%;
+    margin-top: 120px;
 }
 
 .inputbox {
-    width: 100%;
-    margin-bottom: 3%;
-}
-
-.inputbox div {
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2%;
+    margin-bottom: 10px;
 }
 
 /* 아이디 비번 박스 */
 .inputbox input {
-    width: 80%;
-    height: 10%;
+    width: 193px;
+    height: 22px;
     background-color: transparent;
     border-radius: 5px;
     border-width: 0 0 2px;
     color: #ffffff;
-    margin-bottom: 1.5;
-    font-size: 0.9vw;
+    margin-bottom: 5px;
 }
 
 .inputbox input:focus {
@@ -371,25 +330,15 @@ form {
 
 .inputbox input::placeholder {
     color: #ffffff;
-    font-size: small;
     opacity: 0.7;
 }
 
-.loginbtn {
-    width: 70%;
-}
-
-.signup_link {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
 
 /* 회원가입 버튼 */
 .signup {
-    width: 27%;
-    margin-top: -5%;
+    margin-top: -16px;
 }
+
 
 
 

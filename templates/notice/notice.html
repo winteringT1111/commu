@@ -8,10 +8,18 @@
 
 {% block content %}
 
-<div class="notice_wrap">
+{% include "effects/snow.html" %}
 
-    <div class="decor2">
+<div class="notice_wrap">
+    
+    <div class="decor1">
         <img src={% static "img/decor.png" %}>
+    </div>
+    <div class="decor2">
+        <img src={% static "img/decor2.png" %}>
+    </div>
+    <div class="goback">
+        <a href="/"><i class="fa-solid fa-chevron-left"></i></a>
     </div>
     <div class="content_box">
         <div class="header">
@@ -67,7 +75,7 @@
               </td>
             </tr>
             <tr>
-              <td>러닝 중 금지 사항</td>
+              <td>러닝 중</br>금지 사항</td>
               <td>
                 <ul>
                     <li>원작의 등장인물 언급</li>
@@ -94,12 +102,92 @@
             </tr>
         </table>
         
-        <p class="info"><span>  그 외 타인에게 불쾌감 혹은 소외감을 유발할 수 있는 행위를 모두 금하며, 운영진들의 판단 하에 경고 행위로 구분되는 행위 또한 경고를 부여합니다. 최대한 모니터링에 힘쓸 예정이나, 수위등급에 어긋나는 행위를 목격, 겪을 시 총괄계 측으로 연락 바랍니다.</span></p>
+        <p class="info"><span>그 외 타인에게 불쾌감 혹은 소외감을 유발할 수 있는 행위를 모두 금하며, 운영진들의 판단 하에 경고 행위로 구분되는 행위 또한 경고를 부여합니다. 최대한 모니터링에 힘쓸 예정이나, 수위등급에 어긋나는 행위를 목격, 겪을 시 총괄계 측으로 연락 바랍니다.</span></p>
+        
+        <table class="tab2">
+            <tr>
+                <td>경고 사항</td>
+                <td>
+                  <ul>
+                      <li>@tos, @null 사용</li>
+                      <li>48시간 이상 미접속 (언질하지 않은 무통보 잠수가 지속될 경우 제명 처리될 수 있습니다.)</li>
+                      <li>모든 종류의 편파 행위 (글, 그림, 성별 등)</li>
+                      <li>과한 메타적 발언</li>
+                      <li>세계관 배경에 맞지 않는 발언</li>
+                      <li>계정 실수 트윗에 반응하는 행위</li>
+                      <li>과도한 타임라인 대화 지속 (15분 이상으로 제한하며, 잦을 경우 전체 경고 부여 가능성이 있습니다.)</li>
+                      <li>쿠션이 존재하지 않는 트리거를 유발할 수 있는 트윗 (올릴 시에 꼭 기재해 주시기 바랍니다.)</li>
+                      <li>성장 프로필 미제출 및 무통보 지각</li>
+                      <li>운영진 계정을 포함하지 않은 1:1 연락</li>
+                      <li>통금 시간 중 퍼블릭 트윗 작성</li>
+                      <li>러닝 중 계정 및 멘션에 오너 기호 사용 (사정을 바이오에 기재하는 행위 등 불가, 필요 시에 조율 필수.)</li>
+                      <li>길이 제한이 넘는 위치 대화 및 외부 링크를 사용하는 위치 대화</li>
+                      <li>리뉴얼 기간 중 위치 대화</li>
+                      <li>러너 캐릭터들 간 조율 중 과한 썰 풀이</li>
+                      <li>성장 이후 IF에 작성되어 있지 않던 설정 추가 (필요 시 운영진과의 조율이 필수입니다.)</li>
+                  </ul>
+                </td>
+              </tr>
+        </table>
+
         <div class="subheader">
             <h1>04</h1>
             <h3>Character Guide</h3>
         </div>
         <p class="info"><span>캐릭터 메이킹에 도움이 되는 안내 사항입니다. 캐릭터의 백스토리를 설정하실 때 참고 부탁드립니다.  본 커뮤니티의 러너 캐릭터들은 모두 1978년 출생이며, 성인 시기의 캐릭터들은 모두 28세로 고정됩니다.</span></p>
+        <table>
+            <tr>
+                <td>소수 합격</td>
+                <td>
+                  <ul>
+                      <li>귀족 가문</li>
+                      <li>혈통 숨김</li>
+                      <li>복수 국적</li>
+                      <li>모자걸이</li>
+                      <li>이종족 혼혈</li>
+                      <li>천재 설정</li>
+                      <li>사이비 종교</li>
+                      <li>7학년 패트로누스</li>
+                      <li>성장 후 이름 변경</li>
+                      <li>8인치 이하 15인치 이상의 지팡이</li>
+                      <li>오드아이, 특이 동공, 투톤 이상의 머리색</li>
+                  </ul>
+                  그 외 다수 접수되는 설정
+                </td>
+            </tr>
+            <tr>
+                <td>극소합</td>
+                <td>
+                  <ul>
+                      <li>머글본 슬리데린</li>
+                      <li>O.W.L. 및 N.E.W.T  ALL O</li>
+                      <li>반사회성 인격 장애 (사이코패스, 소시오패스)</li>
+                      <li>예언자 가문</li>
+                      <li>애니마구스</li>
+                      <li>불사조의 깃털 심</li>
+                  </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>불합</td>
+                <td>
+                  <ul>
+                      <li>왕족 가문</li>
+                      <li>성별 속임</li>
+                      <li>급/제적 설정</li>
+                      <li>혈연 관계가 아닌 선관</li>
+                      <li>원작 내 28가문 성씨 사용</li>
+                      <li>원작 인물과 관련된 서사를 지닌 캐릭터</li>
+                      <li>올리밴더가 사용하는 심이 아닌 지팡이 심 사용</li>
+                      <li>딱총나무, 형제 지팡이 사용</li>
+                      <li>현실적으로 불가능한 외관 요소 및 설정 (ex: 역안, 뾰족한 귀)</li>
+                      <li>이중인격자/다중인격자</li>
+                      <li>레질리먼스, 말레딕투스, 파셀텅</li>
+                      <li>아모텐시아 차일드</li>
+                  </ul>
+                </td>
+            </tr>
+        </table>
     </div>
 
 </div>
@@ -110,9 +198,6 @@
 <p><span></span></p>
 
 
-<div>
-
-</div>
 
 <script>
     document.addEventListener('scroll', function() {

@@ -1,0 +1,105 @@
+{% extends "notice_base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/notice/world.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/effect/snow_reverse.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="gradient-overlay"></div>
+
+<div class="notice_wrap">
+    <div class="goback">
+        <a href="/"><i class="fa-solid fa-chevron-left"></i></a>
+    </div>
+    <div class="intro">
+        <p><span>한 마법사가 지팡이를 높이 들어 예언을 속삭였다.</span></p>
+        <p style="margin: 35px 0px; font-size: 18px;"><span><i>" 영원이 침범되고 죽음이 도사릴 터이니,
+            불온전한 세상은 겨울로부터 종말을 맞이할 것이다."</i></span></p>
+        <p><span>이윽고 마지막 추종자는 눈과 함께 흩어진다. </span></p>
+        <p><span>목숨을 걸었던 마법사들이 우습다는 듯 비웃었고, 우리는 수많은 죽음 위에서 안도의 숨결을 내뱉었다.</span></p>
+        <p><span>온 세상이 백으로 물들고 매서운 추위로 얼어붙을 때까지 우리는 무지 아래 살아간다.</span></p>
+        <p><span>이것은 미래의 자손들이 맞이할 미래이자, 다시 써내려가야 할 페이지다.</span></p>
+        <img src="{% static 'img/worldicon.png' %}" id="clickableImage">
+    </div>
+    
+    <!-- 새로운 내용이 들어갈 부분 -->
+    <div class="new-content" style="display: none;">
+        <p> 마법사의 세계에서 통용되는 아주 간단하고 기본적인 상식. 세계가 창궐된 이래 마법은 ‘축복’으로 일컬어진다. 사회는 마법으로 평등하며 완벽을 이룬다. 비마법사는 ‘세계’에 침범할 수 없으니 모두가 순수한 축복 아래서 화합을 이루었다. 그야말로 흠잡을 것 하나 없는 질서의 정립이었다.</p>
+        <p> 가장 순수한 피를 가진 자들은 스스로를 ‘말파스-깨지지 않는 요새’ 라 칭하며 유토피아를 지키기 위한 피의 맹세를 나눴다. 혈통을 강조하며 세상을 장악해 나가는 발걸음은 거침이 없었고, 그들의 통제 아래 마법 사회는 점점 눈보라 속으로 파묻혔다. 서로만이 존재하는 사회, 그를 뒷받침하는 신념 아래, 그들의 맹세는 강렬하고 굳건했다.</p>
+        <p> 차별을 규율 삼아 질서를 모방한 시대. 잘못된 세상에 불씨를 피운 건 한 질문이었다. “어째서 평등한 마법 아래 우리는 무릎 꿇어야 하는가?” 무감각해진 차별 속 숨죽인 마법사들이 고개를 들었다.  잘못된 질서를 학습한 세계는 더이상 완벽에 가깝지 않았다. 이제껏 빼앗긴 평등을 되찾고자 하는 자들이 하나둘 목소리를 키우자 불씨는 빠르게 퍼져나갔다. 혁명은 점점 덩치를 불리고, 그들의 외침은 마법사 세계를 울렸다. 그렇게 불꽃처럼 피어난 이들을 ‘이그니스-타오르는 불꽃’라 이름지었다.</p>
+        
+        <button>타임라인 확인하기</button>
+        <button>진영 확인하기</button>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const numberOfSnowflakes = 150;
+        const body = document.body;
+
+        for (let i = 0; i < numberOfSnowflakes; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+
+            // Set the initial position and animation properties
+            snowflake.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+            snowflake.style.animationDuration = `${Math.random() * 10 + 20}s`; // Duration of rise
+            snowflake.style.animationDelay = `${Math.random() * 20}s`; // Delay for staggered effect
+            snowflake.style.transform = `scale(${Math.random() * 0.5 + 0.5})`; // Random size
+            snowflake.style.opacity = Math.random(); // Random opacity
+
+            body.appendChild(snowflake);
+        }
+
+        // Fade-in 효과 추가
+        const paragraphs = document.querySelectorAll('.intro p');
+        const initialDelay = 1500; // 첫 번째 문장을 위한 초기 딜레이 (1.5초)
+        paragraphs.forEach((p, index) => {
+            setTimeout(() => {
+                p.classList.add('show'); // show 클래스를 추가하여 나타나게 함
+            }, initialDelay + index * 1800); // 첫 번째 문장에 추가 딜레이를 더함
+        });
+
+        // 처음에 이미지 보이기 설정
+        const clickableImage = document.getElementById('clickableImage');
+        setTimeout(() => {
+            clickableImage.style.opacity = 1; // 이미지 보이도록 설정
+            clickableImage.style.transition = 'opacity 1s ease'; // 애니메이션 효과 추가
+        }, 12300); // 12.3초 후에 실행
+
+        // 이미지 클릭 이벤트 추가
+        clickableImage.addEventListener('click', () => {
+            // 모든 문장 Fade Out
+            paragraphs.forEach(p => {
+                p.style.transition = 'opacity 1s ease'; // 애니메이션 효과
+                p.style.opacity = 0; // 보이지 않도록 설정
+            });
+
+            // 모든 문장이 사라진 후에 이미지 위로 이동
+            const fadeOutDuration = 1000; // Fade out duration
+            const totalDelay = fadeOutDuration; // 총 딜레이는 Fade out duration
+            setTimeout(() => {
+                clickableImage.style.transition = 'transform 1s ease'; // 부드럽게 이동
+                clickableImage.style.transform = 'translateY(-450px)'; // 위로 이동
+
+                // 새로운 내용 나타내기
+                const newContent = document.querySelector('.new-content');
+                newContent.style.display = 'block'; // 새로운 내용을 보이도록 설정
+                setTimeout(() => {
+                    newContent.classList.add('show'); // 새로운 내용 보이게 함
+                }, 1000); // 이미지 이동 후에 나타나도록 설정
+            }, totalDelay); // 모든 문장이 사라진 후에 실행
+        });
+    });
+</script>
+
+
+{% endblock %}
