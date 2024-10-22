@@ -26,10 +26,12 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-} .goback a {
+} .a {
     text-decoration: none;
-} .goback a i {
-    color: #dbdbdb;
+    color: #dbdbdb !important;
+    user-select: none;
+} .goback i {
+    color: #dbdbdb !important;
     font-size: 22px;
 }
 

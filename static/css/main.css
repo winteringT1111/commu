@@ -160,6 +160,7 @@ nav ul {
 
 .carousel_wrap {
     margin-top: 2%;
+    margin-left: 30px;
     display: flex;
     align-items: end;
     justify-content: center;
@@ -193,17 +194,22 @@ nav ul {
 
 
 .weather_wrap {
-    width: 100%;
-    height: 10%;
+    width: 391px;
+    height: 63px;
+
+    margin-top: 10px;
+    margin-left: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    background: url("../img/날씨띠.png");
+    background-repeat: no-repeat;    
 }
 
 .weather_wrap p {
     position: absolute;
-    bottom: 2px;
+    bottom: 6px;
     color: #dbdbdb; 
     font-family: "Hahmlet", serif;
 }
@@ -211,6 +217,7 @@ nav ul {
 
 
 .contents_wrap {
+    margin-top: -22px;
     width: 100%;
     display: flex !important;
     justify-content: center;
