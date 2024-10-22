@@ -3,7 +3,7 @@
     height: 150px !important;
     position: fixed;
     bottom: 20px;
-    left: -5px;
+    left: -250px; /* 기본 상태에서 박스가 왼쪽으로 숨겨짐 */
     z-index: 5;
     background: rgba(59, 61, 73, 0.7);
     border: 2px solid #DCC599;
@@ -71,6 +71,7 @@
 .arrow {
     margin-left: 25px;
     cursor: pointer;
+    user-select: none;
 }
 
 .arrow i {
