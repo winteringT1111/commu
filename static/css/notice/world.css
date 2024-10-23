@@ -100,10 +100,127 @@ html, body {
     z-index: 4;
     font-family: "Hahmlet", serif;
     text-align: center;
+    line-height: 1.7;
     opacity: 0; /* 초기 상태는 보이지 않음 */
     transition: opacity 1s ease; /* 부드럽게 나타나는 효과 */
+    user-select: none;
 }
 
 .new-content.show {
     opacity: 1; /* 보이도록 설정 */
+}
+
+.new-content button {
+    background: none;
+    border: none;
+    font-size: larger;
+    color: white;
+    margin: 30px 20px;
+    position: relative;
+}
+
+.new-content button::after {
+    content: "";
+    position: absolute;
+    bottom: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, rgba(220, 197, 153, 0), rgba(220, 197, 153, 1), rgba(220, 197, 153, 0));
+    transition: all 0.3s ease;
+}
+
+.new-content button:hover::after {
+    width: 100%;
+}
+
+
+
+.timeline {
+    display: none; /* Initially hidden */
+    opacity: 0; /* Start hidden */
+    transition: opacity 1s ease; /* Fade effect */
+
+    position: absolute;
+    top: 30%; /* intro와 동일한 위치로 설정 */
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    z-index: 4;
+    font-family: "Hahmlet", serif;
+}
+
+.timeline.show {
+    display: block; /* Set to block when shown */
+    opacity: 1; /* Fade in */
+}
+
+
+
+.camp {
+    display: none; /* Initially hidden */
+    opacity: 0; /* Start hidden */
+    transition: opacity 1s ease; /* Fade effect */
+    z-index: 4;
+}
+
+.camp.show {
+    display: block; /* Set to block when shown */
+    opacity: 1; /* Fade in */
+}
+
+.camp_wrap {
+    display: flex; 
+    position: absolute;
+    top: 20%; 
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-family: "Hahmlet", serif;
+    line-height: 1.7;
+}
+
+.camp_content1 {
+    background-color: rgba(33, 49, 75, 0.4);
+    width: 600px;
+    height: 680px;
+    margin: 0px 20px;
+    padding: 50px;
+    border: 2px solid #3D485A;
+    border-radius: 8px;
+}
+
+.camp_content2 {
+    background-color: rgba(66, 39, 38, 0.4);
+    width: 600px;
+    height: 680px;
+    margin: 0px 20px;
+    padding: 50px;
+    border: 2px solid #5a1f1f;
+    border-radius: 8px;
+}
+
+.camp_content1 h3, h5{
+    text-align: center;
+}
+
+.camp_content2 h3, h5{
+    text-align: center;
+}
+
+.title {
+    font-family: 'Tangerine', cursive;
+    font-weight: 700;
+    font-size: 55px;
+    letter-spacing: 1px;
+} .subtitle {
+    margin-top: -10px;
+    font-weight: 200;
+} .colortitle {
+    text-align: center;
+    font-size: 14px;
+    font-style: italic;
+} .lastcontent {
+    text-align: center;
 }

@@ -25,18 +25,41 @@
         <img src="{% static 'img/worldicon.png' %}" id="clickableImage">
     </div>
     
-    <!-- 새로운 내용이 들어갈 부분 -->
     <div class="new-content" style="display: none;">
         <p> 마법사의 세계에서 통용되는 아주 간단하고 기본적인 상식. 세계가 창궐된 이래 마법은 ‘축복’으로 일컬어진다. 사회는 마법으로 평등하며 완벽을 이룬다. 비마법사는 ‘세계’에 침범할 수 없으니 모두가 순수한 축복 아래서 화합을 이루었다. 그야말로 흠잡을 것 하나 없는 질서의 정립이었다.</p>
         <p> 가장 순수한 피를 가진 자들은 스스로를 ‘말파스-깨지지 않는 요새’ 라 칭하며 유토피아를 지키기 위한 피의 맹세를 나눴다. 혈통을 강조하며 세상을 장악해 나가는 발걸음은 거침이 없었고, 그들의 통제 아래 마법 사회는 점점 눈보라 속으로 파묻혔다. 서로만이 존재하는 사회, 그를 뒷받침하는 신념 아래, 그들의 맹세는 강렬하고 굳건했다.</p>
         <p> 차별을 규율 삼아 질서를 모방한 시대. 잘못된 세상에 불씨를 피운 건 한 질문이었다. “어째서 평등한 마법 아래 우리는 무릎 꿇어야 하는가?” 무감각해진 차별 속 숨죽인 마법사들이 고개를 들었다.  잘못된 질서를 학습한 세계는 더이상 완벽에 가깝지 않았다. 이제껏 빼앗긴 평등을 되찾고자 하는 자들이 하나둘 목소리를 키우자 불씨는 빠르게 퍼져나갔다. 혁명은 점점 덩치를 불리고, 그들의 외침은 마법사 세계를 울렸다. 그렇게 불꽃처럼 피어난 이들을 ‘이그니스-타오르는 불꽃’라 이름지었다.</p>
         
-        <button>타임라인 확인하기</button>
-        <button>진영 확인하기</button>
+        <button id="timelineBtn" class="new-btn">타임라인 확인하기</button>
+        <button id="campBtn" class="new-btn">진영 확인하기</button>
     </div>
+
+    <div class="timeline" style="display: none;">
+        dddsd
+    </div>
+
+    <div class="camp" style="display: block;">
+        <div class="camp_wrap">
+            <div class="camp_content1">
+                <h3 class="title">Malphas</h3>
+                <h5 class="subtitle">말파스</h5>
+                <p class="colortitle"><span>원작 내 ‘죽음을 먹는 자’ 에 해당하는 진영입니다.</span></p>
+                <p><span>몇 세대 동안 쭉 권력을 장악해온 집단. 누구보다 순수한 자들이라 칭송 받으며 지배자로서 군림했다. 순혈 우월주의 사상을 바탕으로 그들만의 이상적인 사회를 구축했고, 반하는 이들은 거침없이 들어냈으니 집단의 대부분은 순수혈통으로 이루어지는 것이 당연했다. 차별적인 행위를 서슴없이 저지름에도 사회의 모든 흐름은 말파스를 전적으로 따랐다.</span></p>
+                <p><span>1967년, ‘이그니스’ 와의 대립에서 패배하여 크게 쇠퇴했다. 마법부는 승리를 선동하기 위해 말파스의 수장을 단두대에 세웠고, 그 광경을 모두가 목격하게 했다. 그를 추종하던 마법사들의 목이 남김없이 날아가고서야 모든 싸움이 끝났다고 믿을 수 있었다. 성물 또한 죽음의 마왕과 함께 모습을 감추었으니 결국 순수한 이들은 패배함과 다름이 없었다. 정권은 바뀌었으나 여전히 그들의 사상은 많은 이들에게 깊숙이 뿌리내려 있어 갈등의 목소리가 끊이지 않는다. 현재는 새로운 방향을 모색 중이다.</span></p>
+                <p class="lastcontent"><span>성인 이후, 어둠의 마왕을 되살려 과거의 영광을 되찾으려는 자들로 모입니다. 파멸적인 신념을 지닌 채 이그니스와 대립합니다.</span></p>    
+            </div>
+            <div class="camp_content2">
+                <h3 class="title">Ignis</h3>
+                <h5 class="subtitle">이그니스</h5>
+                <p class="colortitle"><span>원작 내 ‘불사조 기사단’ 에 해당하는 진영입니다.</span></p>
+                <p><span>‘말파스’ 에 대응하기 위해 결성된 반 순수혈통주의 집단. 오랜 시간 사회적 차별과 압박이 당연시되었으며, 반복되는 시대 속 비밀 결사를 통해 결속력을 다졌다. 불안정한 사회와 고통받는 이들을 구제하기 위한 힘을 모았고, 마법의 힘을 선하게 사용하려는 의지를 지녔다. 대다수의 인원이 머글, 혼혈 순으로 이루어져 있다.</span></p>
+                <p><span>1967년, ‘말파스’ 와의 전쟁에서 승리함과 동시에 그들의 이념이 세상에 드러났다. 폐쇄적인 마법 사회를 불태워 새로운 세대로 이끌어낸 당사자들로서 빛을 발한다. 결정적인 승리를 거둔 사실엔 변함이 없으나 당시 참전한 이그니스 소속 마법사들 대부분이 희생되었다. 그럼에도 사회는 변화했다. 새로운 세대의 마법사들이 등장하고, 보다 평화롭고 공정한 사회를 구축하기 위해 힘쓴다. 말파스의 잔재로 남아 있는 순혈 우월주의 사상에 맞서 싸우는 중이다.</span></p>
+                <p class="lastcontent"><span>성인 이후, 겨울을 불러일으켜 세계를 멸할 성물을 파괴하러 모입니다. 굴복하지 않겠다는 신념을 지닌 채 말파스와 대립합니다.</span></p>    
+            </div>
+        </div>
+    </div>
+    
 </div>
-
-
 
 
 
@@ -44,62 +67,113 @@
     document.addEventListener('DOMContentLoaded', () => {
         const numberOfSnowflakes = 150;
         const body = document.body;
-
+    
         for (let i = 0; i < numberOfSnowflakes; i++) {
             const snowflake = document.createElement('div');
             snowflake.className = 'snowflake';
-
+    
             // Set the initial position and animation properties
             snowflake.style.left = `${Math.random() * 100}vw`; // Random horizontal position
             snowflake.style.animationDuration = `${Math.random() * 10 + 20}s`; // Duration of rise
             snowflake.style.animationDelay = `${Math.random() * 20}s`; // Delay for staggered effect
             snowflake.style.transform = `scale(${Math.random() * 0.5 + 0.5})`; // Random size
             snowflake.style.opacity = Math.random(); // Random opacity
-
+    
             body.appendChild(snowflake);
         }
-
-        // Fade-in 효과 추가
+    
+        // Fade-in effect for paragraphs
         const paragraphs = document.querySelectorAll('.intro p');
-        const initialDelay = 1500; // 첫 번째 문장을 위한 초기 딜레이 (1.5초)
+        const initialDelay = 1000; // Initial delay for the first paragraph
         paragraphs.forEach((p, index) => {
             setTimeout(() => {
-                p.classList.add('show'); // show 클래스를 추가하여 나타나게 함
-            }, initialDelay + index * 1800); // 첫 번째 문장에 추가 딜레이를 더함
+                p.classList.add('show'); // Add show class to make it appear
+            }, initialDelay + index * 850); // Delay for subsequent paragraphs
         });
-
-        // 처음에 이미지 보이기 설정
+    
+        // Set initial visibility for the clickable image
         const clickableImage = document.getElementById('clickableImage');
         setTimeout(() => {
-            clickableImage.style.opacity = 1; // 이미지 보이도록 설정
-            clickableImage.style.transition = 'opacity 1s ease'; // 애니메이션 효과 추가
-        }, 12300); // 12.3초 후에 실행
-
-        // 이미지 클릭 이벤트 추가
-        clickableImage.addEventListener('click', () => {
-            // 모든 문장 Fade Out
-            paragraphs.forEach(p => {
-                p.style.transition = 'opacity 1s ease'; // 애니메이션 효과
-                p.style.opacity = 0; // 보이지 않도록 설정
-            });
-
-            // 모든 문장이 사라진 후에 이미지 위로 이동
-            const fadeOutDuration = 1000; // Fade out duration
-            const totalDelay = fadeOutDuration; // 총 딜레이는 Fade out duration
-            setTimeout(() => {
-                clickableImage.style.transition = 'transform 1s ease'; // 부드럽게 이동
-                clickableImage.style.transform = 'translateY(-450px)'; // 위로 이동
-
-                // 새로운 내용 나타내기
-                const newContent = document.querySelector('.new-content');
-                newContent.style.display = 'block'; // 새로운 내용을 보이도록 설정
+            clickableImage.style.opacity = 1; // Make image visible
+            clickableImage.style.transition = 'opacity 1s ease'; // Add animation
+        }, 6600); // Set delay
+    
+        // Image click event
+        if (clickableImage) {
+            clickableImage.addEventListener('click', () => {
+                // Fade out all paragraphs
+                paragraphs.forEach(p => {
+                    p.style.transition = 'opacity 1s ease';
+                    p.style.opacity = 0;
+                });
+    
+                const fadeOutDuration = 600; // Fade out duration
                 setTimeout(() => {
-                    newContent.classList.add('show'); // 새로운 내용 보이게 함
-                }, 1000); // 이미지 이동 후에 나타나도록 설정
-            }, totalDelay); // 모든 문장이 사라진 후에 실행
-        });
+                    clickableImage.style.transition = 'transform 1s ease';
+                    clickableImage.style.transform = 'translateY(-430px)'; // Move image up
+    
+                    // Show new content
+                    const newContent = document.querySelector('.new-content');
+                    newContent.style.display = 'block';
+                    setTimeout(() => {
+                        newContent.classList.add('show');
+                    }, 1000); // Show content after image moves
+                }, fadeOutDuration);
+            });
+        }
+    
+        // Timeline button click event
+        const timelineButton = document.getElementById('timelineBtn');
+        if (timelineButton) {
+            timelineButton.addEventListener('click', () => {
+                const newContent = document.querySelector('.new-content');
+                const timelineContent = document.querySelector('.timeline');
+
+                // Fade out new content and show timeline
+                newContent.style.transition = 'opacity 1s ease';
+                newContent.style.opacity = 0;
+                
+                setTimeout(() => {
+                    newContent.style.display = 'none';
+                    timelineContent.style.display = 'block'; // Ensure it's set to block
+                    timelineContent.style.opacity = 0; // Start as invisible
+                    timelineContent.style.transition = 'opacity 1s ease'; // Add transition
+                    setTimeout(() => {
+                        timelineContent.style.opacity = 1; // Fade in the timeline
+                    }, 10); // Short delay to trigger the transition
+                }, 1000); // Wait for fade-out of new content
+            });
+        }
+
+        // Camp button click event
+        const campButton = document.getElementById('campBtn');
+        if (campButton) {
+            campButton.addEventListener('click', () => { 
+                const newContent = document.querySelector('.new-content');
+                const campContent = document.querySelector('.camp');
+
+                // Fade out new content and show camp
+                newContent.style.transition = 'opacity 1s ease';
+                newContent.style.opacity = 0;
+
+                setTimeout(() => {
+                    clickableImage.style.transition = 'opacity 0.5s ease'; 
+                    clickableImage.style.opacity = 0;
+                    newContent.style.display = 'none';
+                    campContent.style.display = 'block'; // Show the camp content
+                    campContent.style.opacity = 0; // Start as invisible
+                    campContent.style.transition = 'opacity 1s ease'; // Add transition
+                    setTimeout(() => {
+                        campContent.style.opacity = 1; // Fade in the camp content
+                    }, 10); // Short delay to trigger the transition
+                }, 1000); // Wait for fade-out of new content
+            });
+        }
+
     });
+    
 </script>
+
 
 
 {% endblock %}

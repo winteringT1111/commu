@@ -8,45 +8,38 @@
 
 {% block content %}
 
-<div class="notice_wrap">
-    
-    
-    <div class="decor1">
-        <img src={% static "img/decor.png" %}>
-    </div>
-    <div class="decor2">
-        <img src={% static "img/decor2.png" %}>
-    </div>
-    <div class="goback">
-        <a href="/"><i class="fa-solid fa-chevron-left"></i></a>
-    </div>
-    <div class="content_box">
-        
-    </div>
+<div class="goback">
+    <a href="/"><i class="fa-solid fa-chevron-left"></i></a>
+</div>
 
+<div class="camp_content">
+    <div class="camp">
+        <h3 class="title">Malphas</h3>
+        <h5 class="subtitle">말파스</h5>
+        <p class="colortitle"><span>원작 내 ‘죽음을 먹는 자’ 에 해당하는 진영입니다.</span></p>
+        <p><span>몇 세대 동안 쭉 권력을 장악해온 집단. 누구보다 순수한 자들이라 칭송 받으며 지배자로서 군림했다. 순혈 우월주의 사상을 바탕으로 그들만의 이상적인 사회를 구축했고, 반하는 이들은 거침없이 들어냈으니 집단의 대부분은 순수혈통으로 이루어지는 것이 당연했다. 차별적인 행위를 서슴없이 저지름에도 사회의 모든 흐름은 말파스를 전적으로 따랐다.</span></p>
+        <p><span>1967년, ‘이그니스’ 와의 대립에서 패배하여 크게 쇠퇴했다. 마법부는 승리를 선동하기 위해 말파스의 수장을 단두대에 세웠고, 그 광경을 모두가 목격하게 했다. 그를 추종하던 마법사들의 목이 남김없이 날아가고서야 모든 싸움이 끝났다고 믿을 수 있었다. 성물 또한 죽음의 마왕과 함께 모습을 감추었으니 결국 순수한 이들은 패배함과 다름이 없었다. 정권은 바뀌었으나 여전히 그들의 사상은 많은 이들에게 깊숙이 뿌리내려 있어 갈등의 목소리가 끊이지 않는다. 현재는 새로운 방향을 모색 중이다.</span></p>
+        <p class="lastcontent"><span>성인 이후, 어둠의 마왕을 되살려 과거의 영광을 되찾으려는 자들로 모입니다.
+            파멸적인 신념을 지닌 채 이그니스와 대립합니다.
+            </span></p>    
+    </div>
+    <div class="camp">
+        <h3 class="title">Ignis</h3>
+        <h5 class="subtitle">이그니스</h5>
+        <p class="colortitle"><span>원작 내 ‘불사조 기사단’ 에 해당하는 진영입니다.</span></p>
+        <p><span>‘말파스’ 에 대응하기 위해 결성된 반 순수혈통주의 집단. 오랜 시간 사회적 차별과 압박이 당연시되었으며, 반복되는 시대 속 비밀 결사를 통해 결속력을 다졌다. 불안정한 사회와 고통받는 이들을 구제하기 위한 힘을 모았고, 마법의 힘을 선하게 사용하려는 의지를 지녔다. 대다수의 인원이 머글, 혼혈 순으로 이루어져 있다.</span></p>
+        <p><span>1967년, ‘말파스’ 와의 전쟁에서 승리함과 동시에 그들의 이념이 세상에 드러났다. 폐쇄적인 마법 사회를 불태워 새로운 세대로 이끌어낸 당사자들로서 빛을 발한다. 결정적인 승리를 거둔 사실엔 변함이 없으나 당시 참전한 이그니스 소속 마법사들 대부분이 희생되었다. 그럼에도 사회는 변화했다. 새로운 세대의 마법사들이 등장하고, 보다 평화롭고 공정한 사회를 구축하기 위해 힘쓴다. 말파스의 잔재로 남아 있는 순혈 우월주의 사상에 맞서 싸우는 중이다.</span></p>
+        <p class="lastcontent"><span>성인 이후, 겨울을 불러일으켜 세계를 멸할 성물을 파괴하러 모입니다.
+            굴복하지 않겠다는 신념을 지닌 채 말파스와 대립합니다.</span></p>    
+    </div>
 </div>
 
 
-<p><span></span></p>
+
 
 
 <div>
 
 </div>
-
-<script>
-    document.addEventListener('scroll', function() {
-        const contentBox = document.querySelector('.content_box');
-        const scrollPosition = window.scrollY;
-    
-        console.log('스크롤 위치:', scrollPosition); // 현재 스크롤 위치 출력
-    
-        if (scrollPosition > 100) {
-            contentBox.style.marginTop = '0px'; // 스크롤이 100px 이상일 때 위로 이동
-        } else {
-            contentBox.style.marginTop = '100px'; // 스크롤이 100px 미만일 때 원래 위치로 돌아옴
-        }
-    });
-</script>
 
 {% endblock %}

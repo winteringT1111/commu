@@ -36,8 +36,6 @@ html, body {
 }
 
 
-
-
 .notice_wrap {
     display: flex;
     justify-content: center;
@@ -115,125 +113,40 @@ html, body {
 
 .header {
     text-align: center;
-    margin-bottom: 60px;
 }
 
-.header span {
-    background-color: #3D485A;;
-    color: #dbdbdb;
-    font-weight: bold;
-}
-
-.header p {
-    margin: 0px 0px 5px 0px;
-}
-
-.subheader {
-    text-align: center;
-    font-family: "Hahmlet", serif;
-}
-
-.subheader h1 {
-    margin: none;
-    font-family: "Arima", system-ui;
-}
-
-.subheader h3 {
-    margin: -15px 0px 0px 0px;
-    font-size: 25px;
-    letter-spacing: 1px;
-    font-family: "Arima", system-ui;
-    margin-bottom: 30px;
+.large {
+    font-size: 30px;
 }
 
 li {
-    margin-bottom: 10px;
+    margin: 40px 0px;
     font-weight: 400;
     line-height: 2;
-}
-
-li a {
-    text-decoration: none !important;
-    color: #3D485A;
-    background-color: #dbdbdb;
-    font-weight: bold;
-    position: relative;
-}
-
-li a:hover {
-    color: #9FA3B1;
-    transition: color 0.3s; /* Smooth transition */
-}
-
-li a::after {
-    content: "";
-    position: absolute;
-    bottom: -20%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background: linear-gradient(to right, rgba(220, 197, 153, 0), #3D485A, rgba(220, 197, 153, 0));
-    transition: all 0.2s ease;
-}
-
-li a:hover::after {
-    width: 65px;
+} li h5 {
+    margin-bottom: -10px;
 }
 
 li::marker {
     content: "✵  ";
 }
 
-.blue {
-    background-color: #3D485A;
-    color: #dbdbdb;
-    font-weight: bold;
+.smalllist {
+    margin-bottom: 20px;
+} .smalllist li {
+    margin: 10px 0px;
+}
+.smalllist li::marker {
+    content: "" !important;
 }
 
-.info {
-    font-weight: 400;
-    text-align: center;
-    margin-bottom: 80px;
+.coloritallic {
+    color: #616a8b;
+    font-weight: bold;
+    font-family: "Arima", system-ui;
 }
 
 ::selection {
     background-color: #9FA3B1; /* 하늘색 배경 */
     color: #eeeeee; /* 선택된 텍스트의 색상을 검정으로 설정 */
 }
-
-.content1 {
-    margin-bottom: 80px;
-} .content2 {
-    margin-bottom: 30px;
-}
-
-
-
-/* 테이블 중앙 정렬 */
-table {
-    margin: 30px auto; /* 수평 중앙 정렬과 상하 여백 */
-    border-collapse: collapse; /* 중첩된 테두리 제거 */
-    width: 80%; /* 필요에 따라 너비 조절 */
-    text-align: left; 
-    margin-bottom: 50px;
-    margin-top: -20px;
-}
-
-/* 테이블 내부 패딩 */
-table td {
-    border: 2px solid #687485; /* 테두리 */
-    padding: 25px; /* 셀 내부 패딩 */
-}
-
-table td:first-child {
-    width: 160px; /* Set the desired width for the first column */
-    text-align: center;
-    background-color: rgba(199, 202, 212, 0.4);
-}
-
-.tab2 {
-    margin-bottom: 80px;
-}
-
-

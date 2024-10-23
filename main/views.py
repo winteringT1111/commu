@@ -14,5 +14,5 @@ def world(request):
 def system(request):
     return render(request, "notice/system.html")
 
-def test(request):
-    return render(request, "notice/test.html")
+def totalsystem(request):
+    return render(request, "notice/total_system.html")
