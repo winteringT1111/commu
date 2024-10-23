@@ -224,3 +224,99 @@ html, body {
 } .lastcontent {
     text-align: center;
 }
+
+
+.btnloc {
+    position: absolute;
+    top: 7%; 
+    left: 50%;
+    transform: translateX(-50%);
+}
+#timelineBtn2 {
+    background: none;
+    border: none;
+    font-size: larger;
+    color: white;
+    margin: 30px 20px;
+    position: relative;
+}
+
+#timelineBtn2::after {
+    content: "";
+    position: absolute;
+    bottom: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, rgba(220, 197, 153, 0), rgba(220, 197, 153, 1), rgba(220, 197, 153, 0));
+    transition: all 0.3s ease;
+}
+
+#timelineBtn2:hover::after {
+    width: 100%;
+}
+
+
+
+
+
+
+
+.timeline {
+    width: 1440px;
+    height: 700px;
+    position: absolute;
+    bottom: 2%; 
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-family: "Hahmlet", serif;
+ }
+
+ #navbar-example3 {
+    height: 700px;
+ }
+
+#timeline_contents {
+    height: 700px;
+    overflow-y: scroll;
+} #timeline_contents::-webkit-scrollbar {
+    width: 10px;
+  }
+  #timeline_contents::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  #timeline_contents::-webkit-scrollbar-track {
+    background-color: #dbdbdb;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+
+  #timeline_contents h4 {
+    font-family: 'Tangerine', cursive;
+    font-size: 65px;
+    font-weight: 700;
+    margin-top: 60px;
+  }
+
+  #timeline_contents p {
+    line-height: 1.7
+  }
+  
+  #timeline_contents h4:first-of-type {
+    margin-top: 0;
+}
+
+.subtitle_timeline {
+    font-family: "Hahmlet", serif;
+    font-weight: 400;
+    font-size: 17px;
+    margin-left: 15px;
+    font-style: italic;
+}
+
+
