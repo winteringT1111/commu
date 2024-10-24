@@ -4,6 +4,7 @@ html, body {
     margin: 0; /* 기본 여백 제거 */
     position: relative;
     overflow: hidden;
+    user-select: none;
 }
 
 .background {
