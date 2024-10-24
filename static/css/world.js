@@ -66,19 +66,22 @@ document.addEventListener('DOMContentLoaded', () => {
             // Fade out new content and show timeline
             newContent.style.transition = 'opacity 1s ease';
             newContent.style.opacity = 0;
-            
+
             setTimeout(() => {
+                clickableImage.style.transition = 'opacity 0.5s ease'; 
+                clickableImage.style.opacity = 0;
+                clickableImage.style.display = 'none';
                 newContent.style.display = 'none';
                 timelineContent.style.display = 'block'; // Ensure it's set to block
                 timelineContent.style.opacity = 0; // Start as invisible
                 timelineContent.style.transition = 'opacity 1s ease'; // Add transition
+
                 setTimeout(() => {
                     timelineContent.style.opacity = 1; // Fade in the timeline
                 }, 10); // Short delay to trigger the transition
             }, 1000); // Wait for fade-out of new content
         });
     }
-
     // Camp button click event
     const campButton = document.getElementById('campBtn');
     if (campButton) {
@@ -108,15 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
     // Add timeline button click event
-const timelineButton2 = document.getElementById('timelineBtn2');
-if (timelineButton2) {
+    const timelineButton2 = document.getElementById('timelineBtn2');
+    if (timelineButton2) {
     timelineButton2.addEventListener('click', () => { 
         const campContent = document.querySelector('.camp');
         const timelineContent = document.querySelector('.timeline');
 
-        // Fade out camp content and hide the button
-        campContent.style.transition = 'opacity 1s ease';
-        campContent.style.opacity = 0;
 
         setTimeout(() => {
             campContent.style.display = 'none'; // Hide the camp content
@@ -124,16 +124,31 @@ if (timelineButton2) {
             timelineContent.style.opacity = 0; // Start as invisible
             timelineContent.style.transition = 'opacity 1s ease'; // Add transition
 
-            // Hide the button
-            timelineButton2.style.transition = 'opacity 1s ease'; 
-            timelineButton2.style.opacity = 0; // Fade out the button
-            setTimeout(() => {
-                timelineButton2.style.display = 'none'; // Completely hide the button
-            }, 1000); // Wait for fade-out of button
 
             setTimeout(() => {
                 timelineContent.style.opacity = 1; // Fade in the timeline
             }, 10); // Short delay to trigger the transition
         }, 1000); // Wait for fade-out of camp content
     });
+
+    // Add camp button click event
+    const campButton2 = document.getElementById('campBtn2');
+    if (campButton2) {
+    campButton2.addEventListener('click', () => { 
+        const campContent = document.querySelector('.camp');
+        const timelineContent = document.querySelector('.timeline');
+
+
+        setTimeout(() => {
+            timelineContent.style.display = 'none'; // Hide the camp content
+            campContent.style.display = 'block'; // Show the timeline content
+            campContent.style.opacity = 0; // Start as invisible
+            campContent.style.transition = 'opacity 1s ease'; // Add transition
+
+            setTimeout(() => {
+                campContent.style.opacity = 1; // Fade in the timeline
+            }, 10); // Short delay to trigger the transition
+        }, 1000); // Wait for fade-out of camp content
+    });
+}
 }

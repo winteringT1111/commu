@@ -30,7 +30,7 @@ html, body {
 }
 
 .gradient-overlay {
-    position: absolute; 
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100vw; 
@@ -136,24 +136,10 @@ html, body {
 }
 
 
-
-.timeline {
-    display: none; /* Initially hidden */
-    opacity: 0; /* Start hidden */
-    transition: opacity 1s ease; /* Fade effect */
-
-    position: absolute;
-    top: 30%; /* intro와 동일한 위치로 설정 */
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    z-index: 4;
-    font-family: "Hahmlet", serif;
-}
-
-.timeline.show {
-    display: block; /* Set to block when shown */
-    opacity: 1; /* Fade in */
+.timeline, .new-content {
+    overflow: hidden; /* Prevent overflow */
+    max-height: 100vh; /* Limit height to viewport */
+    transition: opacity 1s ease, max-height 1s ease; /* Smooth transition */
 }
 
 
@@ -227,7 +213,7 @@ html, body {
 
 
 .btnloc {
-    position: absolute;
+    position: fixed;
     top: 7%; 
     left: 50%;
     transform: translateX(-50%);
@@ -238,6 +224,7 @@ html, body {
     font-size: larger;
     color: white;
     margin: 30px 20px;
+    font-family: "Hahmlet", serif;
     position: relative;
 }
 
@@ -258,20 +245,59 @@ html, body {
 }
 
 
+#campBtn2 {
+    background: none;
+    border: none;
+    font-size: larger;
+    color: white;
+    margin: 30px 20px;
+    position: relative;
+}
+
+#campBtn2::after {
+    content: "";
+    position: absolute;
+    bottom: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, rgba(220, 197, 153, 0), rgba(220, 197, 153, 1), rgba(220, 197, 153, 0));
+    transition: all 0.3s ease;
+}
+
+#campBtn2:hover::after {
+    width: 100%;
+}
 
 
 
 
 
 .timeline {
+    display: none; /* Initially hidden */
+    opacity: 0; /* Start hidden */
+    transition: opacity 1s ease; /* Fade effect */
+
+    z-index: 4;
+    font-family: "Hahmlet", serif;
+}
+
+.timeline.show {
+    display: block; /* Set to block when shown */
+    opacity: 1; /* Fade in */
+}
+
+ .row {
     width: 1440px;
     height: 700px;
-    position: absolute;
-    bottom: 2%; 
+    position: fixed;
+    bottom: 0%; 
     left: 50%;
     transform: translateX(-50%);
     color: white;
     font-family: "Hahmlet", serif;
+    
  }
 
  #navbar-example3 {
@@ -279,7 +305,7 @@ html, body {
  }
 
 #timeline_contents {
-    height: 700px;
+    height: 600px;
     overflow-y: scroll;
 } #timeline_contents::-webkit-scrollbar {
     width: 10px;
@@ -320,3 +346,18 @@ html, body {
 }
 
 
+#nolink {
+    margin: 0;
+    margin-top: -10px;
+    color: #cecece;
+}
+
+nav a {
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+nav a:hover {
+    transform: scale(1.1); /* hover 시 확대 */
+    color: #dbdbdb !important;
+}
