@@ -26,6 +26,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
 } .a {
     text-decoration: none;
     color: #dbdbdb !important;
@@ -41,7 +42,7 @@ html, body {
     justify-content: center;
     align-items: flex-start; /* 내용이 상단에 정렬되도록 설정 */
     width: 100%;
-    height: 5580px;
+    height: 2950px;
     position: relative;
     font-family: "Hahmlet", serif;
 }
@@ -88,7 +89,7 @@ html, body {
     position: absolute;
     z-index: 1;
     width: 1300px;
-    height: 5450px;
+    height: 2800px;
     padding: 80px 100px;
     border: 2px solid #3D485A;
     margin-top: 100px;
@@ -97,7 +98,7 @@ html, body {
     border-radius: 10px; /* 모서리 둥글게 */
     background-color: rgba(231, 238, 247, 0.7); /* 반투명 흰색 배경 */
     backdrop-filter: blur(12px); /* 배경 흐림 효과 */
-    margin-bottom: 200px;
+    margin-bottom: 150px;
 }
 
 @keyframes slideIn {
@@ -113,6 +114,7 @@ html, body {
 
 .header {
     text-align: center;
+    margin-bottom: 55px;
 }
 
 .large {

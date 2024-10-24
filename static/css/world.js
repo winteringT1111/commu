@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fade-in effect for paragraphs
     const paragraphs = document.querySelectorAll('.intro p');
-    const initialDelay = 100; // Initial delay for the first paragraph
+    const initialDelay = 1000; // Initial delay for the first paragraph
     paragraphs.forEach((p, index) => {
         setTimeout(() => {
             p.classList.add('show'); // Add show class to make it appear
-        }, initialDelay + index * 85); // Delay for subsequent paragraphs
+        }, initialDelay + index * 850); // Delay for subsequent paragraphs
     });
 
     // Set initial visibility for the clickable image
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         clickableImage.style.opacity = 1; // Make image visible
         clickableImage.style.transition = 'opacity 1s ease'; // Add animation
-    }, 660); // Set delay
+    }, 6600); // Set delay
 
     // Image click event
     if (clickableImage) {

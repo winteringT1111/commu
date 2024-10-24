@@ -57,6 +57,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
 } .goback a {
     text-decoration: none;
 } .goback a i {
@@ -366,5 +367,5 @@ nav a:hover {
 
 #timeline_contents h5 {
     text-align: left;
-    margin-top: 15px;
+    margin-top: 25px;
 }
