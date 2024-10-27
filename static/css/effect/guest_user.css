@@ -1,5 +1,5 @@
 .user {
-    width: 360px !important;
+    width: 290px !important;
     height: 150px !important;
     position: fixed;
     bottom: 20px;
@@ -18,7 +18,7 @@
 }
 
 .user.collapsed {
-    left: -300px; /* 박스를 숨길 위치 설정 */
+    left: -250px; /* 박스를 숨길 위치 설정 */
 }
 
 #background-music {
@@ -69,7 +69,7 @@
 }
 
 .arrow {
-    margin-left: 5px;
+    margin-left: 25px;
     cursor: pointer;
     user-select: none;
 }
@@ -78,10 +78,6 @@
     font-size: 16px;
     color: #dbdbdb !important; 
 }
-
-
-
-
 
 .profile_content {
     margin-left: 30px;
@@ -116,19 +112,4 @@
 
 .goto_twitter {
     margin-bottom: 5px;
-}
-
-.active_content {
-    width: 70px;
-    opacity: 0.7;
-    margin-left: 20px;
-}
-
-.active_content img {
-    width: 18px;
-    margin-right: 4px;
-}
-
-.token {
-    margin: 10px 0px;
 }

@@ -1,0 +1,155 @@
+.att_background_griffin {
+    width: 897px;
+    height: 617.4px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    filter: drop-shadow(8px 8px 8px #232425);
+    background-image: url(../../img/출석_그리핀도르.png);
+    background-size: cover;
+}
+
+.att_background_huffle {
+    width: 897px;
+    height: 617.4px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    filter: drop-shadow(8px 8px 8px #232425);
+    background-image: url(../../img/출석_후플푸프.png);
+    background-size: cover;
+}
+
+.att_background_raven {
+    width: 897px;
+    height: 617.4px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    filter: drop-shadow(8px 8px 8px #232425);
+    background-image: url(../../img/출석_래번클로.png);
+    background-size: cover;
+}
+
+.att_background_slyderin {
+    width: 897px;
+    height: 617.4px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    filter: drop-shadow(8px 8px 8px #232425);
+    background-image: url(../../img/출석_슬리데린.png);
+    background-size: cover;
+}
+
+.att_content {
+    width: 500px;
+    height: 380px;
+    position: fixed;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    user-select: none;
+}
+
+.att_header {
+    text-align: center;
+    font-family: "Hahmlet", serif;
+    margin-top: 20px;
+    margin-bottom: 110px;
+} .att_header p {
+    margin: 0px;
+    margin-bottom: -5px;
+    font-size: 19px;
+    font-weight: 500;
+    color: #f3e5c9;
+}
+
+.att_info {
+    text-align: center;
+    font-family: "Hahmlet", serif;
+} .att_info h4 {
+    font-family: "Diphylleia", serif;
+    font-weight: 600;
+    margin-bottom: 15px;
+} .att_info p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.att_btn {
+    width: 135px;
+    height: 45px;
+    background-color: #AA9B7D;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Hahmlet", serif;
+    font-size: 18px;
+    filter: drop-shadow(2px 2px 2px #232425);
+}
+
+
+
+
+
+
+/* 모달 */
+
+.modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 641px;
+    height: 281px;
+    background: url("../../img/purchase_modal.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    filter: drop-shadow(8px 8px 8px #232425);
+}
+
+#modalContent {
+    color: #dbdbdb;
+    font-size: 25px;
+    text-align: center;
+    font-family: "Hahmlet", serif;
+}
+
+.modal_content_wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 150px;
+
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} .modal_content_wrap button {
+    width: 135px;
+    height: 45px;
+    background-color: #AA9B7D;
+    font-size: 18px;
+    color: #232425;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    font-family: "Hahmlet", serif;
+}
+

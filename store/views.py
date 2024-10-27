@@ -1,13 +1,13 @@
 from django.shortcuts import render,redirect
 from store.models import Item
 from users.models import CharInfo
-from member.models import Characters, Purchase
+from member.models import Characters, Purchase, Inventory
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
 # Create your views here.
 
-@login_required(login_url='/login')
+@login_required(login_url='/')
 def store_main(request):
     getUser = request.user
     userinfo = CharInfo.objects.get(user=getUser)
@@ -32,12 +32,10 @@ def store_main(request):
     page2_row2 = [item10,item11,item12]
     
     
-    
     if request.method == "POST":
-        print("dsfsgwsegwgsdf")
         name = request.POST['itemName']
         itemPrice = request.POST['totalPrice']
-        count = request.POST['quantity']
+        count = int(request.POST['quantity'])
         
         # 갈레온 차감
         userinfo.galeon = int(userinfo.galeon) - int(itemPrice)
@@ -49,13 +47,26 @@ def store_main(request):
                         itemInfo=Item.objects.get(itemName=name),
                         user=getUser)
         char.save()
-    
-    
+        
+        # 인벤토리 저장
+        all_items = Inventory.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
+        item = Item.objects.get(itemName=name)
+        
+        if item.itemID in all_items:
+            update_item = Inventory.objects.get(itemInfo=item)
+            update_item.itemCount += count
+            update_item.save()
+        else:
+            inven = Inventory(itemCount=count,
+                            itemInfo=item,
+                            user=getUser)
+            inven.save()
+        
     context = {'page1_row1':page1_row1,
                'page1_row2':page1_row2,
                'page2_row1':page2_row1,
                'page2_row2':page2_row2,
-               'user':userinfo}
+               'user2':userinfo}
 
     return render(request, "store/store_main.html", context)
 

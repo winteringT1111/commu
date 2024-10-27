@@ -4,13 +4,17 @@
 <html lang="ko">
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>Wintering Theory</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://kit.fontawesome.com/7076248453.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{% static 'css/effect/snow.css' %}">
+        {% if user.is_authenticated %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/effect/user.css' %}">
+        {% else %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/effect/guest_user.css' %}">
+        {% endif %}
 
         <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
         
@@ -26,10 +30,12 @@
     <body>
         <div class="background"></div> <!-- 흐림 효과를 위한 배경 -->
 
-        {% if "login" not in request.path %}      
-        {% endif %}
-        
+        {% if user.is_authenticated %}
         {% include "effects/user.html" %}
+        {% else %}
+        {% include "effects/guest_user.html" %}
+        {% endif %}
+
         {% include "effects/snow.html" %}
 
         {% block content %}

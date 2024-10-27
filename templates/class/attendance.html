@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/class/attendance.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Diphylleia&family=Tangerine&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+{% if character.charHouse == '슬리데린' %}
+    <div class="att_background_slyderin">
+{% elif character.charHouse == '후플푸프' %}
+    <div class="att_background_huffle">
+{% elif character.charHouse == '래번클로' %}
+    <div class="att_background_raven">
+{% else %}
+    <div class="att_background_griffin">
+{% endif %}
+        
+    <div class="att_content">
+        <div class="att_header">
+            <p>누적 출석 일 수: 5</p>
+            <p>금일 출석 현황: X</p>
+        </div>
+        <div class="att_info">
+            <h4>출석 시 획득 가능한 아이템</h4>
+            <p>기숙사 점수, 갈레온(2), 수업 토큰(3)</p>
+        </div>
+        <form method="post" id="attendanceForm">
+            {% csrf_token %}
+            <button type="button" class="att_btn" id="submitAttendance">
+                출석하기
+            </button>
+        </form>
+    </div>    
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal_content_wrap">
+                    <p id="modalContent"></p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('submitAttendance').addEventListener('click', function() {
+        // Send AJAX request to handle attendance
+        fetch("{% url 'main:attendance' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Update modal content based on the server response
+            const modalContent = document.getElementById("modalContent");
+            if (data.show_modal === "modal1") {
+                modalContent.innerHTML = "출석이 완료되었습니다.";
+            } else {
+                modalContent.innerHTML = "출석 가능한 시간이 아닙니다.";
+            }
+            // Show the modal
+            $('#exampleModal').modal('show');
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+
+{% endblock %}

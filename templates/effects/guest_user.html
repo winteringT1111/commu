@@ -3,10 +3,10 @@
 <div class="user" id="user-box">
     <div class="profile">
         <div class="profile_image">
-            <img src={% static "img/두상샘플.png" %}>
+            <img src={% static "img/base_profile.png" %}>
         </div>
         <div class="profile_name">
-            {{ user.username }}
+            Guest
         </div>
     </div>
     <div class="profile_content">
@@ -29,16 +29,6 @@
                     <i class="fa-solid fa-square"></i>
                 </button>
             </div>
-        </div>
-    </div>
-    <div class="active_content">
-        <div class="token">
-            <img src={% static "img/갈레온.png" %}>
-            <span>{{charInfo.galeon}}</span>
-        </div>
-        <div class="token">
-            <img src={% static "img/갈레온.png" %}>
-            <span>{{charInfo.classToken}}</span>
         </div>
     </div>
     <div class="arrow" id="arrow">
@@ -127,7 +117,7 @@
         const arrowIcon = arrow.querySelector('i');
     
         // 처음에는 박스를 화면 밖에 숨긴 상태로 시작
-        userBox.style.left = '-320px';
+        userBox.style.left = '-250px';
         arrowIcon.classList.remove('fa-chevron-left');
         arrowIcon.classList.add('fa-chevron-right');
     
@@ -141,7 +131,7 @@
     
         // 화살표 클릭 이벤트
         arrow.addEventListener('click', () => {
-            if (userBox.style.left == '-320px') {
+            if (userBox.style.left == '-250px') {
                 // 박스가 숨겨져 있으면 보여주기
                 userBox.style.left = '-5px';
                 arrowIcon.classList.remove('fa-chevron-right');
@@ -149,7 +139,7 @@
                 localStorage.setItem('isVisible', 'true');  // 보이는 상태 저장
             } else {
                 // 박스가 보이면 숨기기
-                userBox.style.left = '-320px';
+                userBox.style.left = '-250px';
                 arrowIcon.classList.remove('fa-chevron-left');
                 arrowIcon.classList.add('fa-chevron-right');
                 localStorage.setItem('isVisible', 'false');  // 숨김 상태 저장

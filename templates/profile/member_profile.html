@@ -113,6 +113,10 @@
  <!-- 인벤토리 -->
  <div class="inventory_wrap hidden" id="inventory-section">
     인벤토리 들어가는 란
+    {% for item in inven %}
+        {{item.itemInfo.itemName}}
+        {{item.itemCount}}
+    {% endfor %}
     
 </div>
 

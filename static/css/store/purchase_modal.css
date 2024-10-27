@@ -8,6 +8,8 @@
     background: url("../../img/purchase_modal.png");
     background-size: contain;
     border: none;
+    user-select: none;
+    filter: drop-shadow(8px 8px 8px #232425);
 }
 
 .quantity-spinner {
@@ -92,15 +94,24 @@
 }
 
 .priceline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
-    bottom: 31%;
+    bottom: 21%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #3d352c;
     font-family: "Arima", system-ui;
+    width: 270px;
+    height: 65px;
+    background-image: url("../../img/가격띠.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .priceline h5 {
-    font-size: 25px;
+    font-size: 32px;
     font-weight: 700;
+    margin: 0px 0px 9px; /* Removes any default margin that may be affecting alignment */
 }

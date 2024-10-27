@@ -4,13 +4,17 @@
 <html lang="ko">
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>Wintering Theory</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://kit.fontawesome.com/7076248453.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        {% if user.is_authenticated %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/effect/user.css' %}">
+        {% else %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/effect/guest_user.css' %}">
+        {% endif %}
         
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,12 +27,13 @@
     </head>
     <body>
         <div class="background"></div> <!-- 흐림 효과를 위한 배경 -->
-
-        {% if "login" not in request.path %}
+        {% if user.is_authenticated %}
+        {% include "effects/user.html" %}
+        {% else %}
+        {% include "effects/guest_user.html" %}
         {% endif %}
 
-        {% include "effects/user.html" %}
-
+        
         <div class="background_wrap">
             <div class="background_box">
                 <div class="navbar">
@@ -40,7 +45,7 @@
                             <li><a class="navhover" href="/notice">NOTICE</a></li>
                             <li><a class="navhover" href="/world">WORLD</a></li>
                             <li><a class="navhover" href="/system">SYSTEM</a></li>
-                            <li><a class="navhover" href="#"><span onclick="alert('합격자 발표 이후 이용이 가능합니다.')">STORE</span></a></li>
+                            <li><a class="navhover" href="/store">STORE</a></li>
                             <li><a class="navhover" href="#"><span onclick="alert('합격자 발표 이후 이용이 가능합니다.')">MEMBER</span></a></li>
                             </ul> 
                         </nav>
@@ -103,7 +108,7 @@
                                             <input class="loginbtn" type="image" src="{% static 'img/로그인버튼.png' %}">
                                         </div>
                                     </form>
-                                    <a href="#"><span onclick="alert('합격자 발표 이후 이용이 가능합니다.')"><img class="signup" src="{% static 'img/회원가입버튼.png' %}"></img></span></a>
+                                    <a href="signup"><img class="signup" src="{% static 'img/회원가입버튼.png' %}"></img></a>
                                 </div>
                         </div>
                     </div>

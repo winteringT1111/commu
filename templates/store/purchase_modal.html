@@ -16,7 +16,7 @@
                     <div class="lastline">
                         <div class="quantity-spinner">
                             <button type="button" onclick="decreaseValue()">-</button>
-                            <input type="number" name="quantity" id="quantity" value="1" min="1" disabled>
+                            <input type="number" name="quantity" id="quantity" value="1" min="1" readonly>
                             <button type="button" onclick="increaseValue()">+</button>
                         </div>
     
@@ -71,15 +71,16 @@
         // 제출 버튼 클릭 이벤트
         $('#submitButton').on('click', function () {
             var totalPrice = parseInt(document.getElementById('modalTotalPrice').value, 10);
-            var userGaleon = parseInt('{{ user.galeon }}', 10); // 서버에서 user.galeon 값 가져오기
+            var userGaleon = parseInt('{{ user2.galeon }}', 10); // 서버에서 user.galeon 값 가져오기
 
             if (totalPrice > userGaleon) {
                 // popover 표시
                 $(this).popover('show');
+                console.log("no!!");
             } else {
                 // 폼 제출
                 $('#purchaseForm').submit();
-                console.log("submitted!!");
+                console.log(totalPrice > userGaleon);
                 // 모달 닫기
                 $('#exampleModal1').modal('hide');
             }
