@@ -1,13 +1,206 @@
-{% extends "base.html" %}
-{% load static %}
+    {% extends "base.html" %}
+    {% load static %}
 
-{% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/class/potion.css' %}">
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/class/potion.css' %}">
+    {% endblock %}
 
-{% endblock %}
+    {% block content %}
 
-{% block content %}
+    <div class="">
+    </div>
 
 
+    <div class="kettle_background">
+        <div class="select_background">
+            <div class="select_wrap">
+                <div class="select_content1" id="scontent">
+                </div>
+                <div class="select_content2" id="scontent">
+                </div>
+                <div class="select_content3" id="scontent">
+                </div>
+                <div class="select_content4" id="scontent">
+                </div>
+            </div>
+        </div>
+        <button class="reset_btn" id="initialize-btn">초기화</button>
+        <button type="button" class="make_btn">
+            조합하기
+        </button>
+    </div>
 
-{% endblock %}
+
+    <div class="content-wrapper">  
+        <button class="recipe_btn"></button>
+
+        <div class="recipe_box">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+                <ol class="carousel-indicators">
+                    {% for i in pages_items %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for items in pages_items %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="item_wrap">
+                                {% for item in items %}
+                                    <div class="item">
+                                        <p class="item_count">x{{item.itemCount}}</p>
+                                        <img src="{% static 'img/test_item/' %}{{ item.itemInfo.itemName }}.png">
+                                        <div class="item_description">
+                                            <p>{{ item.itemInfo.itemName }}</p>
+                                            <p class="category">{{ item.itemInfo.itemCategory }}</p>
+                                            <p class="item_info">{{ item.itemInfo.itemInfo }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            ...
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    <!-- Recipe book -->
+    <div class="book" id="recipeBook">
+        <button class="cancel_btn">취소</button>
+
+    </div>
+
+
+    <script>
+        // Get references to select content divs
+        const selectContentDivs = [
+            document.querySelector('.select_content1'),
+            document.querySelector('.select_content2'),
+            document.querySelector('.select_content4'),
+            document.querySelector('.select_content3')
+        ];
+        
+        let selectedItems = 0; // Track the number of selected items
+    
+        // Function to handle item clicks
+        function handleItemClick(item, itemImageSrc) {
+            if (selectedItems < 4 && item.dataset.itemCount > 0) { // Check if selection limit or count is exceeded
+                selectContentDivs[selectedItems].innerHTML = `<img src="${itemImageSrc}" />`; // Display image
+                item.dataset.itemCount--; // Decrease item count
+                item.querySelector('p').textContent = `x${item.dataset.itemCount}`; // Update displayed count
+                selectedItems++;
+            }
+        }
+    
+        // Add event listeners to each item in item_wrap
+        document.querySelectorAll('.item').forEach(item => {
+            const itemImageSrc = item.querySelector('img').src;
+            item.dataset.itemCount = item.querySelector('p').textContent.replace('x', ''); // Initialize item count
+            item.addEventListener('click', () => handleItemClick(item, itemImageSrc));
+        });
+    
+        // Initialize button functionality
+        document.getElementById('initialize-btn').addEventListener('click', () => {
+            selectContentDivs.forEach(div => div.innerHTML = ''); // Clear images
+            selectedItems = 0;
+            location.reload();
+        });
+    
+        // Function to show the recipe book
+        function showRecipeBook() {
+            const recipeBook = document.getElementById('recipeBook');
+            recipeBook.style.display = 'block'; // Show the recipe book
+            recipeBook.style.opacity = 0; // Start with zero opacity
+            let opacity = 0;
+    
+            // Fade in effect
+            const fadeInInterval = setInterval(() => {
+                if (opacity < 1) {
+                    opacity += 0.05;
+                    recipeBook.style.opacity = opacity;
+                } else {
+                    clearInterval(fadeInInterval);
+                }
+            }, 20);
+        }
+    
+        // Function to hide the recipe book
+        function hideRecipeBook() {
+            const recipeBook = document.getElementById('recipeBook');
+            recipeBook.style.opacity = 1; // Start with full opacity
+            let opacity = 1;
+    
+            // Fade out effect
+            const fadeOutInterval = setInterval(() => {
+                if (opacity > 0) {
+                    opacity -= 0.05;
+                    recipeBook.style.opacity = opacity;
+                } else {
+                    recipeBook.style.display = 'none'; // Hide the recipe book after fading out
+                    clearInterval(fadeOutInterval);
+                }
+            }, 20);
+        }
+    
+        // Show the recipe book on button click
+        document.querySelector('.recipe_btn').addEventListener('click', showRecipeBook);
+    
+        // Hide the recipe book on cancel button click
+        document.querySelector('.cancel_btn').addEventListener('click', hideRecipeBook);
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            const makeBtn = document.querySelector('.make_btn');
+            const selectContent2 = document.querySelector('.select_content2');
+    
+            // Initialize Bootstrap popover on makeBtn
+            $(makeBtn).popover({
+                container: 'body',
+                placement: 'top',
+                trigger: 'manual',
+                content: '최소 2개의 아이템을 조합해주세요.'
+            });
+    
+            makeBtn.addEventListener('click', () => {
+                if (selectContent2.innerHTML.trim() === '') {
+                    // Show popover if no item is selected in .select_content2
+                    $(makeBtn).popover('show');
+                    setTimeout(() => $(makeBtn).popover('hide'), 2000); // Hide popover after 2 seconds
+                } else {
+                    // Show modal if item is selected in .select_content2
+                    $('#staticBackdrop').modal('show');
+                }
+            });
+        });
+    </script>
+    
+    {% endblock %}

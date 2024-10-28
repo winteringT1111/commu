@@ -6,6 +6,6 @@ app_name = 'users'
 
 urlpatterns = [
     path('/', views.login, name='users_login'),
-    #path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    #path('signup/', views.signup, name='users_signup'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('signup/', views.signup, name='users_signup'),
 ]   

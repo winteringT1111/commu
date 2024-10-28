@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from member.models import Characters, Inventory
 from django.contrib.auth.decorators import login_required
-# Create your views here.
+
 
 
 @login_required(login_url='/')

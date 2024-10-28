@@ -30,15 +30,7 @@ class Characters(models.Model):
         db_table = "character"
         
         
-class Inventory(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    itemInfo = models.ForeignKey(itemModels.Item, on_delete=models.CASCADE)
-    itemCount = models.IntegerField()
 
-    class Meta:
-        db_table = "inventory"
-        
-        
 class Purchase(models.Model):
     purchaseID = models.IntegerField(primary_key=True)  
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) 
@@ -49,4 +41,22 @@ class Purchase(models.Model):
     class Meta:
         db_table = "purchase"
         
+      
         
+class Inventory(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    itemInfo = models.ForeignKey(itemModels.Item, on_delete=models.CASCADE)
+    itemCount = models.IntegerField()
+
+    class Meta:
+        db_table = "inventory"
+        
+        
+class Inventory_magic(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    itemInfo = models.ForeignKey(itemModels.Item_magic, on_delete=models.CASCADE)
+    itemCount = models.IntegerField()
+
+    class Meta:
+        db_table = "inventory_magic"
+          

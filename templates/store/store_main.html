@@ -27,10 +27,10 @@
                             {% for item in page1_row1 %}
                             <div class="card" id="card_wrap">
                                 <div class="item-image-area">
-                                    <img src="{% static 'img/' %}{{ item.itemImage|escapejs }}.png" class="card-img-top" id="item-image">
+                                    <img src="{% static 'img/store/' %}{{ item.itemImage|escapejs }}.png" class="card-img-top" id="item-image">
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-title" id="card_name" onclick="updateItemSpec('{{ item.itemName|escapejs }}', '{{ item.itemCategory|escapejs }}', '{{ item.itemInfo|escapejs }}', '{{ item.itemPrice }}')">{{item.itemName}}</p>
+                                    <p class="card-title" id="card_name" onclick="updateItemSpec('{{ item.itemName|escapejs }}', '{{ item.itemCategory|escapejs }}', '{{ item.itemInfo|escapejs }}', '{{ item.itemPrice }}', '{{ item.itemImage|escapejs }}')">{{item.itemName}}</p>
                                 </div>
                             </div>
                             {% endfor %}
@@ -40,10 +40,10 @@
                             {% for item in page1_row2 %}
                             <div class="card" id="card_wrap">
                                 <div class="item-image-area">
-                                    <img src="{% static 'img/' %}{{ item.itemImage|escapejs }}.png" class="card-img-top" id="item-image">
+                                    <img src="{% static 'img/store/' %}{{ item.itemImage|escapejs }}.png" class="card-img-top" id="item-image">
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-title" id="card_name" onclick="updateItemSpec('{{ item.itemName|escapejs }}', '{{ item.itemCategory|escapejs }}', '{{ item.itemInfo|escapejs }}', '{{ item.itemPrice }}')">{{item.itemName}}</p>
+                                    <p class="card-title" id="card_name" onclick="updateItemSpec('{{ item.itemName|escapejs }}', '{{ item.itemCategory|escapejs }}', '{{ item.itemInfo|escapejs }}', '{{ item.itemPrice }}', '{{ item.itemImage|escapejs }}')">{{item.itemName}}</p>
                                 </div>
                             </div>
                             {% endfor %}
@@ -58,10 +58,10 @@
                             {% for item in page2_row1 %}
                             <div class="card" id="card_wrap">
                                 <div class="item-image-area">
-                                    <img src="{% static 'img/' %}{{ item.itemImage|escapejs }}.png" class="card-img-top" id="item-image">
+                                    <img src="{% static 'img/store/' %}{{ item.itemImage|escapejs }}.png" class="card-img-top" id="item-image">
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-title" id="card_name" onclick="updateItemSpec('{{ item.itemName|escapejs }}', '{{ item.itemCategory|escapejs }}', '{{ item.itemInfo|escapejs }}', '{{ item.itemPrice }}')">{{item.itemName}}</p>
+                                    <p class="card-title" id="card_name" onclick="updateItemSpec('{{ item.itemName|escapejs }}', '{{ item.itemCategory|escapejs }}', '{{ item.itemInfo|escapejs }}', '{{ item.itemPrice }}', '{{ item.itemImage|escapejs }}')">{{item.itemName}}</p>
                                 </div>
                             </div>
                             {% endfor %}
@@ -71,10 +71,10 @@
                             {% for item in page2_row2 %}
                             <div class="card" id="card_wrap">
                                 <div class="item-image-area">
-                                    <img src="{% static 'img/' %}{{ item.itemImage|escapejs }}.png" class="card-img-top" id="item-image">
+                                    <img src="{% static 'img/store/' %}{{ item.itemImage|escapejs }}.png" class="card-img-top" id="item-image">
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-title" id="card_name" onclick="updateItemSpec('{{ item.itemName|escapejs }}', '{{ item.itemCategory|escapejs }}', '{{ item.itemInfo|escapejs }}', '{{ item.itemPrice }}')">{{item.itemName}}</p>
+                                    <p class="card-title" id="card_name" onclick="updateItemSpec('{{ item.itemName|escapejs }}', '{{ item.itemCategory|escapejs }}', '{{ item.itemInfo|escapejs }}', '{{ item.itemPrice }}', '{{ item.itemImage|escapejs }}')">{{item.itemName}}</p>
                                 </div>
                             </div>
                             {% endfor %}
@@ -99,7 +99,7 @@
         <div class="item-spec-content">
             <div class="spec-image">
                 <div class="spec-image-content">
-                    <img src={% static "img/초코.png" %}>
+                    <img id="spec_image" src={% static "img/store/선물상자.png" %}>
                 </div>
             </div>
             <div class="spec-info">
@@ -137,13 +137,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
 <script>
-    function updateItemSpec(name, category, info, price) {
+    function updateItemSpec(name, category, info, price, imagePath) {
         // 아이템 정보를 업데이트하는 함수
         document.getElementById('spec_name').textContent = name;
         document.getElementById('item_category').textContent = category;
         document.getElementById('information').textContent = info;
         document.getElementById('item_price').textContent = price;
-    }
+        document.getElementById('spec_image').src = `{% static 'img/store/' %}${imagePath}.png`;    }
 
     document.querySelector('img[src="{% static "img/카트.png" %}"]').addEventListener('click', function() {
       // spec_name에서 텍스트를 가져와서 모달의 제목으로 설정

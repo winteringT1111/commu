@@ -9,6 +9,6 @@ urlpatterns = [
     path('world', views.world, name='world'),
     path('system', views.system, name='system'),
     path('system/total', views.totalsystem, name='totalsystem'),
-    #path('attendance/', views.attendance, name='attendance'),
-    #path('class/potion/', views.attendance, name='potion'),
+    path('attendance/', views.attendance, name='attendance'),
+    path('class/potion/', views.potion, name='potion'),
 ]
