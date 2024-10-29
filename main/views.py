@@ -7,6 +7,9 @@ from datetime import datetime
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+import json
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 # Create your views here.
 
 
@@ -52,6 +55,9 @@ def attendance(request):
     return render(request, "class/attendance.html",context)
 
 
+
+
+
 # 마법의 약
 @login_required(login_url='/')
 def potion(request):
@@ -61,8 +67,31 @@ def potion(request):
     # 페이지 번호를 가져오기
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
-
+    
     # 각 페이지의 아이템 목록을 생성
     pages_items = [paginator.page(i).object_list for i in paginator.page_range]
 
     return render(request, "class/potion.html", {"page_obj": page_obj, "pages_items": pages_items})
+
+
+@login_required(login_url='/')
+@require_POST
+def check_combination(request):
+    try:
+        data = json.loads(request.body)
+        selected_items = data.get('selected_items', [])
+
+        if set(selected_items) == {"정어리", "밀가루", "버터", "설탕"}:
+            result = "success"
+            image = "img/test_item/정어리 파이.png"
+        else:
+            result = "failure"
+            image = "img/test_item/빈 물약(꽝).png"
+            
+        char = CharInfo.objects.get(user=request.user)
+        char.classToken -= 1
+        char.save()
+
+        return JsonResponse({'result': result, 'image': f"{image}"})
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON data'}, status=400)

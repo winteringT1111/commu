@@ -76,18 +76,34 @@
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-            ...
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Understood</button>
+            <div class="modal-body" id="body_content">
+                <form method="post" id="purchaseForm">
+                    {% csrf_token %}
+
+                    <h5 id="modalTitle">Magical Potion</h5>
+
+                    <div class="selected_box">
+                        <p>선택한 아이템</p>
+                        <div class="selected"></div>
+                    </div>
+                   
+                    <div class="selected_image_box">
+                        <div class="selected_image">
+                        </div>
+                    </div>
+
+                    <div class="modal_info">
+                        <p><span><img src={% static "img/star.png" %}></img></span>위 재료들을 조합하시겠습니까?</p>
+                        <p>(조합에 사용된 아이템 및 1 수업 토큰이 소모됩니다.)</p>
+                    </div>
+
+                    <div class="modal_btns">
+                        <button type="button" data-dismiss="modal">취소</button>
+                        <button type="button" id="submitButton" data-toggle="popover" data-placement="top" data-content="수업 토큰이 부족합니다.">
+                            조합
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
         </div>
@@ -100,6 +116,23 @@
 
     </div>
 
+    <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" id="secondmodal">
+                <h5 class="modal-title" id="resultModalTitle">조합 결과</h5>
+
+                <div class="modal-image" id="resultModalImage">
+
+                </div>
+                <div class="modal-body" id="resultModalBody">
+                    정어리 파이를 획득했습니다!
+                </div>
+                
+                <button type="button" class="xbtn" id="xbtn" data-dismiss="modal">x</button>
+            </div>
+        </div>
+    </div>
+    
 
     <script>
         // Get references to select content divs
@@ -114,11 +147,24 @@
     
         // Function to handle item clicks
         function handleItemClick(item, itemImageSrc) {
-            if (selectedItems < 4 && item.dataset.itemCount > 0) { // Check if selection limit or count is exceeded
-                selectContentDivs[selectedItems].innerHTML = `<img src="${itemImageSrc}" />`; // Display image
-                item.dataset.itemCount--; // Decrease item count
-                item.querySelector('p').textContent = `x${item.dataset.itemCount}`; // Update displayed count
+            if (selectedItems < 4 && item.dataset.itemCount > 0) {
+                // Display image in select_content divs
+                selectContentDivs[selectedItems].innerHTML = `<img src="${itemImageSrc}" />`;
+        
+                // Reduce item count
+                item.dataset.itemCount--;
+                item.querySelector('p').textContent = `x${item.dataset.itemCount}`;
                 selectedItems++;
+        
+                // Update modal with selected item details
+                const selectedNames = document.querySelector('.selected');
+                const selectedImages = document.querySelector('.selected_image');
+        
+                // Add item name and image to the modal
+                const itemName = item.querySelector('.item_description p').textContent;
+                const itemImage = `<img src="${itemImageSrc}" />`;
+                selectedNames.innerHTML += `<span>${itemName}</span>`;
+                selectedImages.innerHTML += `<span>${itemImage}</span>`;
             }
         }
     
@@ -131,11 +177,16 @@
     
         // Initialize button functionality
         document.getElementById('initialize-btn').addEventListener('click', () => {
-            selectContentDivs.forEach(div => div.innerHTML = ''); // Clear images
+            selectContentDivs.forEach(div => div.innerHTML = '');
             selectedItems = 0;
+            
+            // Clear modal contents
+            document.querySelector('.selected').innerHTML = '';
+            document.querySelector('.selected_image').innerHTML = '';
+        
             location.reload();
         });
-    
+
         // Function to show the recipe book
         function showRecipeBook() {
             const recipeBook = document.getElementById('recipeBook');
@@ -201,6 +252,53 @@
                 }
             });
         });
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const submitButton = document.getElementById('submitButton');
+        
+            submitButton.addEventListener('click', () => {
+                const selectedItems = Array.from(document.querySelectorAll('.selected span')).map(span => span.textContent);
+        
+                fetch("{% url 'main:check_combination' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({ selected_items: selectedItems }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    $('#staticBackdrop').modal('hide'); // Hide the initial modal
+        
+                    // Update result modal content based on the combination result
+                    const resultModalTitle = document.getElementById("resultModalTitle");
+                    const resultModalBody = document.getElementById("resultModalBody");
+                    const resultModalImage = document.getElementById("resultModalImage");
+        
+                    if (data.result === "success") {
+                        resultModalTitle.textContent = "조합 성공!";
+                        resultModalBody.textContent = "정어리 파이를 획득했습니다!";
+                        resultModalImage.innerHTML = `<img src="/static/${data.image}" alt="Result Image">`;
+                    } else {
+                        resultModalTitle.textContent = "Better luck next time!";
+                        resultModalBody.textContent = "사용한 마법 재료가 전부 소진되었습니다.";
+                        resultModalImage.innerHTML = `<img src="/static/${data.image}" alt="Result Image">`;
+                    }
+                    $('#resultModal').modal('show');
+                })
+                .catch(error => console.error("Error:", error));
+            });
+        });
+
+
+        document.getElementById('xbtn').addEventListener('click', () => {
+
+            location.reload();
+        });
+        
     </script>
     
     {% endblock %}

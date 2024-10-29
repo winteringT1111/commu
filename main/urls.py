@@ -11,4 +11,5 @@ urlpatterns = [
     path('system/total', views.totalsystem, name='totalsystem'),
     path('attendance/', views.attendance, name='attendance'),
     path('class/potion/', views.potion, name='potion'),
+    path('check_combination/', views.check_combination, name='check_combination'),
 ]
