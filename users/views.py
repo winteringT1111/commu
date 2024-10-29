@@ -3,8 +3,9 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from member.models import Characters
 from users.models import CharInfo
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+
 
 def signup(request):
     all_char_ids = Characters.objects.values_list('charID', flat=True)
@@ -19,7 +20,7 @@ def signup(request):
             user = request.user
             char = CharInfo(user=user,
                             char=Characters.objects.get(charID=charcode),
-                            galeon=0,
+                            galeon=5,
                             classToken=0,
                             searchDone=0,
                             searchCount=0,

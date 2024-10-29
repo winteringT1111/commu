@@ -6,7 +6,9 @@ from django.utils import timezone
 from datetime import datetime
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+
 
 def main_page(request):
     return render(request, "main.html")
@@ -28,6 +30,7 @@ def totalsystem(request):
 
 
 # 출석
+@login_required(login_url='/')
 def attendance(request):
     getUser = request.user
     char = CharInfo.objects.get(user=getUser)
@@ -50,6 +53,7 @@ def attendance(request):
 
 
 # 마법의 약
+@login_required(login_url='/')
 def potion(request):
     inven = Inventory_magic.objects.filter(user_id=request.user)
     paginator = Paginator(inven, 16)  # 한 페이지에 3개의 아이템
