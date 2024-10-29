@@ -130,10 +130,10 @@ CSRF_TRUSTED_ORIGINS = ['https://winteringtheory.site']
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # This is where your custom static files are stored
+    os.path.join(BASE_DIR, 'static'), 
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # This is where `collectstatic` will store collected files
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
