@@ -45,7 +45,7 @@
                             <li><a class="navhover" href="/notice">NOTICE</a></li>
                             <li><a class="navhover" href="/world">WORLD</a></li>
                             <li><a class="navhover" href="/system">SYSTEM</a></li>
-                            <li><a class="navhover" href="/store">STORE</a></li>
+                            <li><a class="navhover" href="#"><span onclick="alert('합격자 발표 이후 이용이 가능합니다.')">STORE</span></a></li>
                             <li><a class="navhover" href="#"><span onclick="alert('합격자 발표 이후 이용이 가능합니다.')">MEMBER</span></a></li>
                             </ul> 
                         </nav>
@@ -105,7 +105,7 @@
                                                     <input placeholder="비밀번호" type="text" name="password" id="password">
                                                   </div>
                                             </div>
-                                            <input class="loginbtn" type="image" src="{% static 'img/로그인버튼.png' %}">
+                                            <span onclick="alert('합격자 발표 이후 이용이 가능합니다.')"><input class="loginbtn" type="image" src="{% static 'img/로그인버튼.png' %}"></span>
                                         </div>
                                     </form>
                                     <a href="/signup"><img class="signup" src="{% static 'img/회원가입버튼.png' %}"></img></a>
@@ -124,7 +124,7 @@
     
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                const targetDate = new Date("2024-10-30T23:59:59"); // 목표 날짜 설정 (예: 2024년 12월 31일)
+                const targetDate = new Date("2024-11-06T23:59:59"); // 목표 날짜 설정 (예: 2024년 12월 31일)
                 const countdownElement = document.getElementById('countdown');
         
                 function updateCountdown() {
@@ -139,7 +139,7 @@
                     if (distance < 0) {
                         countdownElement.textContent = "신청서 접수가 시작되었습니다."; // 마감일 지나면 메시지 변경
                     } else {
-                        countdownElement.textContent = `신청서 접수 시작까지 D-${days} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; // 남은 일수 및 시간 표시
+                        countdownElement.textContent = `신청서 접수 마감까지 D-${days} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; // 남은 일수 및 시간 표시
                     }
                 }
         
