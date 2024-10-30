@@ -7,19 +7,24 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
+
 def signup(request):
-    all_char_ids = Characters.objects.values_list('charID', flat=True)
-    print(all_char_ids)
+    names=[]
+    all_charac = Characters.objects.values_list('charEngName', flat=True)
+
+    for fullname in all_charac:
+        names.append(fullname.split()[0])
+    print(names)
+
     if request.method == "POST":
-        charcode = request.POST['charCode']
-        print(charcode)
-        if request.POST['password1']==request.POST['password2'] and charcode in all_char_ids:
+        commucode = request.POST['commucode']
+        if request.POST['password1']==request.POST['password2'] and commucode == "WT" and request.POST['username'].lower() in names:
             Newuser = User.objects.create_user(request.POST['username'], password=request.POST['password1'])            
             auth.login(request,Newuser)
             
             user = request.user
             char = CharInfo(user=user,
-                            char=Characters.objects.get(charID=charcode),
+                            char=Characters.objects.get(charEngName=request.POST['username']),
                             galeon=5,
                             classToken=0,
                             searchDone=0,

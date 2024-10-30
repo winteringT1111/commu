@@ -49,7 +49,7 @@
 }
 
 /* 구매버튼 */
-#submitButton {
+#liveToastBtn {
     width: 75px;
     height: 37px;
     background-color: #f7ebdb;

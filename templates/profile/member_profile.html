@@ -19,9 +19,9 @@
 
     <div class="inven">
         <button class="infobtn" onclick="show1grade()">1학년</button>
-        <button class="infobtn">4학년</button>
+        <!--<button class="infobtn">4학년</button>
         <button class="infobtn">7학년</button>
-        <button class="infobtn">성인</button>
+        <button class="infobtn">성인</button>-->
         <button class="infobtn" onclick="showInventory()">인벤토리</button>
     </div>
 </div>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="phrase">
-            <p>" {{char.charPhrase}} "</p>
+            <p><span>"  </span> {{char.charPhrase}} <span>  "</span></p>
         </div>
         <div class="spec_wrap">
             <div class="spec_content">
@@ -61,16 +61,15 @@
 
     <div class="button_content">
         <div class="button_wrap">
-            <button class="infobtn" onclick="showImgInfo()">외관</button>
             <button class="infobtn" onclick="showProfile()">기본 정보</button>
+            {% if char.charCommission  or char.charImageInfo %}
+            <button class="infobtn" onclick="showImgInfo()">외관</button>
+            {% endif %}
             <button class="infobtn" onclick="showEtc()">상세 정보</button>
             <button class="infobtn" onclick="showWand()">지팡이</button>
         </div>
     </div>
 
-    <div class="imgInfo_content hidden" id="imgInfo_section">
-        외관 설명 들어가는 란
-    </div>
 
     <div class="personality_content" id="personality_section">
         <div class="personality_wrap">
@@ -82,6 +81,21 @@
             <hr/>
             <div class="info_scrollbox">
                 {{char.charPersonality|linebreaksbr|safe}}
+            </div>
+            <hr/>
+        </div>
+    </div>
+
+    <div class="imgInfo_content hidden" id="imgInfo_section">
+        <div class="personality_wrap">
+            <div class="imgInfo_header">
+                {% if char.charCommission %}
+                <button class="keywordbtn">Commission @{{char.charCommission}}</button>
+                {% endif %}
+            </div>
+            <hr/>
+            <div class="info_scrollbox">
+                {{char.charImageInfo|linebreaksbr|safe}}
             </div>
             <hr/>
         </div>

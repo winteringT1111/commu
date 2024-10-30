@@ -55,6 +55,10 @@ def attendance(request):
     return render(request, "class/attendance.html",context)
 
 
+    
+# 수업 페이지
+def class_main(request):
+    return render(request, "class/class_main.html")
 
 
 
@@ -95,3 +99,14 @@ def check_combination(request):
         return JsonResponse({'result': result, 'image': f"{image}"})
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+
+
+# 약초학
+def herb(request):
+    return render(request, "class/herb.html")
+
+    
+# 변신술
+def shifter(request):
+    return render(request, "class/shifter.html")
+

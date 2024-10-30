@@ -28,20 +28,28 @@
     width: 780px;
     height: 100vh;
     background: url("../../img/프로필_오른박스.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     box-shadow: 5px 5px 5px 13px rgba(0, 0, 0, 0.2);
     justify-content: center; 
-    position: relative;
+    position: fixed;
+    right: 0;
     isolation: isolate;
+    font-family: "Hahmlet", serif;
 }
 
 .inventory_wrap {
     width: 780px;
     height: 100vh;
     background: url("../../img/프로필_오른박스.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     box-shadow: 5px 5px 5px 13px rgba(0, 0, 0, 0.2);
     justify-content: center; 
-    position: relative;
+    position: fixed;
+    right: 0;
     isolation: isolate;
+    font-family: "Hahmlet", serif;
 }
 
 
@@ -55,7 +63,7 @@
 .inven {
     position: absolute; 
     top: 30px; /* 상단에서의 거리 */
-    right: 10px; /* 오른쪽에서의 거리 */
+    right: 0px; /* 오른쪽에서의 거리 */
     z-index: 1; /* 다른 콘텐츠 위로 배치 */
     display: flex;
     flex-direction: column; /* 버튼을 수직으로 나열 */
@@ -75,7 +83,7 @@
 .catchphrase {
     width: 100%;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     margin-top: 24px;
 }
 
@@ -95,17 +103,18 @@
 /* 영어이름 */
 .name1 {
     text-align: center;
-    height: 86px;
-    line-height: 86px;
+    height: 96px;
+    line-height: 96px;
     margin: 0px;
-    font-size: 33px;
+    font-size: 35px;
     font-weight: bold;
-
+    font-family: "Arima", system-ui;
+    color: #2e325e;
 }
 /* 한국이름 */
 .name2 {
     height: 24px;
-    margin: 0px 40px 0px 0px;
+    margin: -12px 40px 0px 0px;
     line-height: 24px;
     text-align: right;
 
@@ -115,12 +124,16 @@
     height: 65px;
     line-height: 90px;
     text-align: center;
-    font-size: 18px;
+    font-size: 20px;
     font-style: italic;
 }
 
 .phrase p {
     margin: 0px;
+}
+
+.phrase p span {
+    font-size: 30px;
 }
 
 .spec_wrap {
@@ -146,7 +159,7 @@
     width: 100%;
     height: 45px;
     border-radius: 7px;
-    background-image: linear-gradient(to left, transparent, rgb(65, 87, 107) 20%)
+    background-image: linear-gradient(to left, transparent, rgb(75, 83, 112) 20%)
 }
 
 .info_line_content p {
@@ -166,23 +179,26 @@
 
 .button_wrap {
     text-align: right;
-    margin: 20px 30px 0px 0px;
+    margin: 10px 30px 0px 0px;
 }
 
 /* 프로필 버튼들 */
 .infobtn {
-    width: 95px;
+    width: 85px;
     height: 30px;
-    border-width: 0;
-    border-radius: 15px;
-    color: white;
-    background-color: rgb(125, 149, 170);
+    padding-bottom: 10px;
+    margin: 0px 5px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid rgb(162, 162, 162);
+    color: rgb(44, 52, 73);
 }
 
 .infobtn:hover {
     transition-duration: 0.3s;
     color: rgb(125, 149, 170);
-    background-color: rgb(221, 225, 230);
+    border-bottom: 2px solid rgb(44, 52, 73);
+
 }
 
 
@@ -203,14 +219,15 @@
 
 .keywords {
     text-align: center;
-    margin-top: 45px;
+    margin-top: 35px;
     margin-bottom: 15px;
 }
 
 .keywordbtn {
     background-color: transparent;
-    padding: 5px 15px;
-    border: solid 3px #2b3d63;
+    padding: 3px 15px;
+    margin: 0px 5px;
+    border: solid 3px #31395b;
     border-radius: 18px;
 }
 
@@ -223,7 +240,8 @@ hr {
 
 .info_scrollbox {
     width: 100%;
-    height: 270px;
+    height: 330px;
+    font-size: large;
     overflow-y: auto;
 }
 
@@ -231,7 +249,7 @@ hr {
     width: 12px;
 }
 .info_scrollbox::-webkit-scrollbar-thumb {
-    background-color: #3f4a61;
+    background-color: #434c72;
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;
@@ -252,6 +270,24 @@ hr {
     display: flex;
     justify-content: center;
 }
+
+.imgInfo_header {
+    text-align: right;
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+
+.keywordbtn {
+    background-color: transparent;
+    padding: 3px 15px;
+    margin: 0px 5px;
+    border: solid 3px #31395b;
+    border-radius: 18px;
+}
+
+
+
+
 
 
 /* 기타란 */
@@ -276,7 +312,10 @@ hr {
 
 /* 음악란 */
 .music_content {
-    height: 10vh;
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
 }

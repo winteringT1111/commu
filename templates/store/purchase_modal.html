@@ -1,3 +1,4 @@
+{% load static %}
 <!-- Modal -->
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered mw-100 w-75">
@@ -22,7 +23,7 @@
     
                         <input type="hidden" id="modalTotalPrice" name="totalPrice" value="10" readonly>
     
-                        <button type="button" id="submitButton" data-toggle="popover" data-placement="top" data-content="갈레온이 부족합니다.">
+                        <button type="button" id="liveToastBtn" data-toggle="popover" data-placement="top" data-content="갈레온이 부족합니다.">
                             구매
                         </button>
                     </div>
@@ -33,6 +34,7 @@
         </div>
     </div>
 </div>
+
 
 <script>
     function updateTotalPrice() {
@@ -69,7 +71,7 @@
         });
 
         // 제출 버튼 클릭 이벤트
-        $('#submitButton').on('click', function () {
+        $('#liveToastBtn').on('click', function () {
             var totalPrice = parseInt(document.getElementById('modalTotalPrice').value, 10);
             var userGaleon = parseInt('{{ user2.galeon }}', 10); // 서버에서 user.galeon 값 가져오기
 
@@ -85,6 +87,7 @@
                 $('#exampleModal1').modal('hide');
             }
         });
+        
 
         // popover 초기화
         $('[data-toggle="popover"]').popover({
