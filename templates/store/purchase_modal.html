@@ -2,13 +2,12 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered mw-100 w-75">
-        <div class="modal-content">
+        <div class="modal-content" id="pm">
             <div class="modal-body">    
 
                 <form method="post" id="purchaseForm">
                     {% csrf_token %}
                     <input class="hidden" value="" type="text" name="itemName" id="itemName">
-
                     <h5 id="modalTitle">title</h5>
                     <h5 id="modalTitleEng">Howler</h5>
 

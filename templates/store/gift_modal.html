@@ -1,36 +1,107 @@
-  <!-- Modal -->
+{% load static %}
+ <!-- Modal -->
   <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title2</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
+      <div class="modal-content" id="gm">
         <div class="modal-body">
-            <form method="post">
-                {% csrf_token %}
-                <div class="inputarea">
-                    <div class="inputbox">
-                        <label>아이디</label>
-                        <input placeholder="아이디" type="text" name="username" id="username">
-                        <label>비밀번호</label>
-                        <input placeholder="비밀번호" type="text" name="password1" id="password1">
-                        <label>비밀번호 확인</label>
-                        <input placeholder="비밀번호 확인" type="text" name="password2" id="password2">
-                        <label>캐릭터 코드</label>
-                        <input placeholder="캐릭터 코드" type="text" name="charCode" id="charCode">
-                    </div>
 
-                    <button class="loginbtn" type="submit">LOGIN</button>
+          <form method="post" id="giftForm">
+            {% csrf_token %}
+            <input class="hidden" value="" type="text" name="itemName2" id="itemName2">
+            <h5 id="modalTitle2">title</h5>
+            <h5 id="modalTitleEng2">Howler</h5>
+
+            <div class="priceline2"><h5 id="modalPrice2">10</h5><h5>G</h5></div>
+
+            <div class="lastline2">
+                <div class="quantity-spinner2">
+                    <button type="button" onclick="decreaseValue2()">-</button>
+                    <input type="number" name="quantity2" id="quantity2" value="1" min="1" readonly>
+                    <button type="button" onclick="increaseValue2()">+</button>
                 </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+
+                <input type="hidden" id="modalTotalPrice2" name="totalPrice2" value="10" readonly>
+
+                <button type="button" id="liveToastBtn2" data-toggle="popover" data-placement="top" data-content="갈레온이 부족합니다.">
+                    구매
+                </button>
+            </div>
+            
+          </form>
+
         </div>
       </div>
     </div>
   </div>
+
+
+
+  
+
+<script>
+  function updateTotalPrice2() {
+      var quantity = parseInt(document.getElementById('quantity2').value, 10);
+      var price = parseInt(document.getElementById('modalPrice2').textContent, 10);
+      var totalPrice = quantity * price;
+
+      // 총 가격을 input 요소에 업데이트
+      document.getElementById('modalTotalPrice2').value = totalPrice;
+  }
+
+  function increaseValue2() {
+      var value = parseInt(document.getElementById('quantity2').value, 10);
+      value = isNaN(value) ? 1 : value;
+      value++;
+      document.getElementById('quantity2').value = value;
+      updateTotalPric2e();  // 개수를 올릴 때 총 가격 업데이트
+  }
+
+  function decreaseValue2() {
+      var value = parseInt(document.getElementById('quantity2').value, 10);
+      value = isNaN(value) ? 1 : value;
+      value = value > 1 ? value - 1 : 1; // 최소 값 1
+      document.getElementById('quantity2').value = value;
+      updateTotalPrice2();  // 개수를 내릴 때 총 가격 업데이트
+  }
+
+
+  // 모달이 열릴 때 기본값으로 초기화
+  $(document).ready(function () {
+      $('#exampleModal2').on('show.bs.modal', function () {
+          document.getElementById('quantity2').value = 1;
+          var initialPrice = document.getElementById('modalPrice2').textContent;
+          document.getElementById('modalTotalPrice2').value = initialPrice;
+      });
+      
+
+      // 제출 버튼 클릭 이벤트
+      $('#liveToastBtn2').on('click', function () {
+          var totalPrice = parseInt(document.getElementById('modalTotalPrice2').value, 10);
+          var userGaleon = parseInt('{{ user2.galeon }}', 10); // 서버에서 user.galeon 값 가져오기
+
+          if (totalPrice > userGaleon) {
+              // popover 표시
+              $(this).popover('show');
+          } else {
+              // 폼 제출
+              $('#giftForm').submit();
+              console.log(totalPrice > userGaleon);
+              // 모달 닫기
+              $('#exampleModal2').modal('hide');
+          }
+      });
+      
+
+      // popover 초기화
+      $('[data-toggle="popover"]').popover({
+          trigger: 'manual', // manual trigger
+          animation: true,
+          delay: { "show": 500, "hide": 100 }
+      });
+
+      // popover 숨기기
+      $('[data-toggle="popover"]').on('mouseleave', function () {
+          $(this).popover('hide');
+      });
+  });
+</script>

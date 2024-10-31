@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="{% static 'css/store/store.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/store/purchase_modal.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/store/gift_modal.css' %}">
 <link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -153,6 +154,19 @@
       document.getElementById('modalPrice').textContent = itemPrice;
       // input 요소의 value 속성에 itemName 값을 설정
       document.getElementById('itemName').value = itemName;
+
+      
+  });
+
+  document.querySelector('img[src="{% static "img/선물.png" %}"]').addEventListener('click', function() {
+      // spec_name에서 텍스트를 가져와서 모달의 제목으로 설정
+      var itemName = document.getElementById('spec_name').textContent;
+      var itemPrice = document.getElementById('item_price').textContent;
+
+      document.getElementById('modalTitle2').textContent = itemName;
+      document.getElementById('modalPrice2').textContent = itemPrice;
+      // input 요소의 value 속성에 itemName 값을 설정
+      document.getElementById('itemName2').value = itemName;
   });
 
 </script>

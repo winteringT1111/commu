@@ -1,18 +1,25 @@
-#pm {
+#gm {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 641px;
-    height: 281px;
-    background: url("../../img/purchase_modal.png");
-    background-size: contain;
+    width: 910px;
+    height: 759px;
+    background: url("../../img/gift_modal.png");
+    background-size: cover;
+    background-repeat: no-repeat;
     border: none;
     user-select: none;
     filter: drop-shadow(8px 8px 8px #232425);
 }
 
-.quantity-spinner {
+#giftForm {
+    width: 910px;
+    height: 759px;
+    user-select: none;
+}
+
+.quantity-spinner2 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,7 +27,7 @@
 }
 
 /* 수량 칸 */
-.quantity-spinner input {
+.quantity-spinner2 input {
     width: 150px;
     height: 37px;
     background-color: #f7ebdb;
@@ -33,7 +40,7 @@
 }
 
 /* +- 버튼 */
-.quantity-spinner button {
+.quantity-spinner2 button {
     background-color: #938980;
     width: 30px;
     height: 30px;
@@ -49,7 +56,7 @@
 }
 
 /* 구매버튼 */
-#liveToastBtn {
+#liveToastBtn2 {
     width: 75px;
     height: 37px;
     background-color: #f7ebdb;
@@ -60,7 +67,7 @@
     margin-left: 20px;
 }
 
-.lastline {
+.lastline2 {
     position: absolute;
     bottom: 10%;
     left: 50%;
@@ -68,37 +75,37 @@
     display: flex;
 }
 
-.priceline {
+.priceline2 {
     display: flex;
 }
 
 
-#modalTitle, #modalTitleEng {
+#modalTitle2, #modalTitleEng2 {
     width: 100%; /* Make sure the titles take up the full width of their container */
     margin: 0 auto; /* Centering the titles */
     text-align: center;
     color: #B0B8CB;
 }
 
-#modalTitle {
+#modalTitle2 {
     margin-top: 20px;
     font-size: 30px;
     font-family: "Hahmlet", serif;
 }
 
-#modalTitleEng {
+#modalTitleEng2 {
     font-size: 55px;
     font-family: "Oleo Script", system-ui;
     font-style: normal;
     margin-top: -5px;
 }
 
-.priceline {
+.priceline2 {
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    bottom: 21%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #3d352c;
@@ -110,7 +117,7 @@
     background-repeat: no-repeat;
 }
 
-.priceline h5 {
+.priceline2 h5 {
     font-size: 32px;
     font-weight: 700;
     margin: 0px 0px 9px; /* Removes any default margin that may be affecting alignment */

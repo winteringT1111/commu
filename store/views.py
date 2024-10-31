@@ -53,7 +53,7 @@ def store_main(request):
         item = Item.objects.get(itemName=name)
         
         if item.itemID in all_items:
-            update_item = Inventory.objects.get(itemInfo=item)
+            update_item = Inventory.objects.get(itemInfo=item, user=getUser)
             update_item.itemCount += count
             update_item.save()
         else:

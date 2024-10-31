@@ -13,7 +13,7 @@ def signup(request):
     all_charac = Characters.objects.values_list('charEngName', flat=True)
 
     for fullname in all_charac:
-        names.append(fullname.split()[0])
+        names.append(fullname.split()[0].lower())
     print(names)
 
     if request.method == "POST":
@@ -21,10 +21,15 @@ def signup(request):
         if request.POST['password1']==request.POST['password2'] and commucode == "WT" and request.POST['username'].lower() in names:
             Newuser = User.objects.create_user(request.POST['username'], password=request.POST['password1'])            
             auth.login(request,Newuser)
-            
+
+            targetName = ""
+            for fullname in all_charac:
+                if request.POST['username'].lower() == fullname.split()[0].lower():
+                    targetName = fullname
+
             user = request.user
             char = CharInfo(user=user,
-                            char=Characters.objects.get(charEngName=request.POST['username']),
+                            char=Characters.objects.get(charEngName=targetName),
                             galeon=5,
                             classToken=0,
                             searchDone=0,
