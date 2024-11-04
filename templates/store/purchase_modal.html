@@ -7,6 +7,7 @@
 
                 <form method="post" id="purchaseForm">
                     {% csrf_token %}
+                    <input class="hidden" value="purchase" type="text" name="assort" id="assort">
                     <input class="hidden" value="" type="text" name="itemName" id="itemName">
                     <h5 id="modalTitle">title</h5>
                     <h5 id="modalTitleEng">Howler</h5>

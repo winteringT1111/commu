@@ -14,3 +14,4 @@ class CharInfo(models.Model):
 
     class Meta:
         db_table = "charInfo"
+        

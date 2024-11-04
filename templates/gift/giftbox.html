@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/gift/giftbox.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="content_wrap">
+    <div class="content">
+        {% if gifts %}
+            {% for gift in gifts %}
+                {% if gift.anonymous %}
+                    <div class="content_list">
+                        <div class="profile1">
+                            <div class="profile_image1">
+                                <img src={% static "img/base_profile.png" %}>
+                            </div>
+                            <div class="profile_name1">
+                                익명
+                            </div>
+                        </div>
+                        <div class="message">
+                            <div class="message_info">
+                                <p>[?]님 께서 [ {{gift.itemInfo.itemName}} ] [ {{gift.itemCount}} ] 개를 선물했습니다.</p>
+                                <p>{{gift.orderDate}}</p>
+                            </div>
+                            <div class="message_content">
+                                <img src={% static "img/star.png" %}>
+                                {% if gift.anonymous %}
+                                {{gift.message}}
+                                {% else %}
+                                <span id="blank">메세지가 존재하지 않습니다.</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="function">
+                            <div class="item_image">
+                                <p class="item_count">x{{gift.itemCount}}</p>
+                                <img src="{% static 'img/store/' %}{{ gift.itemInfo.itemImage }}.png">
+                                <div class="item_description">
+                                    <p>{{ gift.itemInfo.itemName }}</p>
+                                    <p class="category">{{ gift.itemInfo.itemCategory }}</p>
+                                    <p class="item_info">{{ gift.itemInfo.itemInfo }}</p>
+                                </div>
+                            </div>
+                            <button>수락</button>
+                        </div>
+                    </div>
+                {% else %}
+                <div class="content_list">
+                    <div class="profile1">
+                        <div class="profile_image1">
+                            <img src={% static "img/두상샘플.png" %}>
+                        </div>
+                        <div class="profile_name1">
+                            {{gift.giver_user.username}}
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="message_info">
+                            <p>[{{gift.giver_user.username}}]님 께서 [ {{gift.itemInfo.itemName}} ] [ {{gift.itemCount}} ] 개를 선물했습니다.</p>
+                            <p>{{gift.orderDate}}</p>
+                        </div>
+                        <div class="message_content">
+                            <img src={% static "img/star.png" %}>
+                            {% if gift.anonymous %}
+                            {{gift.message}}
+                            {% else %}
+                            <span id="blank">메세지가 존재하지 않습니다.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="function">
+                        <div class="item_image">
+                            <p class="item_count">x{{gift.itemCount}}</p>
+                            <img src="{% static 'img/store/' %}{{ gift.itemInfo.itemImage }}.png">
+                            <div class="item_description">
+                                <p>{{ gift.itemInfo.itemName }}</p>
+                                <p class="category">{{ gift.itemInfo.itemCategory }}</p>
+                                <p class="item_info">{{ gift.itemInfo.itemInfo }}</p>
+                            </div>
+                        </div>
+                        <button>수락</button>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <div class="blank_info">
+                아직 받은 선물이 없습니다.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+<script>
+
+</script>
+
+{% endblock %}

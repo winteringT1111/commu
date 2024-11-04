@@ -41,7 +41,30 @@ class Purchase(models.Model):
     class Meta:
         db_table = "purchase"
         
-      
+        
+        
+class Gift(models.Model):
+    giftID = models.AutoField(primary_key=True)  
+    giver_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='gifts_given'  # Custom related name for the giver
+    )
+    receiver_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='gifts_received'  # Custom related name for the receiver
+    )
+    itemInfo = models.ForeignKey(itemModels.Item, on_delete=models.CASCADE)
+    anonymous = models.BooleanField()
+    message = models.TextField(null=True)
+    itemCount = models.IntegerField()
+    orderDate = models.DateField(null=True)
+    accepted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = "gift"
+        
         
 class Inventory(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

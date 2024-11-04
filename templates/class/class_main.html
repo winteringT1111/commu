@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/class/class_main.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="notice_wrap">
+    <a href="#"><img src={% static "img/class_banner/herbology.png" %}></a>
+    <a href="/class/potion"><img src={% static "img/class_banner/potions.png" %}></a>
+    <a href="#"><img src={% static "img/class_banner/flying.png" %}></a>
+</div>
+
+
+{% endblock %}

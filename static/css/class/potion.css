@@ -7,6 +7,28 @@
     transform: translate(0%, -50%);
 }
 
+.goback {
+    position: fixed;
+    top: 30px;
+    left: 50px;
+    z-index: 30;
+    width: 45px;
+    height: 45px;
+    background-color: #3D485A;
+    border: 2px solid #DCC599;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+} .a {
+    text-decoration: none;
+    color: #dbdbdb !important;
+    user-select: none;
+} .goback i {
+    color: #dbdbdb !important;
+    font-size: 22px;
+}
+
 .recipe_btn {
     width: 133px;
     height: 45px;
@@ -91,7 +113,6 @@
     color: #dbdbdb;
     z-index: 2;
     font-family: "Hahmlet", serif;
-
 }
 
 .kettle_background {

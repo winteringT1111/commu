@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from member.models import Characters, Inventory
+from member.models import Characters, Inventory, Gift
 from users.models import CharInfo
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -23,6 +23,11 @@ def member_main(request):
     return render(request, "profile/member_main.html")
 
 
-
 def giftbox(request):
-    return render(request, "gift/giftbox.html")
+    gift_list = Gift.objects.filter(receiver_user=request.user).order_by('orderDate')
+    
+    context = {
+        'gifts':gift_list
+    }
+    
+    return render(request, "gift/giftbox.html",context)
