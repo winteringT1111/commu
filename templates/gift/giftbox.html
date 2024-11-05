@@ -13,7 +13,11 @@
         {% if gifts %}
             {% for gift in gifts %}
                 {% if gift.anonymous %}
+                    {% if gift.accepted %}
+                    <div class="content_list2">
+                    {% else %}
                     <div class="content_list">
+                    {% endif %}
                         <div class="profile1">
                             <div class="profile_image1">
                                 <img src={% static "img/base_profile.png" %}>
@@ -46,11 +50,23 @@
                                     <p class="item_info">{{ gift.itemInfo.itemInfo }}</p>
                                 </div>
                             </div>
-                            <button>수락</button>
+                            {% if gift.accepted %}
+                            <button class="accepted">수락</button>
+                            {% else %}
+                            <form method="post" id="giftIDForm">
+                                {% csrf_token %}
+                                <input type="hidden" id="show_gift_modal" name="giftidnum" value="{{ gift.giftID }}">
+                                <button class="not_accepted" data-toggle="modal" data-target="#exampleModal">수락</button>
+                            </form>
+                            {% endif %}
                         </div>
                     </div>
                 {% else %}
-                <div class="content_list">
+                    {% if gift.accepted %}
+                    <div class="content_list2">
+                    {% else %}
+                    <div class="content_list">
+                    {% endif %}
                     <div class="profile1">
                         <div class="profile_image1">
                             <img src={% static "img/두상샘플.png" %}>
@@ -83,7 +99,15 @@
                                 <p class="item_info">{{ gift.itemInfo.itemInfo }}</p>
                             </div>
                         </div>
-                        <button>수락</button>
+                        {% if gift.accepted %}
+                        <button class="accepted">수락</button>
+                        {% else %}
+                        <form method="post" id="giftIDForm">
+                            {% csrf_token %}
+                            <input type="hidden" id="show_gift_modal" name="giftidnum" value="{{ gift.giftID }}">
+                            <button class="not_accepted" data-toggle="modal" data-target="#exampleModal">수락</button>
+                        </form>
+                        {% endif %}
                     </div>
                 </div>
                 {% endif %}
@@ -97,8 +121,47 @@
 </div>
 
 
-<script>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
+      <div class="modal-content" id="modal_info">
+        <div class="modal-body" id="modal_contents">
+            <h4>선물이 인벤토리에 보관되었습니다.</h4>
+            <button type="button" data-dismiss="modal">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Select all forms with the class 'giftIDForm'
+    const forms = document.querySelectorAll('form#giftIDForm');
+
+    // Iterate over each form and set up the event listener
+    forms.forEach(function (form) {
+        const acceptButton = form.querySelector('.not_accepted');
+
+        if (acceptButton) {
+            acceptButton.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Show the modal
+                $('#exampleModal').modal('show');
+
+                // When the modal is hidden, submit the form
+                $('#exampleModal').on('hidden.bs.modal', function () {
+                    form.submit(); // Submit the form
+                });
+            });
+        }
+    });
+});
 
 </script>
+
+
+
 
 {% endblock %}

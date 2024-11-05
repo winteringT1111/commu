@@ -60,7 +60,20 @@
     font-weight: 400;
     display: flex;
     position: relative;
+} .content_list2 {
+    width: 98%;
+    text-align: center;
+    color: rgb(35, 35, 46);
+    padding: 20px 30px;
+    background-color: #b5b5b5;
+    border-radius: 10px;
+    margin: 20px 0px;
+    user-select: none;
+    font-weight: 400;
+    display: flex;
+    position: relative;
 }
+
 
 .profile1 {
     display: flex;
@@ -137,10 +150,18 @@ p {
     transform: translate(-50%, -50%);
 }
 
-.function button {
+.not_accepted {
     width: 80px;
     height: 30px;
     background-color: #48526D;
+    color: #dbdbdb;
+    border-radius: 10px;
+    border: none;
+    margin-top: 8px;
+} .accepted {
+    width: 80px;
+    height: 30px;
+    background-color: #383838;
     color: #dbdbdb;
     border-radius: 10px;
     border: none;
@@ -204,4 +225,51 @@ p {
 .item_info {
     font-size: small;
     margin-top: 4px !important;
+}
+
+
+#modal_info {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 641px;
+    height: 281px;
+    background: url("../../img/purchase_modal.png");
+    background-size: contain;
+    border: none;
+    user-select: none;
+    filter: drop-shadow(8px 8px 8px #232425);
+}
+
+
+#modal_contents {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+    height: 160px;
+}
+
+#modal_contents h4 {
+    color: #dbdbdb;
+    font-family: "Hahmlet", serif;
+    text-align: center;
+    font-weight: 400;
+}
+
+#modal_contents button {
+    color: #2b2f44;
+    padding: 10px 30px;
+    background-color: #aaaaaa;
+    border-radius: 10px;
+    border: none;
+    font-family: "Hahmlet", serif;
+    text-align: center;
+    font-weight: 400;
 }

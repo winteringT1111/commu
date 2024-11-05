@@ -24,8 +24,32 @@ def member_main(request):
 
 
 def giftbox(request):
+    getUser = request.user
     gift_list = Gift.objects.filter(receiver_user=request.user).order_by('orderDate')
     
+    if request.method == "POST":
+        gift_id = request.POST['giftidnum']
+        target = Gift.objects.get(giftID=gift_id)
+
+        print(gift_id,target)
+
+        all_items = Inventory.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
+        item = target.itemInfo
+            
+        if item.itemID in all_items:
+            update_item = Inventory.objects.get(itemInfo=item, user=getUser)
+            update_item.itemCount += target.itemCount
+            update_item.save()
+        else:
+            inven = Inventory(itemCount=target.itemCount,
+                            itemInfo=item,
+                            user=getUser)
+            inven.save()
+
+        target.accepted = True
+        target.save()
+
+
     context = {
         'gifts':gift_list
     }
