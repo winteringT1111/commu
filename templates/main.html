@@ -122,23 +122,24 @@
     
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                const targetDate = new Date("2024-11-07T11:59:59"); // 목표 날짜 설정 (예: 2024년 12월 31일)
-                const countdownElement = document.getElementById('countdown');
-        
-                function updateCountdown() {
-                    const now = new Date();
-                    const distance = targetDate - now; // 남은 시간 계산
-        
-                    const days = Math.floor(distance / (1000 * 60 * 60 * 24)); // 남은 일수 계산
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // 남은 시간 계산
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)); // 남은 분 계산
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000); // 남은 초 계산
-        
-                    if (distance < 0) {
-                        countdownElement.textContent = "신청서 접수가 시작되었습니다."; // 마감일 지나면 메시지 변경
-                    } else {
-                        countdownElement.textContent = `신청서 접수 마감까지 D-${days} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; // 남은 일수 및 시간 표시
-                    }
+                const targetDate = new Date("2024-11-07T11:59:59"); // 목표 날짜 설정 (예: 2024년 11월 7일 11:59:59)
+    const countdownElement = document.getElementById('countdown'); // countdown ID가 있는 요소를 찾기
+
+    function updateCountdown() {
+        const now = new Date();
+        const distance = targetDate - now; // 남은 시간 계산
+
+        // 남은 일, 시간, 분, 초 계산
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        if (distance < 0) {
+            countdownElement.textContent = "신청서 접수가 마감되었습니다."; // 마감일 지나면 메시지 변경
+        } else {
+            countdownElement.textContent = `신청서 접수 마감까지 D-${days} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
                 }
         
                 // 매초 업데이트
