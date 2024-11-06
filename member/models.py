@@ -4,14 +4,18 @@ from store import models as itemModels
 # Create your models here.
 
 class Characters(models.Model):
-    charID = models.TextField(primary_key=True)  
+    charID = models.AutoField(primary_key=True)  
     charName = models.TextField()  
     charEngName= models.TextField()
     charCatchPhrase = models.TextField() 
     charPhrase = models.TextField()
-    charImage = models.TextField()  
-    charCommission = models.TextField() 
-    charImageInfo = models.TextField()  
+    charImageB = models.TextField()  
+    charImageA = models.TextField()
+    charImageP = models.TextField() 
+    charImageU = models.TextField()
+    charCommission = models.BooleanField()
+    charCommissionInfo = models.TextField(null=True) 
+    charImageInfo = models.TextField(null=True)  
     charAge = models.IntegerField()
     charGrade = models.IntegerField()
     charSex = models.TextField()
@@ -25,6 +29,11 @@ class Characters(models.Model):
     charKeyword3 = models.TextField()
     charPersonality = models.TextField() 
     charEtc = models.TextField()
+    charWand1 = models.TextField()
+    charWand2 = models.TextField()
+    charWand3 = models.TextField()
+    charWand4 = models.TextField()
+    charWandInfo = models.TextField(null=True)
     
     class Meta:
         db_table = "character"
@@ -32,7 +41,7 @@ class Characters(models.Model):
         
 
 class Purchase(models.Model):
-    purchaseID = models.IntegerField(primary_key=True)  
+    purchaseID = models.AutoField(primary_key=True)  
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) 
     itemInfo = models.ForeignKey(itemModels.Item, on_delete=models.CASCADE)
     itemCount = models.IntegerField()

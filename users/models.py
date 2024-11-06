@@ -9,8 +9,6 @@ class CharInfo(models.Model):
     galeon = models.IntegerField()
     classToken= models.IntegerField()
     searchDone = models.IntegerField()
-    searchCount = models.IntegerField()
-    classCount = models.IntegerField()
 
     class Meta:
         db_table = "charInfo"

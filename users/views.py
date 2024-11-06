@@ -18,6 +18,7 @@ def signup(request):
 
     if request.method == "POST":
         commucode = request.POST['commucode']
+        print(request.POST['username'].lower(),commucode)
         if request.POST['password1']==request.POST['password2'] and commucode == "WT" and request.POST['username'].lower() in names:
             Newuser = User.objects.create_user(request.POST['username'], password=request.POST['password1'])            
             auth.login(request,Newuser)
@@ -32,9 +33,7 @@ def signup(request):
                             char=Characters.objects.get(charEngName=targetName),
                             galeon=5,
                             classToken=0,
-                            searchDone=0,
-                            searchCount=0,
-                            classCount=0)
+                            searchDone=0,)
             char.save()
             
             return redirect('main:main_page')

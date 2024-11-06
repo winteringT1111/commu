@@ -5,6 +5,6 @@ app_name = 'member'
 
 urlpatterns = [
     path('member', views.member_main, name='member_main'),
-    path('member/<str:username>', views.member_profile, name='member_profile'),
+    path('member/<str:charName>', views.member_profile, name='member_profile'),
     path('giftbox', views.giftbox, name='giftbox'),
 ]

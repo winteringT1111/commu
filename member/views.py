@@ -6,15 +6,24 @@ from django.contrib.auth.models import User
 
 
 @login_required(login_url='/')
-def member_profile(request, username):
-    user = User.objects.get(username=username)
-    charac = CharInfo.objects.get(user=user)
-    inven = Inventory.objects.filter(user_id=user)
+def member_profile(request, charName):
+    names=[]
+    all_charac = Characters.objects.values_list('charEngName', flat=True)
+    for fullname in all_charac:
+        names.append(fullname.split()[0].lower())
+
+    targetName = ""
+    for fullname in all_charac:
+        if charName.lower() == fullname.split()[0].lower():
+            targetName = fullname
+    
+    char = Characters.objects.get(charEngName=targetName)
+    #inven = Inventory.objects.filter(user_id=charac.user)
     
     context = {
-        'username': username,
-        'char': charac.char,
-        'inven':inven
+        'charname': charName,
+        'char': char#,
+        #'inven':inven
     }
     
     return render(request, "profile/member_profile.html", context)
@@ -23,6 +32,7 @@ def member_main(request):
     return render(request, "profile/member_main.html")
 
 
+@login_required(login_url='/')
 def giftbox(request):
     getUser = request.user
     gift_list = Gift.objects.filter(receiver_user=request.user).order_by('orderDate')

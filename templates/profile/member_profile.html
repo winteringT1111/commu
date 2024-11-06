@@ -14,21 +14,19 @@
 <!-- 캐릭터 -->
 <div class="character_wrap">
     <div class="cha">
-        <img class="character" src="{% static 'img/' %}{{ char.charImage }}.png"></img>
-    </div>
-
-    <div class="inven">
-        <button class="infobtn" onclick="show1grade()">1학년</button>
-        <!--<button class="infobtn">4학년</button>
-        <button class="infobtn">7학년</button>
-        <button class="infobtn">성인</button>-->
-        <button class="infobtn" onclick="showInventory()">인벤토리</button>
+        <img class="character" src="{% static 'img/charac/01/01/' %}{{ char.charImageB }}.png"></img>
     </div>
 </div>
 
+
+<div class="wrap">
+    <div class="inven">
+        <button class="transbtn" onclick="show1grade()">1학년</button>
+        <button class="transbtn" onclick="showInventory()">인벤토리</button>
+    </div>
+
  <!-- 기본정보 -->
  <div class="info_wrap" id="profile-section">
-
     <div class="info_content">
         <div class="catchphrase">
             [ {{char.charCatchPhrase}} ]
@@ -70,7 +68,6 @@
         </div>
     </div>
 
-
     <div class="personality_content" id="personality_section">
         <div class="personality_wrap">
             <div class="keywords">
@@ -90,7 +87,7 @@
         <div class="personality_wrap">
             <div class="imgInfo_header">
                 {% if char.charCommission %}
-                <button class="keywordbtn">Commission @{{char.charCommission}}</button>
+                <button class="keywordbtn">ⓒ {{char.charCommissionInfo}}</button>
                 {% endif %}
             </div>
             <hr/>
@@ -102,39 +99,75 @@
     </div>
 
     <div class="etc_content hidden" id="etc_section">
-        기타란 들어가는 란
+        <div class="personality_wrap">
+            <div class="imgInfo_header">
+            </div>
+            <hr/>
+            <div class="info_scrollbox2">
+                {{char.charEtc|linebreaksbr|safe}}
+            </div>
+            <hr/>
+        </div>
     </div>
 
     <div class="wand_content hidden" id="wand_section">
         지팡이 정보 들어가는 란
     </div>
 
-    <div class="music_content">
-        <audio id="profile-music" loop>
-            <source src="{% static 'bgm2.mp3' %}" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        
-        <!-- 오디오 -->
-        <div class="profile-audio">
-            <button id="play-pause-button2">Play</button>
-            <input type="range" id="volume-slider2" min="0" max="1" step="0.01" value="0.5">
-        </div>
-    </div>
 </div>
 
 
  <!-- 인벤토리 -->
  <div class="inventory_wrap hidden" id="inventory-section">
-    인벤토리 들어가는 란
+    <div class="inven_banner">
+        <img src={% static "img/인벤토리 배너.png" %}>
+    </div>
+     <!--
+    <div class="recipe_box">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+            <ol class="carousel-indicators">
+                {% for i in pages_items %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+                {% endfor %}
+            </ol>
+            <div class="carousel-inner">
+                {% for items in pages_items %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <div class="item_wrap">
+                            {% for item in items %}
+                                <div class="item">
+                                    <p class="item_count">x{{item.itemCount}}</p>
+                                    <img src="{% static 'img/test_item/' %}{{ item.itemInfo.itemName }}.png">
+                                    <div class="item_description">
+                                        <p>{{ item.itemInfo.itemName }}</p>
+                                        <p class="category">{{ item.itemInfo.itemCategory }}</p>
+                                        <p class="item_info">{{ item.itemInfo.itemInfo }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </button>
+        </div>
+    </div>
+
     {% for item in inven %}
         {{item.itemInfo.itemName}}
         {{item.itemCount}}
     {% endfor %}
-    
+    -->
 </div>
 
-
+</div>
 
 
 

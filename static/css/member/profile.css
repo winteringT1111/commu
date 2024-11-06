@@ -13,16 +13,52 @@
 }
 
 .character_wrap {
-    width: 60vw;
+    width: 1140px;
     height: 100vh;
     display: flex;
     justify-content: center; /* 수평 중앙 정렬 */
     position: relative; /* 버튼의 절대 위치를 위한 기준 설정 */
 }
 
+.transbtn {
+    background: url("../../img/프로필띠.png");
+    border: none;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 125px;
+    height: 37px;
+    font-family: "Hahmlet", serif;
+    text-align: right;
+    padding-right: 20px;
+    padding-bottom: 3px;
+    color: #dbdbdb;
+}
+
 .character {
     height: 140vh;
 }
+
+
+.wrap {
+    width: 905px;
+    height: 100vh;
+    display: flex;
+    position: relative;
+    position: fixed;
+    right: 0;
+}
+
+
+.inven {
+    position: absolute; 
+    top: 30px; /* 상단에서의 거리 */
+    left: 0px; /* 오른쪽에서의 거리 */
+    z-index: 1; /* 다른 콘텐츠 위로 배치 */
+    display: flex;
+    flex-direction: column; /* 버튼을 수직으로 나열 */
+    gap: 10px; /* 버튼 간의 간격 */
+}
+
 
 .info_wrap {
     width: 780px;
@@ -34,8 +70,8 @@
     justify-content: center; 
     position: fixed;
     right: 0;
-    isolation: isolate;
     font-family: "Hahmlet", serif;
+    z-index: 2;
 }
 
 .inventory_wrap {
@@ -48,8 +84,8 @@
     justify-content: center; 
     position: fixed;
     right: 0;
-    isolation: isolate;
     font-family: "Hahmlet", serif;
+    z-index: 2;
 }
 
 
@@ -58,17 +94,6 @@
     justify-content: center; /* 수평 중앙 정렬 */
 }
 
-
-/* 버튼들 나열 */
-.inven {
-    position: absolute; 
-    top: 30px; /* 상단에서의 거리 */
-    right: 0px; /* 오른쪽에서의 거리 */
-    z-index: 1; /* 다른 콘텐츠 위로 배치 */
-    display: flex;
-    flex-direction: column; /* 버튼을 수직으로 나열 */
-    gap: 10px; /* 버튼 간의 간격 */
-}
 
 /* 숨긴 상태의 섹션 */
 .hidden {
@@ -84,7 +109,7 @@
     width: 100%;
     text-align: center;
     font-size: 18px;
-    margin-top: 24px;
+    margin-top: 30px;
 }
 
 .name_wrap {
@@ -208,7 +233,7 @@
 
 /* 성격란 */
 .personality_content {
-    height: 44vh;
+    height: 55vh;
     display: flex;
     justify-content: center;
 }
@@ -233,29 +258,60 @@
 
 hr {
     width: 100%;
-    height: 3px;
-    background-color: #111d38;
+    height: 3px !important;
     border: none;
+    background-image: linear-gradient(to right, rgba(17, 29, 56, 0.2) 0%, rgba(17, 29, 56, 1) 50%, rgba(17, 29, 56, 0.2) 100%);
 }
+
+::selection {
+    background-color: #9FA3B1; /* 하늘색 배경 */
+    color: #eeeeee; /* 선택된 텍스트의 색상을 검정으로 설정 */
+}
+
+
 
 .info_scrollbox {
     width: 100%;
-    height: 330px;
+    height: 73%;
     font-size: large;
     overflow-y: auto;
+    padding: 0px 10px;
 }
 
 .info_scrollbox::-webkit-scrollbar {
     width: 12px;
 }
 .info_scrollbox::-webkit-scrollbar-thumb {
-    background-color: #434c72;
+    background-color: rgb(186, 189, 197,0.7);
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;
 }
 .info_scrollbox::-webkit-scrollbar-track {
-    background-color: rgb(186, 189, 197);
+    background-color: #434c72;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+
+.info_scrollbox2 {
+    width: 100%;
+    height: 82%;
+    font-size: large;
+    overflow-y: auto;
+    padding: 0px 10px;
+}
+
+.info_scrollbox2::-webkit-scrollbar {
+    width: 12px;
+}
+.info_scrollbox2::-webkit-scrollbar-thumb {
+    background-color: rgb(186, 189, 197,0.7);
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.info_scrollbox2::-webkit-scrollbar-track {
+    background-color: #434c72;
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
 }
@@ -266,7 +322,7 @@ hr {
 
 /* 외관란 */
 .imgInfo_content {
-    height: 44vh;
+    height: 55vh;
     display: flex;
     justify-content: center;
 }
@@ -292,7 +348,7 @@ hr {
 
 /* 기타란 */
 .etc_content {
-    height: 44vh;
+    height: 55vh;
     display: flex;
     justify-content: center;
 }
@@ -300,22 +356,19 @@ hr {
 
 /* 지팡이란 */
 .wand_content {
-    height: 44vh;
+    height: 55vh;
     display: flex;
     justify-content: center;
 }
 
 
 
-
-
-
-/* 음악란 */
-.music_content {
+.inven_banner {
     position: absolute;
-    bottom: 2%;
+    top: 8%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
+    width: 700px;
+    transform: translate(-50%,-50%);
+} .inven_banner img {
+    width: 100%;
 }
