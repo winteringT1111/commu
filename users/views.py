@@ -40,6 +40,6 @@ def login(request):
             auth.login(request, user)
             return redirect('main:main_page')
         else:
-            return render(request,'registration/login.html', {'error':'잘못되었습니다'})
+            return render(request,'registration/login.html', {'error':'오류입니다'})
     else:
         return render(request,'registration/login.html')
