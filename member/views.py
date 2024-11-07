@@ -7,19 +7,10 @@ from django.contrib.auth.models import User
 
 @login_required(login_url='/')
 def member_profile(request, charName):
-    names=[]
-    all_charac = Characters.objects.values_list('charEngName', flat=True)
-    for fullname in all_charac:
-        names.append(fullname.split()[0].lower())
 
-    targetName = ""
-    for fullname in all_charac:
-        if charName.lower() == fullname.split()[0].lower():
-            targetName = fullname
-    
-    char = Characters.objects.get(charEngName=targetName)
+    char = Characters.objects.get(charFirstName=charName.capitalize())
     #inven = Inventory.objects.filter(user_id=charac.user)
-    
+
     context = {
         'charname': charName,
         'char': char#,
@@ -28,8 +19,15 @@ def member_profile(request, charName):
     
     return render(request, "profile/member_profile.html", context)
 
+@login_required(login_url='/')
 def member_main(request):
-    return render(request, "profile/member_main.html")
+    chars = Characters.objects.all().order_by('charFirstName')
+    
+    context = {
+        'chars': chars
+    }
+    
+    return render(request, "profile/member_main.html",context)
 
 
 @login_required(login_url='/')

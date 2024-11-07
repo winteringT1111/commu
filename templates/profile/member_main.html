@@ -6,7 +6,30 @@
 {% endblock %}
 
 {% block content %}
-
-
+<div class="member_content_wrap fade-in-left-to-right">
+    <div class="member_content">
+        {% for char in chars %}
+        <div class="member_card">
+            <div class="member_card_up">
+                <!--
+                <div class="member_house">
+                    <img src="{% static 'img/' %}{{ char.charHouse }}.png">
+                </div>
+                -->
+                <div class="member_frame">
+                    <img src={% static "img/멤버별.png" %}>
+                </div>
+                <a href="/member/{{char.charFirstName}}">
+                    <div class="member_overlay"></div>
+                </a>
+                <img class="member_img" src="{% static 'img/charac/01/B/' %}{{ char.charImageB }}-B.png">
+            </div>
+            <div class="member_card_down">
+                {{char.charName}}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}

@@ -9,28 +9,18 @@ from django.contrib.auth.decorators import login_required
 
 
 def signup(request):
-    names=[]
-    all_charac = Characters.objects.values_list('charEngName', flat=True)
-
-    for fullname in all_charac:
-        names.append(fullname.split()[0].lower())
-    print(names)
+    all_charac = Characters.objects.values_list('charFirstName', flat=True)
 
     if request.method == "POST":
         commucode = request.POST['commucode']
-        print(request.POST['username'].lower(),commucode)
-        if request.POST['password1']==request.POST['password2'] and commucode == "WT" and request.POST['username'].lower() in names:
+
+        if request.POST['password1']==request.POST['password2'] and commucode == "WTH" and request.POST['username'] in all_charac:
             Newuser = User.objects.create_user(request.POST['username'], password=request.POST['password1'])            
             auth.login(request,Newuser)
 
-            targetName = ""
-            for fullname in all_charac:
-                if request.POST['username'].lower() == fullname.split()[0].lower():
-                    targetName = fullname
-
             user = request.user
             char = CharInfo(user=user,
-                            char=Characters.objects.get(charEngName=targetName),
+                            char=Characters.objects.get(charFirstName=request.POST['username']),
                             galeon=5,
                             classToken=0,
                             searchDone=0,)

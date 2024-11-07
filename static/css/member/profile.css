@@ -14,10 +14,16 @@
 
 .character_wrap {
     width: 1140px;
-    height: 100vh;
+    margin-top: 5vh;
+    height: 95vh;
+    overflow-y: auto;
     display: flex;
     justify-content: center; /* 수평 중앙 정렬 */
     position: relative; /* 버튼의 절대 위치를 위한 기준 설정 */
+}
+
+.character_wrap::-webkit-scrollbar {
+    display: none;
 }
 
 .transbtn {
@@ -110,6 +116,7 @@
     text-align: center;
     font-size: 18px;
     margin-top: 30px;
+    color: #27293b;
 }
 
 .name_wrap {
@@ -125,6 +132,13 @@
     background-repeat: no-repeat;
 }
 
+@font-face {
+    font-family: 'MyCustomFont'; /* 원하는 폰트 이름 */
+    src: url('../../ADESTON.TTF') format('truetype'); /* TTF 파일 경로 */
+    font-weight: normal; /* 폰트 두께 (optional) */
+    font-style: normal; /* 폰트 스타일 (optional) */
+}
+
 /* 영어이름 */
 .name1 {
     text-align: center;
@@ -133,8 +147,11 @@
     margin: 0px;
     font-size: 35px;
     font-weight: bold;
-    font-family: "Arima", system-ui;
-    color: #2e325e;
+    font-family: 'MyCustomFont', sans-serif;
+    background: linear-gradient(to bottom, #a3b3dd 10%, #192333 90%); /* 하얀색에서 #2e325e로 그라데이션 */
+    -webkit-background-clip: text; /* Webkit 브라우저에서 배경이 텍스트로 잘리도록 설정 */
+    background-clip: text; /* 표준화된 방법 */
+    color: transparent; /* 텍스트 색상을 투명으로 설정 */
 }
 /* 한국이름 */
 .name2 {
@@ -142,15 +159,20 @@
     margin: -12px 40px 0px 0px;
     line-height: 24px;
     text-align: right;
-
+    font-size: large;
+    color: #353a63;
+    font-weight: 400;
 }
 
 .phrase {
     height: 65px;
-    line-height: 90px;
+    line-height: 130px;
     text-align: center;
     font-size: 20px;
     font-style: italic;
+    font-weight: 500;
+    color: #313344;
+    
 }
 
 .phrase p {
@@ -171,6 +193,13 @@
     width: 90%;
     display: flex;
     justify-content: space-between;
+} .houseimg {
+    width: 113px;
+    height: 113px;
+} .houseimgH {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1px;
 }
 
 .spec_info_content {
@@ -183,13 +212,13 @@
 .info_line_content {
     width: 100%;
     height: 45px;
-    border-radius: 7px;
-    background-image: linear-gradient(to left, transparent, rgb(75, 83, 112) 20%)
+    border-radius: 5px;
+    background-image: linear-gradient(to left,transparent, #494F5B 35%)
 }
 
 .info_line_content p {
     line-height: 45px;
-    color: white;
+    color: #dbdbdb;
     margin: 0px 0px 0px 30px;
 }
 
@@ -199,7 +228,8 @@
 
 /* 버튼정보 */
 .button_content {
-    height: 3vh;
+    height: 1.8vh;
+    margin-top: 2.2vh;
 }
 
 .button_wrap {
@@ -215,19 +245,16 @@
     margin: 0px 5px;
     background: none;
     border: none;
-    border-bottom: 2px solid rgb(162, 162, 162);
+    border-top: 2px solid rgb(162, 162, 162);
     color: rgb(44, 52, 73);
 }
 
 .infobtn:hover {
     transition-duration: 0.3s;
     color: rgb(125, 149, 170);
-    border-bottom: 2px solid rgb(44, 52, 73);
+    border-top: 2px solid rgb(44, 52, 73);
 
 }
-
-
-
 
 
 
@@ -250,9 +277,9 @@
 
 .keywordbtn {
     background-color: transparent;
-    padding: 3px 15px;
+    padding: 3px 18px;
     margin: 0px 5px;
-    border: solid 3px #31395b;
+    border: solid 3px #51586d;
     border-radius: 18px;
 }
 
@@ -260,7 +287,7 @@ hr {
     width: 100%;
     height: 3px !important;
     border: none;
-    background-image: linear-gradient(to right, rgba(17, 29, 56, 0.2) 0%, rgba(17, 29, 56, 1) 50%, rgba(17, 29, 56, 0.2) 100%);
+    background-image: linear-gradient(to right, rgba(73, 79, 91, 0.2) 0%, rgba(73, 79, 91, 1) 50%, rgba(73, 79, 91, 0.2) 100%);
 }
 
 ::selection {
@@ -272,7 +299,7 @@ hr {
 
 .info_scrollbox {
     width: 100%;
-    height: 73%;
+    height: 70%;
     font-size: large;
     overflow-y: auto;
     padding: 0px 10px;
@@ -288,14 +315,14 @@ hr {
     border: 2px solid transparent;
 }
 .info_scrollbox::-webkit-scrollbar-track {
-    background-color: #434c72;
+    background-color: rgb(73, 79, 91,1);
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
 }
 
 .info_scrollbox2 {
     width: 100%;
-    height: 82%;
+    height: 80.3%;
     font-size: large;
     overflow-y: auto;
     padding: 0px 10px;
@@ -333,17 +360,9 @@ hr {
     margin-bottom: 15px;
 }
 
-.keywordbtn {
-    background-color: transparent;
-    padding: 3px 15px;
-    margin: 0px 5px;
-    border: solid 3px #31395b;
-    border-radius: 18px;
+.mod {
+    margin-top: 35px;
 }
-
-
-
-
 
 
 /* 기타란 */
@@ -371,4 +390,65 @@ hr {
     transform: translate(-50%,-50%);
 } .inven_banner img {
     width: 100%;
+}
+
+
+
+
+
+
+
+
+
+/* Add this to your CSS file or in <style> block */
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(5%);  /* Start off-screen (right) */
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);     /* End at original position */
+    }
+}
+
+.fade-in-right {
+    animation: fadeInRight 0.7s ease-out forwards;  /* Apply the animation */
+}
+
+/* Optional: Add some transition for smoothness */
+.hidden {
+    visibility: hidden;
+}
+
+.info_scrollbox {
+    position: relative;
+}
+.info_scrollbox img{
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%,0%);
+}
+
+.goback {
+    position: fixed;
+    top: 30px;
+    left: 50px;
+    z-index: 30;
+    width: 45px;
+    height: 45px;
+    background-color: #3D485A;
+    border: 2px solid #DCC599;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+} .a {
+    text-decoration: none;
+    color: #dbdbdb !important;
+    user-select: none;
+} .goback i {
+    color: #dbdbdb !important;
+    font-size: 22px;
 }

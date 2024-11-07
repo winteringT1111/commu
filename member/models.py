@@ -7,6 +7,7 @@ class Characters(models.Model):
     charID = models.AutoField(primary_key=True)  
     charName = models.TextField()  
     charEngName= models.TextField()
+    charFirstName = models.TextField()
     charCatchPhrase = models.TextField() 
     charPhrase = models.TextField()
     charImageB = models.TextField()  

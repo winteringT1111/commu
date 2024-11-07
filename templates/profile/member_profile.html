@@ -9,6 +9,10 @@
 
 <div class="overlay"></div> <!-- 흐림 효과 적용 영역 -->
 
+<a href="/member"><div class="goback">
+    <i class="fa-solid fa-chevron-left"></i>
+</div></a>
+
 <div class="content">
 
 <!-- 캐릭터 -->
@@ -19,10 +23,10 @@
 </div>
 
 
-<div class="wrap">
+<div class="wrap fade-in-right">
     <div class="inven">
-        <button class="transbtn" onclick="show1grade()">1학년</button>
-        <button class="transbtn" onclick="showInventory()">인벤토리</button>
+        <button class="transbtn" onclick="show1grade()">Grade 1</button>
+        <!--<button class="transbtn" onclick="showInventory()">인벤토리</button>-->
     </div>
 
  <!-- 기본정보 -->
@@ -51,8 +55,13 @@
                         <p>{{char.charSex}} | {{char.charHeight}}cm | {{char.charWeight}}kg | {{char.charNationality}} | {{char.charBlood}}</p>
                     </div>
                 </div>
-
-                <img src={% static "img/후플푸프.png" %}></img>
+                <!--
+                {% if char.charHouse == "후플푸프" %}
+                    <img class="houseimgH" src="{% static 'img/' %}{{ char.charHouse }}.png">
+                {% else %}
+                    <img class="houseimg" src="{% static 'img/' %}{{ char.charHouse }}.png">
+                {% endif %}
+                 -->
             </div>
         </div>
     </div>
@@ -85,16 +94,22 @@
 
     <div class="imgInfo_content hidden" id="imgInfo_section">
         <div class="personality_wrap">
+            {% if char.charCommission %}
             <div class="imgInfo_header">
-                {% if char.charCommission %}
                 <button class="keywordbtn">ⓒ {{char.charCommissionInfo}}</button>
-                {% endif %}
             </div>
             <hr/>
             <div class="info_scrollbox">
                 {{char.charImageInfo|linebreaksbr|safe}}
             </div>
             <hr/>
+            {% else %}
+            <hr class="mod"/>
+            <div class="info_scrollbox2">
+                {{char.charImageInfo|linebreaksbr|safe}}
+            </div>
+            <hr/>
+            {% endif %}
         </div>
     </div>
 
@@ -111,7 +126,24 @@
     </div>
 
     <div class="wand_content hidden" id="wand_section">
-        지팡이 정보 들어가는 란
+        <div class="personality_wrap">
+            <div class="keywords">
+                <button class="keywordbtn">{{char.charWand1}}</button>
+                <button class="keywordbtn">{{char.charWand2}}</button>
+                <button class="keywordbtn">{{char.charWand3}}"</button>
+                <button class="keywordbtn">{{char.charWand4}}</button>
+            </div>
+            <hr/>
+            <div class="info_scrollbox">
+                {% if char.charWandInfo %}
+                {{char.charWandInfo|linebreaksbr|safe}}
+                {% elif char.charFirstName == "Patch" %}
+                <img src={% static "img/패치포트리스.png" %}>
+                {% else %}
+                {% endif %}
+            </div>
+            <hr/>
+        </div>
     </div>
 
 </div>
@@ -207,7 +239,10 @@
         });
 
     });
-
+    document.addEventListener('DOMContentLoaded', () => {
+        const wrapElement = document.querySelector('.wrap');
+        wrapElement.classList.add('fade-in-right');
+    });
     function showImgInfo() {
         document.getElementById('imgInfo_section').classList.remove('hidden');
         document.getElementById('personality_section').classList.add('hidden');
