@@ -18,7 +18,13 @@
 <!-- 캐릭터 -->
 <div class="character_wrap">
     <div class="cha">
+        {% if char.charFirstName == "Yvonne" or char.charFirstName == "Finley" or char.charFirstName == "Agatha" or char.charFirstName == "Ezekiel" or char.charFirstName == "Nathan" or char.charFirstName == "Ezell"  or char.charFirstName == "Rebecca"  or char.charFirstName == "Remia"%}
+        <img class="character2" id=""src="{% static 'img/charac/01/01/' %}{{ char.charImageB }}.png"></img>
+        {% elif char.charFirstName == "Sophia" %}
+        <img class="character3" src="{% static 'img/charac/01/01/' %}{{ char.charImageB }}.png"></img>
+        {% else %}
         <img class="character" src="{% static 'img/charac/01/01/' %}{{ char.charImageB }}.png"></img>
+        {% endif %}
     </div>
 </div>
 

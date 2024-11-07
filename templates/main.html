@@ -136,7 +136,7 @@
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         if (distance < 0) {
-            countdownElement.textContent = `신청서 접수가 마감되었습니다.`; // 마감일 지나면 메시지 변경
+            countdownElement.textContent = `킹스 크로스역 9와 ¾ 승강장 탑승 대기 중!`; // 마감일 지나면 메시지 변경
         } else {
             countdownElement.textContent = `신청서 접수 마감까지 D-${days} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
