@@ -217,17 +217,19 @@ nav ul {
 
 
 .contents_wrap {
-    margin-top: -22px;
+    margin-top: 5px;
+    margin-left: 15px;
     width: 100%;
     display: flex !important;
     justify-content: center;
     align-items: center;
+
 }
 
 .calender {
     width: 515px;
     margin-bottom: 13px;
-    margin-left: -15px;
+
     filter: drop-shadow(0px 0px 0px #a3a3a3);
 }
 
@@ -237,6 +239,29 @@ nav ul {
     z-index: 5;
     position: relative;
 }
+
+.badge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-right: 20px;
+} .badge h5 {
+    z-index: 50;
+    font-size: 18px;  /* 적당한 크기로 글자 크기 설정 */
+    margin-top: 15px;  /* 위쪽 마진을 추가 */
+    font-family: 'MyCustomFont', sans-serif;
+    background-color: rgba(184,189,205);
+    color: #272b36;
+    padding: 7px 14px;
+    line-height: 18px;
+    font-weight: 700;
+} .badge img {
+    width: 280px;
+}
+
+
 
 
 
@@ -285,68 +310,6 @@ nav ul {
         transform: translateY(100vh); /* 화면 전체 높이만큼 떨어지게 설정 */
     }
   }
-  
-
-/* 전체 로그인 박스 */
-.loginbox {
-    width: 330px;
-    height: 400px;
-    background-image: url('../img/로그인화면.png');
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 11 !important;
-    margin-left: 26px;
-    margin-bottom: 20px;
-    filter: drop-shadow(2px 2px 2px #232425);
-}
-
-/* 인풋 로그인 박스 */
-.loginbox .inputarea {
-    width: 280px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 120px;
-}
-
-.inputbox {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-/* 아이디 비번 박스 */
-.inputbox input {
-    width: 193px;
-    height: 22px;
-    background-color: transparent;
-    border-radius: 5px;
-    border-width: 0 0 2px;
-    color: #ffffff;
-    margin-bottom: 5px;
-}
-
-.inputbox input:focus {
-    outline: none;
-}
-
-.inputbox input::placeholder {
-    color: #ffffff;
-    opacity: 0.7;
-}
-
-
-/* 회원가입 버튼 */
-.signup {
-    margin-top: -16px;
-}
-
-
-
 
 
 @keyframes slideIn {
@@ -358,4 +321,45 @@ nav ul {
         transform: translateX(0); /* 최종 위치: 원래 위치 */
         opacity: 1; /* 최종 투명도: 완전히 보임 */
     }
+}
+
+
+
+@font-face {
+    font-family: 'MyCustomFont'; /* 원하는 폰트 이름 */
+    src: url('../ADESTON.TTF') format('truetype'); /* TTF 파일 경로 */
+    font-weight: normal; /* 폰트 두께 (optional) */
+    font-style: normal; /* 폰트 스타일 (optional) */
+}
+
+
+.gotobox {
+    width: 260px;
+    height: 400px;
+    text-align: center;
+    background-color: #a3a3a3;
+    display: block;
+} .goto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.goto img {
+    width: 140px
+} .goto h5 {
+    z-index: 50;
+    font-size: 18px;  /* 적당한 크기로 글자 크기 설정 */
+    margin-top: 1px;  /* 위쪽 마진을 추가 */
+    font-family: 'MyCustomFont', sans-serif;
+    background-color: rgba(184,189,205);
+    color: #272b36;
+    padding: 7px 14px;
+    line-height: 18px;
+    font-weight: 700;
+} 
+
+.goto:first-child {
+    margin-bottom: 10px;
 }

@@ -23,11 +23,11 @@
     <div class="att_content">
         <div class="att_header">
             <p>누적 출석 일 수: {{ attendance_count }}</p>
-            <p>금일 출석 현황: {% if today_attended %}O{% else %}X{% endif %}</p>
+            <p class="smallw">누적 출석 일 수 1등에게 소량의 상점이 지급됩니다.</p>
         </div>
         <div class="att_info">
             <h4>출석 시 획득 가능한 아이템</h4>
-            <p>기숙사 점수, 1 갈레온, 3 수업 토큰</p>
+            <p>1 갈레온, 3 수업 토큰</p>
         </div>
         <form method="post" id="attendanceForm">
             {% csrf_token %}
@@ -77,7 +77,6 @@
             
             // Update attendance count and today's attendance status in the UI
             document.querySelector('.att_header p:nth-child(1)').textContent = "누적 출석 일 수: " + data.attendance_count;
-            document.querySelector('.att_header p:nth-child(2)').textContent = "금일 출석 현황: " + (data.today_attended ? "O" : "X");
         })
         .catch(error => console.error('Error:', error));
     });

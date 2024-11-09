@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from member.models import Characters,Inventory_magic
+from member.models import Characters,Inventory_magic,Attendance
 from users.models import CharInfo
 from store.models import Item_magic
 from django.utils import timezone
@@ -14,23 +14,28 @@ from django.views.decorators.http import require_POST
 # Create your views here.
 
 
+@login_required(login_url='/login')
 def main_page(request):
     return render(request, "main.html")
 
+@login_required(login_url='/login')
 def notice(request):
     return render(request, "notice/notice.html")
 
+@login_required(login_url='/login')
 def world(request):
     return render(request, "notice/world.html")
 
+@login_required(login_url='/login')
 def system(request):
     return render(request, "notice/system.html")
 
+@login_required(login_url='/login')
 def totalsystem(request):
     return render(request, "notice/total_system.html")
 
 
-@login_required(login_url='/')
+@login_required(login_url='/login')
 def attendance(request):
     getUser = request.user
     char = CharInfo.objects.get(user=getUser)
@@ -85,13 +90,14 @@ def attendance(request):
 
     
 # 수업 페이지
+@login_required(login_url='/login')
 def class_main(request):
     return render(request, "class/class_main.html")
 
 
 
 # 마법의 약
-@login_required(login_url='/')
+@login_required(login_url='/login')
 def potion(request):
     inven = Inventory_magic.objects.filter(user_id=request.user)
     paginator = Paginator(inven, 16)  # 한 페이지에 3개의 아이템
@@ -106,7 +112,7 @@ def potion(request):
     return render(request, "class/potion.html", {"page_obj": page_obj, "pages_items": pages_items})
 
 
-@login_required(login_url='/')
+@login_required(login_url='/login')
 @require_POST
 def check_combination(request):
     try:
@@ -130,6 +136,7 @@ def check_combination(request):
 
 
 # 약초학
+@login_required(login_url='/login')
 def herb(request):
     random_herb_item = Item_magic.objects.filter(itemCategory2='약초학').order_by('?').first()
     random_number = random.randint(1, 3)
@@ -161,7 +168,20 @@ def herb(request):
     return render(request, "class/herbology.html", context)
 
     
-# 변신술
+# 비행
+@login_required(login_url='/login')
 def shifter(request):
-    return render(request, "class/flying.html")
-
+    if request.user.is_authenticated:
+        # 로그인한 사용자의 출석 정보 가져오기
+        attendance, created = Attendance.objects.get_or_create(user=request.user)
+        
+        # 현재 출석 수와 빗자루 아이템 수령 여부를 context로 전달
+        context = {
+            'total_attendance': attendance.total_attendance,
+            'broom_received': attendance.broom_item_received,
+        }
+        
+        return render(request, "class/flying.html", context)
+    else:
+        # 로그인되지 않은 경우 로그인 페이지로 리디렉션하거나 에러 메시지 출력
+        return redirect('login')  # 또는 render(request, 'error.html') 등으로 처리 가능

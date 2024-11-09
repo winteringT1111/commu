@@ -148,7 +148,10 @@ html, body {
 }
 
 
-
+.smallw {
+    font-size: medium !important;
+    margin-top: 5px !important;
+}
 
 
 

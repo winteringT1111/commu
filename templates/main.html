@@ -45,7 +45,7 @@
                             <li><a class="navhover" href="/notice">NOTICE</a></li>
                             <li><a class="navhover" href="/world">WORLD</a></li>
                             <li><a class="navhover" href="/system">SYSTEM</a></li>
-                            <li><a class="navhover" href="#">STORE</a></li>
+                            <li><a class="navhover" href="/store">STORE</a></li>
                             <li><a class="navhover" href="/member">MEMBER</a></li>
                             </ul> 
                         </nav>
@@ -91,25 +91,21 @@
                             <p id="countdown">눈보라 후 옅은 안개가 예상됩니다.</p>
                         </div>
                         <div class="contents_wrap">                   
-                                <a class="qna" href="https://docs.google.com/document/d/1NSzKG74twRQAQ2bYEXLGjRfVFh9bIi_zJkhzRrMsjDI/edit?usp=sharing" target="_blank"><img src={% static "img/qna.png" %}></a>
-                                <img class="calender" src={% static "img/10월달력.png" %}>
-                                <div class="loginbox">
-                                    <form method="post" action="{% url 'users:users_login' %}">
-                                        {% csrf_token %}
-                                        <div class="inputarea">
-                                            <div class="inputbox">
-                                                <div>
-                                                    <input placeholder="아이디" type="text" name="username" id="username">
-                                                  </div>
-                                                  <div>
-                                                    <input placeholder="비밀번호" type="text" name="password" id="password">
-                                                  </div>
-                                            </div>
-                                            <input class="loginbtn" type="image" src="{% static 'img/로그인버튼.png' %}">
-                                        </div>
-                                    </form>
-                                    <a href="/signup"><img class="signup" src="{% static 'img/회원가입버튼.png' %}"></img></a>
+                            <div class="badge">
+                                <img src={% static "img/hogwart.png" %}>
+                                <h5>Today's Highest Score</h5>
+                            </div>
+                            <img class="calender" src={% static "img/10월달력.png" %}>
+                            <div class="gotobox">
+                                <div class="goto">
+                                    <a href="/attendance"><img class="calender" id="ed" src={% static "img/moon.png" %}> </a>
+                                    <h5>ATTENDANCE</h5>
                                 </div>
+                                <div class="goto">
+                                    <a href="/class"><img class="calender" src={% static "img/book.png" %}></a>
+                                    <h5>LESSON</h5>
+                                </div>                                   
+                            </div>
                         </div>
                     </div>
                     

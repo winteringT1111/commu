@@ -239,33 +239,33 @@
         });
 
         // 화살표 버튼 클릭 시 동작
-const prevButton = document.querySelector('.carousel-control-prev');
-const nextButton = document.querySelector('.carousel-control-next');
-const itemWrap = document.querySelector('.carousel-inner');
-// 화살표 버튼 클릭 이벤트 처리
-function handleCarouselTransition() {
-    // 1초 동안 overflow hidden을 적용
-    itemWrap.style.overflow = 'hidden';
-    console.log("rgwwerg");
+        const prevButton = document.querySelector('.carousel-control-prev');
+        const nextButton = document.querySelector('.carousel-control-next');
+        const itemWrap = document.querySelector('.carousel-inner');
+        // 화살표 버튼 클릭 이벤트 처리
+        function handleCarouselTransition() {
+            // 1초 동안 overflow hidden을 적용
+            itemWrap.style.overflow = 'hidden';
+            console.log("rgwwerg");
 
-    // 1초 후에 overflow를 다시 기본값으로 변경
-    setTimeout(() => {
-        itemWrap.style.overflow = 'visible';  // 기본값 (혹은 원하는 상태로 변경)
-    }, 1000);  // 1000ms = 1초
-}
+            // 1초 후에 overflow를 다시 기본값으로 변경
+            setTimeout(() => {
+                itemWrap.style.overflow = 'visible';  // 기본값 (혹은 원하는 상태로 변경)
+            }, 1000);  // 1000ms = 1초
+        }
 
-// 이전 버튼 클릭 시
-prevButton.addEventListener('click', () => {
-    handleCarouselTransition();
-    // 추가적인 캐러셀 이동 로직 (예: 현재 슬라이드 이전으로 이동)
-});
+        // 이전 버튼 클릭 시
+        prevButton.addEventListener('click', () => {
+            handleCarouselTransition();
+            // 추가적인 캐러셀 이동 로직 (예: 현재 슬라이드 이전으로 이동)
+        });
 
-// 다음 버튼 클릭 시
-nextButton.addEventListener('click', () => {
-    handleCarouselTransition();
-    console.log("rgwwsadfwefwfweerg");
-    // 추가적인 캐러셀 이동 로직 (예: 현재 슬라이드 다음으로 이동)
-});
+        // 다음 버튼 클릭 시
+        nextButton.addEventListener('click', () => {
+            handleCarouselTransition();
+            console.log("rgwwsadfwefwfweerg");
+            // 추가적인 캐러셀 이동 로직 (예: 현재 슬라이드 다음으로 이동)
+        });
 
 
 
@@ -314,5 +314,7 @@ nextButton.addEventListener('click', () => {
         });
         
     </script>
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  
+
     {% endblock %}

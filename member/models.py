@@ -94,3 +94,11 @@ class Inventory_magic(models.Model):
     class Meta:
         db_table = "inventory_magic"
           
+          
+class Attendance(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    total_attendance = models.IntegerField(default=0)  # 누적 출석 수
+    broom_item_received = models.BooleanField(default=False)  # 빗자루 아이템 수령 여부
+
+    def __str__(self):
+        return f"{self.user.username} - {self.total_attendance}일 출석"
