@@ -48,6 +48,9 @@
     </div>
 </div>
 
+
+
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const audio = document.getElementById('background-music');
@@ -73,8 +76,8 @@
         // 음악의 볼륨 조절
         volumeSlider.addEventListener('input', () => {
             audio.volume = volumeSlider.value / 100;  // 볼륨을 0~1 사이로 설정
+            localStorage.setItem('audio-volume', volumeSlider.value); // 볼륨 값 저장
         });
-
 
         // 오디오 상태 저장 (시간과 재생 상태)
         const saveAudioState = () => {
@@ -120,6 +123,13 @@
 
         // 페이지 로드 시 상태 복원
         loadAudioState();
+
+        // 볼륨 슬라이더 값 복원
+        const savedVolume = localStorage.getItem('audio-volume');
+        if (savedVolume) {
+            volumeSlider.value = savedVolume;  // 슬라이더 값 복원
+            audio.volume = savedVolume / 100; // 오디오 볼륨 값 설정
+        }
 
         // 특수 비지엠이 있는 페이지에서 슬라이더 값 20으로 설정하고 자동으로 음악 재생
         const userBox = document.getElementById('profile_music');
