@@ -20,11 +20,12 @@ def member_profile(request, charName):
     page_obj = paginator.get_page(page_number)
     
     pages_items = [paginator.page(i).object_list for i in paginator.page_range]
+    print("--------------",pages_items)
     
     context = {
         'charname': charName,
         'char': char,
-        'inven':inven,
+        'inven':combined,
         "page_obj": page_obj, 
         "pages_items": pages_items
     }

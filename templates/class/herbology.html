@@ -34,10 +34,17 @@
         <p><span><img src={% static "img/star.png" %}></span>수업 이수 시 1 수업 토큰이 소모됩니다.</p>
     </div>
 
+    {% if token > 0 %}
+    <!-- If user has class tokens, show the "수업 이수" button that opens the modal -->
     <button type="button" class="herb_btn" data-toggle="modal" data-target="#exampleModal">
         수업 이수
     </button>
-
+    {% else %}
+        <!-- If user has no class tokens, show a popover instead -->
+        <button type="button" id="noTokensButton" class="herb_btn" data-container="body" data-toggle="popover" data-placement="top" data-content="수업 토큰이 부족합니다.">
+            수업 이수
+        </button>
+    {% endif %}
 </div>
 
 
@@ -75,26 +82,40 @@
 
 
 <script>
-    // 폼 제출 후 모달 닫기
-    document.getElementById('submit_button').addEventListener('click', function(event) {
-        // 폼을 먼저 제출합니다.
-        event.preventDefault();  // 기본 submit 동작을 막음
-        var form = document.getElementById('herbForm');
-        form.submit();  // 폼 제출
-        
-        // 모달을 닫는 부분
-        $('#exampleModal').modal('hide');
-    });
-
     document.addEventListener('DOMContentLoaded', function() {
         // herb_background 요소 선택
         const herbBackground = document.querySelector('.herb_background');
         
         // 애니메이션을 트리거하는 fadeInDown 클래스를 추가
-        herbBackground.style.visibility = 'visible';  // 요소를 보이게 설정
-        herbBackground.classList.add('fadeInDown');  // 애니메이션 시작
+        if (herbBackground) {
+            herbBackground.style.visibility = 'visible';  // 요소를 보이게 설정
+            herbBackground.classList.add('fadeInDown');  // 애니메이션 시작
+        }
+
+        // Initialize popover for "noTokensButton" if it exists
+        const noTokensButton = document.getElementById('noTokensButton');
+        if (noTokensButton) {
+            $(noTokensButton).popover({
+                trigger: 'focus', // Focus trigger for showing popover
+                placement: 'top'   // Position of the popover (top, bottom, left, right)
+            });
+        }
+
+        // 폼 제출 후 모달 닫기
+        const submitButton = document.getElementById('submit_button');
+        if (submitButton) {
+            submitButton.addEventListener('click', function(event) {
+                event.preventDefault();  // 기본 submit 동작을 막음
+                var form = document.getElementById('herbForm');
+                if (form) {
+                    form.submit();  // 폼 제출
+                }
+
+                // 모달을 닫는 부분
+                $('#exampleModal').modal('hide');
+            });
+        }
     });
-    
 </script>
 
 

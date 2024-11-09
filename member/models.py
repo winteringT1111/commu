@@ -98,6 +98,7 @@ class Inventory_magic(models.Model):
 class Attendance(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     total_attendance = models.IntegerField(default=0)  # 누적 출석 수
+    attendance_date = models.DateField(null=True, blank=True) 
     broom_item_received = models.BooleanField(default=False)  # 빗자루 아이템 수령 여부
 
     def __str__(self):

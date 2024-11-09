@@ -240,3 +240,54 @@ html, body {
     opacity: 1; /* 애니메이션 종료 후 요소는 완전히 보임 */
     transform: translate(-50%, -50%) translateY(0); /* 최종 위치 */
 }
+
+
+/* 모달 */
+
+.modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 641px;
+    height: 281px;
+    background: url("../../img/purchase_modal.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    filter: drop-shadow(8px 8px 8px #232425);
+}
+.modal-body {
+    width: 641px;
+}
+
+#modalContent {
+    width: 100%;
+    color: #dbdbdb;
+    font-size: 25px;
+    text-align: center;
+    font-family: "Hahmlet", serif;
+}
+
+.modal_content_wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 130px;
+    user-select: none;
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} .modal_content_wrap button {
+    width: 135px;
+    height: 45px;
+    background-color: #AA9B7D;
+    font-size: 18px;
+    color: #232425;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    font-family: "Hahmlet", serif;
+}

@@ -38,73 +38,84 @@
     </div>
 
     <div class="modal_info2">
-        <p>누적 출석 수: <span id="attendance-count">{{total_attendance}}일</span></p>
+        <p>누적 출석 수: <span id="attendance-count">{{attendance_count}}일</span></p>
         <p>빗자루 수령 여부: <span id="broom-status">X</span></p>
     </div>
 
-    <button type="button" class="herb_btn" id="complete-class-btn">
-        수업 이수
-    </button>
+
+    {% if token > 0 %}
+    <!-- If user has class tokens, show the "수업 이수" button that opens the modal -->
+    <form method="post" id="attendanceForm">
+        {% csrf_token %}
+        <button type="button" class="herb_btn" id="submitAttendance">
+            수업 이수
+        </button>
+    </form>
+    {% else %}
+        <button type="button" class="herb_btn" id="noTokensButton" data-container="body" data-toggle="popover" data-placement="top" data-content="수업 토큰이 부족합니다.">
+            수업 이수
+        </button>
+    {% endif %}
+    
 
 </div>
 
-<!-- 모달 -->
-<div class="modal fade" id="completionModal" tabindex="-1" role="dialog" aria-labelledby="completionModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="completionModalLabel">수업 이수 완료</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal_content_wrap">
+                    <p id="modalContent"></p>
+                    <button type="button" data-dismiss="modal">확인</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <p>수업을 이수했습니다.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
 
 <script>
+
     document.addEventListener('DOMContentLoaded', function() {
-        const completeClassButton = document.getElementById('complete-class-btn');
-        const attendanceCount = document.getElementById('attendance-count');
-        const broomStatus = document.getElementById('broom-status');
-        const modal = new bootstrap.Modal(document.getElementById('completionModal'));
-    
-        completeClassButton.addEventListener('click', function() {
-            fetch('{% url "main:shifter" %}', {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',  // CSRF 토큰 포함
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({})  // 비어있는 JSON 객체 보내기
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.total_attendance) {
-                    // 출석 수 업데이트
-                    attendanceCount.textContent = `${data.total_attendance}일`;
-                    
-                    // 빗자루 수령 여부 업데이트
-                    broomStatus.textContent = data.broom_received ? 'O' : 'X';
-                    
-                    // 모달 띄우기
-                    modal.show();  // 모달 띄우기
-                } else {
-                    console.error('Error:', data.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
+        // Initialize popover for "noTokensButton" if it exists
+        const noTokensButton = document.getElementById('noTokensButton');
+        if (noTokensButton) {
+            $(noTokensButton).popover({
+                trigger: 'focus', // Focus trigger for showing popover
+                placement: 'top'   // Position of the popover (top, bottom, left, right)
             });
-        });
+        }
+
     });
+
+    document.getElementById('submitAttendance').addEventListener('click', function() {
+        // Send AJAX request to handle attendance
+        fetch("{% url 'main:shifter' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Update modal content based on the server response
+            const modalContent = document.getElementById("modalContent");
+            if (data.show_modal === "modal1") {
+                modalContent.innerHTML = data.modal_message; // 출석 완료 메시지
+            } else {
+                modalContent.innerHTML = data.modal_message; // 출석 불가 메시지
+            }
+            // Show the modal
+            $('#exampleModal').modal('show');
+            
+            // Update attendance count and today's attendance status in the UI
+            document.querySelector('.att_header p:nth-child(1)').textContent = "누적 출석 일 수: " + data.attendance_count;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
     
 </script>
 

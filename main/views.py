@@ -141,6 +141,7 @@ def herb(request):
     random_herb_item = Item_magic.objects.filter(itemCategory2='약초학').order_by('?').first()
     random_number = random.randint(1, 3)
     getUser = request.user
+    user = CharInfo.objects.get(user=getUser)
     
     if request.method == "POST":
         itemname = request.POST['herbname']
@@ -160,10 +161,14 @@ def herb(request):
                             itemInfo=target,
                             user=getUser)
             inven.save()
+            
+        user.classToken -= 1
+        user.save()
     
     
     context = {'herb': random_herb_item,
-               'count': random_number}
+               'count': random_number,
+               'token':user.classToken}
     
     return render(request, "class/herbology.html", context)
 
@@ -171,17 +176,40 @@ def herb(request):
 # 비행
 @login_required(login_url='/login')
 def shifter(request):
-    if request.user.is_authenticated:
-        # 로그인한 사용자의 출석 정보 가져오기
-        attendance, created = Attendance.objects.get_or_create(user=request.user)
+    user = CharInfo.objects.get(user=request.user)
+    attendance = Attendance.objects.get(user=request.user)
         
-        # 현재 출석 수와 빗자루 아이템 수령 여부를 context로 전달
-        context = {
-            'total_attendance': attendance.total_attendance,
-            'broom_received': attendance.broom_item_received,
-        }
+    # 현재 시간 확인
+    current_time = timezone.localtime(timezone.now())
+    today_date = current_time.date()
         
-        return render(request, "class/flying.html", context)
-    else:
-        # 로그인되지 않은 경우 로그인 페이지로 리디렉션하거나 에러 메시지 출력
-        return redirect('login')  # 또는 render(request, 'error.html') 등으로 처리 가능
+    if request.method == "POST":
+        if attendance.attendance_date == today_date:
+            show_modal = "modal2"
+            modal_message = "오늘은 이미 수업을 이수했습니다."
+        else:
+            attendance.attendance_date = today_date  # 출석일 업데이트
+            attendance.total_attendance += 1
+            attendance.save()
+                
+            show_modal = "modal1"
+            modal_message = "비행 수업이 완료되었습니다."
+            user.classToken -= 1
+            user.save()
+            
+        return JsonResponse({
+        'show_modal': show_modal, 
+        'modal_message': modal_message,
+        'attendance_count': attendance.total_attendance,  # 누적 출석 일 수
+        'token':user.classToken
+        })
+    
+    context = {
+        'attendance_count': attendance.total_attendance,  # 템플릿에 누적 출석 일 수 전달
+        'got_broom': attendance.broom_item_received,  # 템플릿에 금일 출석 여부 전달
+        'token':user.classToken
+    }
+    
+    return render(request, "class/flying.html", context)
+    
+    

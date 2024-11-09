@@ -178,7 +178,7 @@
                             {% for item in inven %}
                                 <div class="item">
                                     <p class="item_count">x{{item.itemCount}}</p>
-                                    <img src="{% static 'img/store/' %}{{ item.itemInfo.itemImage }}.png">
+                                    <img src="{% static 'img/store/' %}{{ item.itemInfo.itemName }}.png">
                                     <div class="item_description">
                                         <p>{{ item.itemInfo.itemName }}</p>
                                         <p class="category">{{ item.itemInfo.itemCategory }}</p>
