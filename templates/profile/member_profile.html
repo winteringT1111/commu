@@ -18,21 +18,25 @@
 <!-- 캐릭터 -->
 <div class="character_wrap">
     <div class="cha">
-        {% if char.charFirstName == "Yvonne" or char.charFirstName == "Finley" or char.charFirstName == "Agatha" or char.charFirstName == "Ezekiel" or char.charFirstName == "Nathan" or char.charFirstName == "Ezell"  or char.charFirstName == "Rebecca"  or char.charFirstName == "Remia"%}
-        <img class="character2" id=""src="{% static 'img/charac/01/01/' %}{{ char.charImageB }}.png"></img>
+        {% if char.charFirstName == "Yvonne" or char.charFirstName == "Finley" or char.charFirstName == "Ezekiel" or char.charFirstName == "Nathan" or char.charFirstName == "Ezell"  or char.charFirstName == "Rebecca"  or char.charFirstName == "Remia"%}
+        <img class="character2" id=""src="{% static 'img/charac/01/02/' %}{{ char.charImageA }}.png"></img>
         {% elif char.charFirstName == "Sophia" %}
-        <img class="character3" src="{% static 'img/charac/01/01/' %}{{ char.charImageB }}.png"></img>
+        <img class="character3" src="{% static 'img/charac/01/02/' %}{{ char.charImageA }}.png"></img>
         {% else %}
-        <img class="character" src="{% static 'img/charac/01/01/' %}{{ char.charImageB }}.png"></img>
+        <img class="character" src="{% static 'img/charac/01/02/' %}{{ char.charImageA }}.png"></img>
         {% endif %}
     </div>
 </div>
 
+{% if char.charProfileMusic %}
+<div id="profile_music" class="hidden" data-music="{{char.charProfileMusic}}.mp3"></div>
+{% else %}
+{% endif %}
 
 <div class="wrap fade-in-right">
     <div class="inven">
         <button class="transbtn" onclick="show1grade()">Grade 1</button>
-        <!--<button class="transbtn" onclick="showInventory()">인벤토리</button>-->
+        <button class="transbtn" onclick="showInventory()">인벤토리</button>
     </div>
 
  <!-- 기본정보 -->
@@ -61,13 +65,11 @@
                         <p>{{char.charSex}} | {{char.charHeight}}cm | {{char.charWeight}}kg | {{char.charNationality}} | {{char.charBlood}}</p>
                     </div>
                 </div>
-                <!--
                 {% if char.charHouse == "후플푸프" %}
                     <img class="houseimgH" src="{% static 'img/' %}{{ char.charHouse }}.png">
                 {% else %}
                     <img class="houseimg" src="{% static 'img/' %}{{ char.charHouse }}.png">
                 {% endif %}
-                 -->
             </div>
         </div>
     </div>
@@ -160,8 +162,8 @@
     <div class="inven_banner">
         <img src={% static "img/인벤토리 배너.png" %}>
     </div>
-     <!--
-    <div class="recipe_box">
+
+    <div class="inventory_content">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
             <ol class="carousel-indicators">
                 {% for i in pages_items %}
@@ -172,17 +174,23 @@
                 {% for items in pages_items %}
                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
                         <div class="item_wrap">
-                            {% for item in items %}
+                            <div class="item_wrap2">
+                            {% for item in inven %}
                                 <div class="item">
                                     <p class="item_count">x{{item.itemCount}}</p>
-                                    <img src="{% static 'img/test_item/' %}{{ item.itemInfo.itemName }}.png">
+                                    <img src="{% static 'img/store/' %}{{ item.itemInfo.itemImage }}.png">
                                     <div class="item_description">
                                         <p>{{ item.itemInfo.itemName }}</p>
                                         <p class="category">{{ item.itemInfo.itemCategory }}</p>
                                         <p class="item_info">{{ item.itemInfo.itemInfo }}</p>
-                                    </div>
-                                </div>
+                                        <div class="ibtn_wrap">
+                                            <button class="itembtn">사용</button>
+                                            <button class="itembtn">양도</button>
+                                        </div>
+                                    </div>                                
+                            </div>
                             {% endfor %}
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
@@ -198,11 +206,6 @@
         </div>
     </div>
 
-    {% for item in inven %}
-        {{item.itemInfo.itemName}}
-        {{item.itemCount}}
-    {% endfor %}
-    -->
 </div>
 
 </div>
@@ -210,41 +213,6 @@
 
 
 <script>
-
-    document.addEventListener('DOMContentLoaded', () => {
-
-        const audio = document.getElementById('background-music'); //bgm
-        const audio2 = document.getElementById('profile-music'); //profile bgm
-        const playPauseButton = document.getElementById('play-pause-button');
-        const playPauseButton2 = document.getElementById('play-pause-button2');
-        const volumeSlider2 = document.getElementById('volume-slider2');
-
-        let isPlaying = false; // 음악 재생 상태를 추적
-        let isPlaying2 = false; // 음악 재생 상태를 추적
-
-        // 재생/일시 정지 버튼 클릭 이벤트
-        playPauseButton2.addEventListener('click', () => {
-            if (audio2.paused) {
-                audio.pause();
-                audio2.play();
-                isPlaying2 = true;
-                playPauseButton2.textContent = 'Pause';
-                playPauseButton.textContent = 'Play';
-            } else {
-                audio2.pause();
-                isPlaying2 = false;
-                playPauseButton2.textContent = 'Play';
-            }
-        });
-
-        // 음량 슬라이더 이벤트
-        volumeSlider2.addEventListener('input', () => {
-            if (isPlaying2) {
-                audio2.volume = volumeSlider2.value;
-            }
-        });
-
-    });
     document.addEventListener('DOMContentLoaded', () => {
         const wrapElement = document.querySelector('.wrap');
         wrapElement.classList.add('fade-in-right');

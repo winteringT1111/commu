@@ -1,5 +1,5 @@
 .user {
-    width: 360px !important;
+    width: 410px !important;
     height: 150px !important;
     position: fixed;
     bottom: 20px;
@@ -45,7 +45,7 @@
     justify-content: center;
     cursor: default;
     border-radius: 10px;
-    padding: 5px 15px;
+    padding: 5px 10px;
     border: 1.5px solid #dbdbdb;
     background-color: rgba(48, 47, 53, 0.5);
 }
@@ -69,7 +69,7 @@
 }
 
 .arrow {
-    margin-left: 5px;
+    margin-left: 25px;
     cursor: pointer;
     user-select: none;
 }
@@ -96,7 +96,7 @@
 .profile_content a::after {
     content: "";
     position: absolute;
-    bottom: -15%;
+    bottom: 7%;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
@@ -116,20 +116,72 @@
 
 .goto_twitter {
     margin-bottom: 5px;
+    display: flex
 }
 
 .active_content {
-    width: 70px;
-    opacity: 0.7;
-    margin-left: 20px;
+    display: flex;
+    margin-left: 5px
 }
 
-.active_content img {
+.token img {
     width: 18px;
     margin-right: 4px;
 }
 
 .token {
-    margin: 10px 0px;
+    margin: 0px 5px;
+}
+
+
+
+
+/* 슬라이더의 기본 스타일 */
+.volume-slider {
+    -webkit-appearance: none; /* 크롬, 사파리에서 기본 스타일 제거 */
+    appearance: none;
+    margin-left: 10px;
+    width: 60%; /* 슬라이더 전체 너비 */
+    height: 8px; /* 슬라이더의 두께 */
+    background: #ddd; /* 배경색 (슬라이더 바의 기본 색) */
+    border-radius: 5px; /* 슬라이더의 테두리 둥글게 */
+    outline: none; /* 슬라이더 클릭 시 외곽선 제거 */
+    transition: background 0.3s ease; /* 배경 색상 변경 애니메이션 */
+}
+
+/* 슬라이더의 'thumb' (슬라이더의 조정 핸들) 스타일 */
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* 크롬, 사파리에서 기본 스타일 제거 */
+    appearance: none;
+    width: 15px; /* 핸들의 너비 */
+    height: 15px; /* 핸들의 높이 */
+    background: #1f2c44; /* 핸들의 배경 색 */
+    border-radius: 50%; /* 핸들을 원형으로 */
+    border: 1px solid #dbdbdb;
+    transform: translateY(-20%); /* 핸들의 너비의 절반만큼 왼쪽으로 이동 */
+    cursor: pointer; /* 핸들에 마우스를 올렸을 때 커서가 손 모양으로 변함 */
+    transition: background 0.3s ease; /* 핸들 배경색 애니메이션 */
+}
+
+/* 슬라이더 핸들이 마우스를 올렸을 때 색상 변화 */
+.volume-slider::-webkit-slider-thumb:hover {
+    background: #5d8bcf; /* 핸들 색상 밝은 녹색으로 변화 */
+}
+
+/* 슬라이더의 배경색 변화 (슬라이더가 활성화될 때) */
+.volume-slider:focus {
+    background: #aaa; /* 포커스될 때 슬라이더 바 색상 */
+}
+
+/* 슬라이더 진행 상태를 나타내는 커스텀 스타일 */
+.volume-slider::-webkit-slider-runnable-track {
+    background: #ddd; /* 슬라이더 바의 기본 색 */
+    border-radius: 5px; /* 슬라이더 바의 테두리 둥글게 */
+    height: 8px; /* 슬라이더 바의 두께 */
+}
+
+/* 슬라이더 진행 상태를 나타내는 커스텀 스타일 (활성 상태) */
+.volume-slider:active::-webkit-slider-runnable-track {
+    background: #dfdfdf; /* 슬라이더가 활성화되었을 때 바 색상 */
 }
 

@@ -12,8 +12,8 @@ urlpatterns = [
     path('attendance/', views.attendance, name='attendance'),
     #수업
     path('class/', views.class_main, name='class'),
-    path('class/herb', views.herb, name='herb'),
-    path('class/shifter', views.shifter, name='shifter'),
+    path('class/herbology', views.herb, name='herb'),
+    path('class/flying', views.shifter, name='shifter'),
     path('class/potion/', views.potion, name='potion'),
     path('check_combination/', views.check_combination, name='check_combination'),
 ]

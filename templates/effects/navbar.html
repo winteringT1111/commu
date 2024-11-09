@@ -1,13 +1,13 @@
 <nav>
     <ul>
     <li><a href="/"><i class="fa-solid fa-house"></i></a></li>
-    <li><a href="#"><span onclick="alert('기숙사 배정식 이후 이용이 가능합니다.')"><i class="fa-solid fa-store"></i></span></a></li>
+    <li><a href="#"><i class="fa-solid fa-store"></i></a></li>
     <li><a href="/member"><i class="fa-solid fa-user-group"></i></a></li>
-    <li><a href="#"><span onclick="alert('기숙사 배정식 이후 이용이 가능합니다.')"><i class="fa-solid fa-clipboard"></i></span></a></li>
-    <li><a href="#"><span onclick="alert('기숙사 배정식 이후 이용이 가능합니다.')"><i class="fa-solid fa-compass"></i></span></a></li>
-    <li><a href="#"><span onclick="alert('기숙사 배정식 이후 이용이 가능합니다.')"><i class="fa-solid fa-book"></i></span></a></li>
-    <li><a href="#"><span onclick="alert('기숙사 배정식 이후 이용이 가능합니다.')"><i class="fa-solid fa-gift"></i></span></a></li>
-    <li><a href="#"><span onclick="alert('기숙사 배정식 이후 이용이 가능합니다.')"><i class="fa-solid fa-circle-info"></i></span></a></li>
+    <li><a href="#"><i class="fa-solid fa-clipboard"></i></a></li>
+    <li><a href="#"><i class="fa-solid fa-book"></i></a></li>
+    <li><a href="#"><i class="fa-solid fa-gift"></i></a></li>
+    <li><a href="/member/{{ user.username }}"><i class="fa-solid fa-user"></i></a></li>
+    <li><a href="https://open.kakao.com/o/sn3lg6Yg" target="_blank"><i class="fa-solid fa-circle-info"></i></a></li>
     <li>
         <form action="{% url 'users:logout' %}" method="post" style="display:inline;">
             {% csrf_token %}

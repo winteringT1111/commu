@@ -35,6 +35,7 @@ class Characters(models.Model):
     charWand3 = models.TextField()
     charWand4 = models.TextField()
     charWandInfo = models.TextField(null=True)
+    charProfileMusic = models.TextField(null=True)
     
     class Meta:
         db_table = "character"

@@ -33,7 +33,7 @@
                             </div>
                             <div class="message_content">
                                 <img src={% static "img/star.png" %}>
-                                {% if gift.anonymous %}
+                                {% if gift.message %}
                                 {{gift.message}}
                                 {% else %}
                                 <span id="blank">메세지가 존재하지 않습니다.</span>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="message_content">
                             <img src={% static "img/star.png" %}>
-                            {% if gift.anonymous %}
+                            {% if gift.message %}
                             {{gift.message}}
                             {% else %}
                             <span id="blank">메세지가 존재하지 않습니다.</span>

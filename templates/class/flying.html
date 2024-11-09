@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/class/flying.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="overlay"></div>
+<div class="gradient-overlay"></div>
+
+<div class="goback">
+    <a href="/class"><i class="fa-solid fa-chevron-left"></i></a>
+</div>
+
+
+<div class="flying_background">
+    <div class="flying_title">
+        Flying
+    </div>
+
+    <div class="selected_box">
+        <p>획득 가능한 아이템</p>
+        <div class="selected">기숙사 점수</div>
+    </div>
+
+    <div class="selected_image">
+        <img src="{% static 'img/빗자루_실루엣.png' %}" alt="빗자루">
+        <div class="item_description">
+            <p>빗자루</p>
+            <p class="category">소지품</p>
+            <p class="item_info">사용자의 이름이 각인된 빗자루다.</p>
+        </div>
+    </div>
+
+    <div class="modal_info">
+        <p><span><img src={% static "img/star.png" %}></span>수업 이수 시 1 수업 토큰이 소모됩니다.</p>
+        <p>누적 출석 7회 시 빗자루 아이템을 획득할 수 있습니다.</p>
+    </div>
+
+    <div class="modal_info2">
+        <p>누적 출석 수: 2일</p>
+        <p>빗자루 수령 여부: X</p>
+    </div>
+
+    <button type="button" class="herb_btn" data-toggle="modal" data-target="#exampleModal">
+        수업 이수
+    </button>
+
+</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // herb_background 요소 선택
+        const herbBackground = document.querySelector('.flying_background');
+        
+        // 애니메이션을 트리거하는 fadeInDown 클래스를 추가
+        herbBackground.style.visibility = 'visible';  // 요소를 보이게 설정
+        herbBackground.classList.add('fadeInDown');  // 애니메이션 시작
+    });
+    
+</script>
+
+{% endblock %}

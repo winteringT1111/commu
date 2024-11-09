@@ -7,6 +7,10 @@
 
     {% block content %}
 
+    
+<div class="overlay"></div>
+<div class="gradient-overlay"></div> 
+
     <div class="goback">
         <a href="/class"><i class="fa-solid fa-chevron-left"></i></a>
     </div>
@@ -33,7 +37,10 @@
 
 
     <div class="content-wrapper">  
-        <button class="recipe_btn"></button>
+        <div class="btnss">
+            <button class="recipe_btn"></button>
+            <button class="status_btn"></button>
+        </div>
 
         <div class="recipe_box">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
@@ -49,7 +56,7 @@
                                 {% for item in items %}
                                     <div class="item">
                                         <p class="item_count">x{{item.itemCount}}</p>
-                                        <img src="{% static 'img/test_item/' %}{{ item.itemInfo.itemName }}.png">
+                                        <img src="{% static 'img/store/' %}{{ item.itemInfo.itemName }}.png">
                                         <div class="item_description">
                                             <p>{{ item.itemInfo.itemName }}</p>
                                             <p class="category">{{ item.itemInfo.itemCategory }}</p>
@@ -110,29 +117,6 @@
         </div>
     </div>
 
-
-    <!-- Recipe book -->
-    <div class="book" id="recipeBook">
-        <button class="cancel_btn">취소</button>
-
-    </div>
-
-    <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" id="secondmodal">
-                <h5 class="modal-title" id="resultModalTitle">조합 결과</h5>
-
-                <div class="modal-image" id="resultModalImage">
-
-                </div>
-                <div class="modal-body" id="resultModalBody">
-                    정어리 파이를 획득했습니다!
-                </div>
-                
-                <button type="button" class="xbtn" id="xbtn" data-dismiss="modal">x</button>
-            </div>
-        </div>
-    </div>
     
 
     <script>
@@ -253,6 +237,35 @@
                 }
             });
         });
+
+        // 화살표 버튼 클릭 시 동작
+const prevButton = document.querySelector('.carousel-control-prev');
+const nextButton = document.querySelector('.carousel-control-next');
+const itemWrap = document.querySelector('.carousel-inner');
+// 화살표 버튼 클릭 이벤트 처리
+function handleCarouselTransition() {
+    // 1초 동안 overflow hidden을 적용
+    itemWrap.style.overflow = 'hidden';
+    console.log("rgwwerg");
+
+    // 1초 후에 overflow를 다시 기본값으로 변경
+    setTimeout(() => {
+        itemWrap.style.overflow = 'visible';  // 기본값 (혹은 원하는 상태로 변경)
+    }, 1000);  // 1000ms = 1초
+}
+
+// 이전 버튼 클릭 시
+prevButton.addEventListener('click', () => {
+    handleCarouselTransition();
+    // 추가적인 캐러셀 이동 로직 (예: 현재 슬라이드 이전으로 이동)
+});
+
+// 다음 버튼 클릭 시
+nextButton.addEventListener('click', () => {
+    handleCarouselTransition();
+    console.log("rgwwsadfwefwfweerg");
+    // 추가적인 캐러셀 이동 로직 (예: 현재 슬라이드 다음으로 이동)
+});
 
 
 
