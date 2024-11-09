@@ -177,7 +177,12 @@ def herb(request):
 @login_required(login_url='/login')
 def shifter(request):
     user = CharInfo.objects.get(user=request.user)
-    attendance = Attendance.objects.get(user=request.user)
+    
+    try:
+        attendance = Attendance.objects.get(user=request.user)
+    except Attendance.DoesNotExist:
+        attendance = Attendance(user=request.user, attendance_date=None, total_attendance=0, broom_item_received=False)
+        attendance.save()
         
     # 현재 시간 확인
     current_time = timezone.localtime(timezone.now())
