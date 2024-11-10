@@ -604,7 +604,7 @@ hr {
 .inventory_token {
     display: flex;
     position: absolute;
-    bottom: 3%;
+    bottom: 3.1%;
     left: 68%;  
     transform: translate(-50%,0%);
     user-select: none;
