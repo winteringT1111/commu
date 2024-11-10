@@ -69,7 +69,7 @@
                     {% endif %}
                     <div class="profile1">
                         <div class="profile_image1">
-                            <img src={% static "img/charac/01/04/{{gift.giver_user.username}}01-2.png" %}>
+                            <img src="{% static 'img/charac/01/04/'|add:gift.giver_user.username|add:'01-2.png' %}">
                         </div>
                         <div class="profile_name1">
                             {{gift.giver_user.username}}
