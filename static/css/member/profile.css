@@ -626,3 +626,40 @@ hr {
     font-family: "Hahmlet", serif;
     line-height: 45px;
 }
+
+
+
+#pm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 641px;
+    height: 281px;
+    background: url("../../img/purchase_modal.png");
+    background-size: contain;
+    border: none;
+    user-select: none;
+    filter: drop-shadow(8px 8px 8px #232425);
+    font-family: "Hahmlet", serif;
+    color: #dbdbdb;
+    text-align: center;
+}
+
+#yesbtn {
+    width: 75px;
+    height: 37px;
+    background-color: #f7ebdb;
+    border: none;
+    border-radius: 5px;
+    color: rgb(50, 53, 78);
+    font-size: 17px;
+    margin-top: 15px;
+}
+
+.plscenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

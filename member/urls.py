@@ -6,5 +6,6 @@ app_name = 'member'
 urlpatterns = [
     path('member', views.member_main, name='member_main'),
     path('member/<str:charName>', views.member_profile, name='member_profile'),
+    path('use_fortune_cookie/', views.use_fortune_cookie, name='use_fortune_cookie'),
     path('giftbox', views.giftbox, name='giftbox'),
 ]

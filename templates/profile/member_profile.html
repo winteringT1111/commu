@@ -185,8 +185,14 @@
                                         <p class="item_info">{{ item.itemInfo.itemInfo }}</p>
                                         {% if characinfo.user == user %}
                                         <div class="ibtn_wrap">
-                                            <button class="itembtn">사용</button>
-                                            <button class="itembtn">양도</button>
+                                            {% if item.itemInfo.itemName == '포춘쿠키' %}
+                                            <!--포춘쿠키-->
+                                            <button class="itembtn" onclick="showUseModal('포춘쿠키')">사용</button>
+                                            {% elif item.itemInfo.itemName == '타임터너' %}
+                                            <!--포춘쿠키-->
+                                            <button class="itembtn" onclick="showUseModal2('타임터너')">사용</button>
+                                            {% else %}
+                                            {% endif %}
                                         </div>
                                         {% else %}
                                         {% endif %}
@@ -225,7 +231,102 @@
 
 
 
+<div class="modal fade" id="fortuneCookieModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
+        <div class="modal-content" id="pm">
+            <div class="modal-body">
+                <div class="plscenter">
+                <h2>포춘쿠키</h2>
+                <p id="fortuneMessage">{{ random_fortune }}</p>  <!-- 랜덤 메시지 -->
+                <button type="button" onclick="useItem()" id="yesbtn">확인</button>  <!-- 사용 버튼 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="TimeTurnerModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
+        <div class="modal-content" id="pm">
+            <div class="modal-body">
+                <div class="plscenter">
+                <h2>타임터너</h2>
+                <p id="fortuneMessage">수업 토큰 1개를 획득했습니다.</p>  <!-- 랜덤 메시지 -->
+                <button type="button" onclick="useItem()" id="yesbtn">확인</button>  <!-- 사용 버튼 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
+
+        // 모달 열기 및 닫기 (Bootstrap 방식)
+        function openModal() {
+            $('#fortuneCookieModal').modal('show');
+        }
+    
+        function closeModal() {
+            $('#fortuneCookieModal').modal('hide');
+        }
+    
+        // "사용" 버튼 클릭 시 모달 열기
+        function showUseModal(itemName) {
+            if (itemName === "포춘쿠키") {
+                openModal();  // 모달 열기
+            }
+        }
+    
+        // "확인" 버튼 클릭 시 서버로 요청 보내기
+        function useItem() {
+            // 포춘쿠키 사용 처리하는 AJAX 요청 보내기
+            fetch('/use_fortune_cookie/', {  // 포춘쿠키 사용을 위한 서버 엔드포인트
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',  // CSRF 토큰을 포함
+                },
+                body: JSON.stringify({ 'item_name': 'fortune_cookie' })  // 아이템 이름을 서버로 전송
+            })
+            // 모달 닫기
+            closeModal();
+            location.reload();
+        }
+
+        function openModal2() {
+            $('#TimeTurnerModal').modal('show');
+        }
+    
+        function closeModal2() {
+            $('#TimeTurnerModal').modal('hide');
+        }
+    
+        // "사용" 버튼 클릭 시 모달 열기
+        function showUseModal2(itemName) {
+            if (itemName === "타임터너") {
+                openModal2();  // 모달 열기
+            }
+        }
+    
+        // "확인" 버튼 클릭 시 서버로 요청 보내기
+        function useItem2() {
+            // 포춘쿠키 사용 처리하는 AJAX 요청 보내기
+            fetch('/use_fortune_cookie/', {  // 포춘쿠키 사용을 위한 서버 엔드포인트
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',  // CSRF 토큰을 포함
+                },
+                body: JSON.stringify({ 'item_name': 'time_turner' })  // 아이템 이름을 서버로 전송
+            })
+            // 모달 닫기
+            closeModal2();
+            location.reload();
+        }
+   
+
+
     document.addEventListener('DOMContentLoaded', () => {
         const wrapElement = document.querySelector('.wrap');
         wrapElement.classList.add('fade-in-right');
