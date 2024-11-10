@@ -58,7 +58,7 @@ def use_fortune_cookie(request):
                     inven.save()
             except:
                 pass
-        if item_name == 'fortune_cookie':
+        elif item_name == 'time_turner':
             item = Item.objects.get(itemName="타임터너")
             char = CharInfo.objects.get(user=getUser)
             try:
