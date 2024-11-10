@@ -27,7 +27,8 @@ def member_profile(request, charName):
         'char': char,
         'inven':combined,
         "page_obj": page_obj, 
-        "pages_items": pages_items
+        "pages_items": pages_items,
+        "characinfo":characinfo
     }
     
     return render(request, "profile/member_profile.html", context)

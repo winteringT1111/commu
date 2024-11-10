@@ -38,7 +38,7 @@
 
     <div class="content-wrapper">  
         <div class="btnss">
-            <button class="recipe_btn"></button>
+            <a href="https://docs.google.com/spreadsheets/d/1iYuQlhoRYFsNd7augQHU64s7EZ5pjn3VaXRTRF4C3tU/edit?usp=sharing" target="_blank"><button class="recipe_btn"></button></a>
             <button class="status_btn"></button>
         </div>
 
@@ -101,15 +101,21 @@
                     </div>
 
                     <div class="modal_info">
-                        <p><span><img src={% static "img/star.png" %}></span>위 재료들을 조합하시겠습니까?</p>
+                        <p><span><img src="{% static "img/star.png" %}"></span>위 재료들을 조합하시겠습니까?</p>
                         <p>(조합에 사용된 아이템 및 1 수업 토큰이 소모됩니다.)</p>
                     </div>
 
                     <div class="modal_btns">
                         <button type="button" data-dismiss="modal">취소</button>
+                        {% if token > 0 %}
                         <button type="button" id="submitButton" data-toggle="popover" data-placement="top" data-content="수업 토큰이 부족합니다.">
                             조합
                         </button>
+                        {% else %}
+                        <button type="button" id="noTokensButton" data-container="body" data-toggle="popover" data-placement="top" data-content="수업 토큰이 부족합니다.">
+                            조합
+                        </button>
+                        {% endif %}
                     </div>
                 </form>
             </div>
@@ -117,204 +123,224 @@
         </div>
     </div>
 
-    
 
-    <script>
-        // Get references to select content divs
-        const selectContentDivs = [
-            document.querySelector('.select_content1'),
-            document.querySelector('.select_content2'),
-            document.querySelector('.select_content4'),
-            document.querySelector('.select_content3')
-        ];
+    <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" id="secondmodal">
+                <h5 class="modal-title" id="resultModalTitle">조합 결과</h5>
+                <div class="modal-image" id="resultModalImage">
+                </div>
+                <div class="modal-body" id="resultModalBody">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Status Modal -->
+<div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" id="plsmodal">
+            <h2 class="modal-title" id="statusModalTitle">STATUS</h2>
+            <div class="modal-body" id="statusModalBody">
+                <p>수업 경험치: <span id="userXp">{{status.xp}}</span></p> <!-- 사용자 경험치 (초기값은 100) -->
+                <p>경험치 등급: <span id="userGrade">{{status.degree}}등급</span></p> <!-- 사용자 등급 (초기값은 3등급) -->
+                <p>마법의 약은 조합 난이도 ★~★★★으로 나뉘어져 있습니다.</p>
+                <ul>
+                    <li><strong>난이도 ★:</strong> 경험치 3등급부터 제조 가능</li>
+                    <li><strong>난이도 ★★:</strong> 경험치 2등급부터 제조 가능</li>
+                    <li><strong>난이도 ★★★:</strong> 경험치 1등급부터 제조 가능</li>
+                </ul>
+                <p>올바른 조합법을 사용하여도 수업 경험치 등급이 낮을 시 제조에 실패합니다.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const statusBtn = document.querySelector('.status_btn');
         
-        let selectedItems = 0; // Track the number of selected items
+        // Handle status button click
+        statusBtn.addEventListener('click', () => {
+            // Show the modal
+            $('#statusModal').modal('show');
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize popover for "noTokensButton" if it exists
+        const noTokensButton = document.getElementById('noTokensButton');
+        if (noTokensButton) {
+            $(noTokensButton).popover({
+                trigger: 'focus', // Focus trigger for showing popover
+                placement: 'top'   // Position of the popover (top, bottom, left, right)
+            });
+        }
+
+    });
+// Get references to select content divs
+const selectContentDivs = [
+    document.querySelector('.select_content1'),
+    document.querySelector('.select_content2'),
+    document.querySelector('.select_content4'),
+    document.querySelector('.select_content3')
+];
+
+let selectedItems = []; // Array to track selected item names
+
+// 아이템 조합에 넣기
+function handleItemClick(item, itemImageSrc) {
+    // Check if the item has already been selected
+    const itemName = item.querySelector('.item_description p').textContent;
     
-        // Function to handle item clicks
-        function handleItemClick(item, itemImageSrc) {
-            if (selectedItems < 4 && item.dataset.itemCount > 0) {
-                // Display image in select_content divs
-                selectContentDivs[selectedItems].innerHTML = `<img src="${itemImageSrc}" />`;
+    if (selectedItems.length < 4 && item.dataset.itemCount > 0 && !selectedItems.includes(itemName)) {
+        // Add item to selected list
+        selectedItems.push(itemName);  // Track the item name
         
-                // Reduce item count
-                item.dataset.itemCount--;
-                item.querySelector('p').textContent = `x${item.dataset.itemCount}`;
-                selectedItems++;
+        // Display image in select_content divs
+        selectContentDivs[selectedItems.length - 1].innerHTML = `<img src="${itemImageSrc}" />`;
+
+        // Reduce item count
+        item.dataset.itemCount--;
+        item.querySelector('p').textContent = `x${item.dataset.itemCount}`;
         
-                // Update modal with selected item details
-                const selectedNames = document.querySelector('.selected');
-                const selectedImages = document.querySelector('.selected_image');
-        
-                // Add item name and image to the modal
-                const itemName = item.querySelector('.item_description p').textContent;
-                const itemImage = `<img src="${itemImageSrc}" />`;
-                selectedNames.innerHTML += `<span>${itemName}</span>`;
-                selectedImages.innerHTML += `<span>${itemImage}</span>`;
+        // Update modal with selected item details
+        const selectedNames = document.querySelector('.selected');
+        const selectedImages = document.querySelector('.selected_image');
+
+        // Add item name and image to the modal
+        const itemImage = `<img src="${itemImageSrc}" />`;
+        selectedNames.innerHTML += `<span>${itemName}</span>`;
+        selectedImages.innerHTML += `<span>${itemImage}</span>`;
+    } else if (selectedItems.includes(itemName)) {
+        // Optionally, you could show a message or handle the case where an item is already selected
+        alert('이미 선택한 아이템입니다.');
+    }
+}
+
+// Add event listeners to each item in item_wrap
+document.querySelectorAll('.item').forEach(item => {
+    const itemImageSrc = item.querySelector('img').src;
+    item.dataset.itemCount = item.querySelector('p').textContent.replace('x', ''); // Initialize item count
+    item.addEventListener('click', () => handleItemClick(item, itemImageSrc));
+});
+
+// 초기화 버튼
+document.getElementById('initialize-btn').addEventListener('click', () => {
+    selectContentDivs.forEach(div => div.innerHTML = '');
+    selectedItems = 0;
+    
+    // Clear modal contents
+    document.querySelector('.selected').innerHTML = '';
+    document.querySelector('.selected_image').innerHTML = '';
+
+    location.reload();
+});
+
+
+// 캐러셀 움직임
+const prevButton = document.querySelector('.carousel-control-prev');
+const nextButton = document.querySelector('.carousel-control-next');
+const itemWrap = document.querySelector('.carousel-inner');
+// 화살표 버튼 클릭 이벤트 처리
+function handleCarouselTransition() {
+    // 1초 동안 overflow hidden을 적용
+    itemWrap.style.overflow = 'hidden';
+    console.log("rgwwerg");
+
+    // 1초 후에 overflow를 다시 기본값으로 변경
+    setTimeout(() => {
+        itemWrap.style.overflow = 'visible';  // 기본값 (혹은 원하는 상태로 변경)
+    }, 1000);  // 1000ms = 1초
+}
+
+// 이전 버튼 클릭 시
+prevButton.addEventListener('click', () => {
+    handleCarouselTransition();
+    // 추가적인 캐러셀 이동 로직 (예: 현재 슬라이드 이전으로 이동)
+});
+
+// 다음 버튼 클릭 시
+nextButton.addEventListener('click', () => {
+    handleCarouselTransition();
+    console.log("rgwwsadfwefwfweerg");
+    // 추가적인 캐러셀 이동 로직 (예: 현재 슬라이드 다음으로 이동)
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const makeBtn = document.querySelector('.make_btn');
+    const selectContent2 = document.querySelector('.select_content2');
+
+    // Initialize Bootstrap popover on makeBtn
+    $(makeBtn).popover({
+        container: 'body',
+        placement: 'top',
+        trigger: 'manual',
+        content: '최소 2개의 아이템을 조합해주세요.'
+    });
+
+    makeBtn.addEventListener('click', () => {
+        if (selectContent2.innerHTML.trim() === '') {
+            // Show popover if no item is selected in .select_content2
+            $(makeBtn).popover('show');
+            setTimeout(() => $(makeBtn).popover('hide'), 2000); // Hide popover after 2 seconds
+        } else {
+            // Show modal if item is selected in .select_content2
+            $('#staticBackdrop').modal('show');
+        }
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const submitButton = document.getElementById('submitButton');
+
+    submitButton.addEventListener('click', () => {
+        const selectedItems = Array.from(document.querySelectorAll('.selected span')).map(span => span.textContent);
+
+        fetch("{% url 'main:check_combination' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({ selected_items: selectedItems }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            $('#staticBackdrop').modal('hide'); // Hide the initial modal
+
+            // Update result modal content based on the combination result
+            const resultModalTitle = document.getElementById("resultModalTitle");
+            const resultModalBody = document.getElementById("resultModalBody");
+            const resultModalImage = document.getElementById("resultModalImage");
+
+            if (data.result === "success") {
+                resultModalTitle.textContent = "조합 성공!";
+                resultModalBody.textContent = `${data.message}`;
+                resultModalImage.innerHTML = `<img src="/static/${data.image}" alt="Result Image">`;
+            } else {
+                resultModalTitle.textContent = "Better luck next time!";
+                resultModalBody.textContent = "사용한 마법 재료가 전부 소진되었습니다.";
+                resultModalImage.innerHTML = `<img src="/static/${data.image}" alt="Result Image">`;
             }
-        }
+            $('#resultModal').modal('show');
+        })
+        .catch(error => console.error("Error:", error));
+    });
+});
+
+
+document.getElementById('xbtn').addEventListener('click', () => {
+
+    location.reload();
+});
+</script>
     
-        // Add event listeners to each item in item_wrap
-        document.querySelectorAll('.item').forEach(item => {
-            const itemImageSrc = item.querySelector('img').src;
-            item.dataset.itemCount = item.querySelector('p').textContent.replace('x', ''); // Initialize item count
-            item.addEventListener('click', () => handleItemClick(item, itemImageSrc));
-        });
-    
-        // Initialize button functionality
-        document.getElementById('initialize-btn').addEventListener('click', () => {
-            selectContentDivs.forEach(div => div.innerHTML = '');
-            selectedItems = 0;
-            
-            // Clear modal contents
-            document.querySelector('.selected').innerHTML = '';
-            document.querySelector('.selected_image').innerHTML = '';
-        
-            location.reload();
-        });
 
-        // Function to show the recipe book
-        function showRecipeBook() {
-            const recipeBook = document.getElementById('recipeBook');
-            recipeBook.style.display = 'block'; // Show the recipe book
-            recipeBook.style.opacity = 0; // Start with zero opacity
-            let opacity = 0;
-    
-            // Fade in effect
-            const fadeInInterval = setInterval(() => {
-                if (opacity < 1) {
-                    opacity += 0.05;
-                    recipeBook.style.opacity = opacity;
-                } else {
-                    clearInterval(fadeInInterval);
-                }
-            }, 20);
-        }
-    
-        // Function to hide the recipe book
-        function hideRecipeBook() {
-            const recipeBook = document.getElementById('recipeBook');
-            recipeBook.style.opacity = 1; // Start with full opacity
-            let opacity = 1;
-    
-            // Fade out effect
-            const fadeOutInterval = setInterval(() => {
-                if (opacity > 0) {
-                    opacity -= 0.05;
-                    recipeBook.style.opacity = opacity;
-                } else {
-                    recipeBook.style.display = 'none'; // Hide the recipe book after fading out
-                    clearInterval(fadeOutInterval);
-                }
-            }, 20);
-        }
-    
-        // Show the recipe book on button click
-        document.querySelector('.recipe_btn').addEventListener('click', showRecipeBook);
-    
-        // Hide the recipe book on cancel button click
-        document.querySelector('.cancel_btn').addEventListener('click', hideRecipeBook);
-    
-        document.addEventListener("DOMContentLoaded", function () {
-            const makeBtn = document.querySelector('.make_btn');
-            const selectContent2 = document.querySelector('.select_content2');
-    
-            // Initialize Bootstrap popover on makeBtn
-            $(makeBtn).popover({
-                container: 'body',
-                placement: 'top',
-                trigger: 'manual',
-                content: '최소 2개의 아이템을 조합해주세요.'
-            });
-    
-            makeBtn.addEventListener('click', () => {
-                if (selectContent2.innerHTML.trim() === '') {
-                    // Show popover if no item is selected in .select_content2
-                    $(makeBtn).popover('show');
-                    setTimeout(() => $(makeBtn).popover('hide'), 2000); // Hide popover after 2 seconds
-                } else {
-                    // Show modal if item is selected in .select_content2
-                    $('#staticBackdrop').modal('show');
-                }
-            });
-        });
-
-        // 화살표 버튼 클릭 시 동작
-        const prevButton = document.querySelector('.carousel-control-prev');
-        const nextButton = document.querySelector('.carousel-control-next');
-        const itemWrap = document.querySelector('.carousel-inner');
-        // 화살표 버튼 클릭 이벤트 처리
-        function handleCarouselTransition() {
-            // 1초 동안 overflow hidden을 적용
-            itemWrap.style.overflow = 'hidden';
-            console.log("rgwwerg");
-
-            // 1초 후에 overflow를 다시 기본값으로 변경
-            setTimeout(() => {
-                itemWrap.style.overflow = 'visible';  // 기본값 (혹은 원하는 상태로 변경)
-            }, 1000);  // 1000ms = 1초
-        }
-
-        // 이전 버튼 클릭 시
-        prevButton.addEventListener('click', () => {
-            handleCarouselTransition();
-            // 추가적인 캐러셀 이동 로직 (예: 현재 슬라이드 이전으로 이동)
-        });
-
-        // 다음 버튼 클릭 시
-        nextButton.addEventListener('click', () => {
-            handleCarouselTransition();
-            console.log("rgwwsadfwefwfweerg");
-            // 추가적인 캐러셀 이동 로직 (예: 현재 슬라이드 다음으로 이동)
-        });
-
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const submitButton = document.getElementById('submitButton');
-        
-            submitButton.addEventListener('click', () => {
-                const selectedItems = Array.from(document.querySelectorAll('.selected span')).map(span => span.textContent);
-        
-                fetch("{% url 'main:check_combination' %}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}',
-                    },
-                    body: JSON.stringify({ selected_items: selectedItems }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    $('#staticBackdrop').modal('hide'); // Hide the initial modal
-        
-                    // Update result modal content based on the combination result
-                    const resultModalTitle = document.getElementById("resultModalTitle");
-                    const resultModalBody = document.getElementById("resultModalBody");
-                    const resultModalImage = document.getElementById("resultModalImage");
-        
-                    if (data.result === "success") {
-                        resultModalTitle.textContent = "조합 성공!";
-                        resultModalBody.textContent = "정어리 파이를 획득했습니다!";
-                        resultModalImage.innerHTML = `<img src="/static/${data.image}" alt="Result Image">`;
-                    } else {
-                        resultModalTitle.textContent = "Better luck next time!";
-                        resultModalBody.textContent = "사용한 마법 재료가 전부 소진되었습니다.";
-                        resultModalImage.innerHTML = `<img src="/static/${data.image}" alt="Result Image">`;
-                    }
-                    $('#resultModal').modal('show');
-                })
-                .catch(error => console.error("Error:", error));
-            });
-        });
-
-
-        document.getElementById('xbtn').addEventListener('click', () => {
-
-            location.reload();
-        });
-        
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  
-
-    {% endblock %}
+{% endblock %}

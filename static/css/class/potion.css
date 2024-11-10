@@ -540,4 +540,22 @@ html, body {
 
 
 
+#plsmodal {
+    color: #dbdbdb;
+    text-align: center;
+    font-family: "Hahmlet", serif;
+}
 
+#statusModalTitle {
+    position: fixed;
+    top: 23%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+#statusModalBody {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

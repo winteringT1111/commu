@@ -600,3 +600,29 @@ hr {
     font-size: small;
     margin-top: 4px !important;
 }
+
+.inventory_token {
+    display: flex;
+    position: absolute;
+    bottom: 3%;
+    left: 68%;  
+    transform: translate(-50%,0%);
+    user-select: none;
+    align-items: center;
+    justify-content: center;
+} .inventory_token img {
+    width: 55px;
+    height: auto;
+}
+
+.inventoken {
+    width: 120px;
+    height: 45px;
+    background-color: rgba(32, 42, 63, 0.8);
+    text-align: center;
+    border-radius: 5px;
+    margin: 0px 10px;
+    color: #dbdbdb;
+    font-family: "Hahmlet", serif;
+    line-height: 45px;
+}

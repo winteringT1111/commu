@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 
@@ -57,3 +58,23 @@ class Gacha(models.Model):
     itemImage = models.TextField()
     itemCategory = models.TextField()
     itemInfo = models.TextField()
+    
+    
+class House(models.Model):
+    grinffindor = models.IntegerField(default=0)
+    hufflepuff = models.IntegerField(default=0)
+    ravenclaw = models.IntegerField(default=0)
+    slyderin = models.IntegerField(default=0)
+    
+    class Meta:
+        db_table = "House"
+    
+    
+class PotionStatus(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    xp = models.IntegerField(default=0) 
+    degree = models.IntegerField(default=3) 
+
+    class Meta:
+        db_table = "PotionStatus"
+    

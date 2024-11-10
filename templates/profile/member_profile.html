@@ -183,10 +183,13 @@
                                         <p>{{ item.itemInfo.itemName }}</p>
                                         <p class="category">{{ item.itemInfo.itemCategory }}</p>
                                         <p class="item_info">{{ item.itemInfo.itemInfo }}</p>
+                                        {% if characinfo.user == user %}
                                         <div class="ibtn_wrap">
                                             <button class="itembtn">사용</button>
                                             <button class="itembtn">양도</button>
                                         </div>
+                                        {% else %}
+                                        {% endif %}
                                     </div>                                
                             </div>
                             {% endfor %}
@@ -206,6 +209,16 @@
         </div>
     </div>
 
+    <div class="inventory_token">
+        <img src={% static "img/갈레온.png" %}>
+        <div class="inventoken">
+            {{characinfo.galeon}}
+        </div>
+        <img src={% static "img/토큰.png" %}>
+        <div class="inventoken">
+            {{characinfo.classToken}}
+        </div>
+    </div>
 </div>
 
 </div>

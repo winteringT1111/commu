@@ -1,13 +1,14 @@
 from django.shortcuts import render,redirect
-from member.models import Characters,Inventory_magic,Attendance
+from member.models import Characters,Inventory_magic,Attendance,Inventory
 from users.models import CharInfo
-from store.models import Item_magic
+from store.models import Item_magic,Potion,Item,PotionStatus
 from django.utils import timezone
 from datetime import datetime
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 import random
+import ast
 import json
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -108,29 +109,90 @@ def potion(request):
     
     # 각 페이지의 아이템 목록을 생성
     pages_items = [paginator.page(i).object_list for i in paginator.page_range]
+    token = CharInfo.objects.get(user=request.user).classToken
+    
+    try:
+        status = PotionStatus.objects.get(user=request.user)
+    except PotionStatus.DoesNotExist:
+        status = PotionStatus(user=request.user, xp=0, degree=3)
+        status.save()
+        
+    return render(request, "class/potion.html", {"page_obj": page_obj, "pages_items": pages_items, "token":token, "status":status})
 
-    return render(request, "class/potion.html", {"page_obj": page_obj, "pages_items": pages_items})
 
-
-@login_required(login_url='/login')
 @require_POST
 def check_combination(request):
+    
+    char = CharInfo.objects.get(user=request.user)  # Get character data
+    status = PotionStatus.objects.get(user=request.user)
+    
     try:
+        # Parse the selected items from the request body
         data = json.loads(request.body)
         selected_items = data.get('selected_items', [])
 
-        if set(selected_items) == {"정어리", "밀가루", "버터", "설탕"}:
-            result = "success"
-            image = "img/test_item/정어리 파이.png"
-        else:
-            result = "failure"
-            image = "img/test_item/빈 물약(꽝).png"
+        # Sort selected items to ensure order doesn't affect comparison
+        selected_items_set = set(selected_items)
+
+        # Initialize response variables
+        result = "failure"
+        image = "img/store/빈 물약.png"
+        message = "" 
+
+        potions = Potion.objects.all()
+
+        for potion in potions:
+            potion_recipe = set(ast.literal_eval(potion.potionRecipe))
+            if selected_items_set == potion_recipe:
+                result = "success"
+                image = f"img/store/{potion.potion}.png" 
+                if potion.discovered:
+                    message = f"{potion.potion} 조합에 성공했습니다!"
+                    status.xp +=15
+                    status.save()
+                else:
+                    message = f"{potion.potion} 조합에 최초 성공했습니다!"
+                    potion.discovered = True
+                    potion.discoverer = request.user.username
+                    status.xp +=30
+                    status.save()
+                break 
+
+        if result == 'failure':
+            try:
+                inven = Inventory.objects.get(user=request.user, itemInfo__itemName="빈 물약")
+                inven.itemCount += 1
+                inven.save()
+            except:
+                item_info = Item.objects.get(itemName="빈 물약")
+                Inventory.objects.create(
+                    user=request.user,
+                    itemInfo=item_info,
+                    itemCount=1
+                )
+            status.xp +=10
+            status.save()
             
-        char = CharInfo.objects.get(user=request.user)
+        # 토큰 차감
         char.classToken -= 1
         char.save()
+        
+        # 선택한 아이템 차감
+        for item in selected_items_set:
+            inven = Inventory_magic.objects.get(user=request.user, itemInfo__itemName=item)
+            if int(inven.itemCount) == 1:
+                inven.delete()
+            else:
+                inven.itemCount -= 1
+                inven.save()
+                
+        if status.xp >= 170:
+            status.degree = 2
+            status.save()
 
-        return JsonResponse({'result': result, 'image': f"{image}"})
+        # Return the result as a JSON response
+        return JsonResponse({'result': result, 'image': image, 'message':message})
+
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Invalid JSON data'}, status=400)
 
