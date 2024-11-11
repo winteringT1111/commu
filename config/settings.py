@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%_)09$7j@&p&12m$o0vvandhi7we(egziqhg3l#9)mzu7g40*z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -129,9 +129,9 @@ CSRF_TRUSTED_ORIGINS = ['https://winteringtheory.site']
 
 STATIC_URL = '/static/'
 
-#STATICFILES_DIRS = [ BASE_DIR / 'static/']
+STATICFILES_DIRS = [ BASE_DIR / 'static/']
 
-STATIC_ROOT = BASE_DIR / 'static/' 
+#STATIC_ROOT = BASE_DIR / 'static/' 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
