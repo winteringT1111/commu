@@ -663,3 +663,95 @@ hr {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+
+.selected_image_box {
+    position: absolute;
+    top: 32%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.selected_image {
+    display: flex;
+}
+
+.selected_image span {
+    background: url("../../img/item_box.png");
+    width: 90px;
+    height: 90px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    margin: 2px;
+} .selected_image span img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 50%;
+} 
+
+.plscenter2 {
+    position: absolute;
+    top: 69%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#yesbtn2 {
+    width: 75px;
+    height: 37px;
+    background-color: #f7ebdb;
+    border: none;
+    border-radius: 5px;
+    color: rgb(50, 53, 78);
+    font-size: 17px;
+    margin-top: 2px;
+} .yesbtn2 {
+    width: 75px;
+    height: 37px;
+    background-color: #f7ebdb;
+    border: none;
+    border-radius: 5px;
+    color: rgb(50, 53, 78);
+    font-size: 17px;
+    margin-top: 30px;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+#characterSelect {
+    width: 250px;
+}
+
+
+.selected_image2 {
+    display: flex;
+}
+
+.selected_image2 span {
+    background: url("../../img/potion_box.png");
+    width: 90px;
+    height: 90px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    margin: 2px;
+} .selected_image2 span img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 50%;
+} 

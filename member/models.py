@@ -75,7 +75,30 @@ class Gift(models.Model):
 
     class Meta:
         db_table = "gift"
+     
         
+class MagicGift(models.Model):
+    giftID = models.AutoField(primary_key=True)  
+    giver_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='gifts_given2'  # Custom related name for the giver
+    )
+    receiver_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='gifts_received2'  # Custom related name for the receiver
+    )
+    itemInfo = models.ForeignKey(itemModels.Item_magic, on_delete=models.CASCADE)
+    anonymous = models.BooleanField()
+    message = models.TextField(null=True)
+    itemCount = models.IntegerField()
+    orderDate = models.DateField(null=True)
+    accepted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = "magicgift"
+   
         
 class Inventory(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

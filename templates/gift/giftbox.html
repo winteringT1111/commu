@@ -43,7 +43,7 @@
                         <div class="function">
                             <div class="item_image">
                                 <p class="item_count">x{{gift.itemCount}}</p>
-                                <img src="{% static 'img/store/' %}{{ gift.itemInfo.itemImage }}.png">
+                                <img src="{% static 'img/store/' %}{{ gift.itemInfo.itemName }}.png">
                                 <div class="item_description">
                                     <p>{{ gift.itemInfo.itemName }}</p>
                                     <p class="category">{{ gift.itemInfo.itemCategory }}</p>
@@ -92,7 +92,7 @@
                     <div class="function">
                         <div class="item_image">
                             <p class="item_count">x{{gift.itemCount}}</p>
-                            <img src="{% static 'img/store/' %}{{ gift.itemInfo.itemImage }}.png">
+                            <img src="{% static 'img/store/' %}{{ gift.itemInfo.itemName }}.png">
                             <div class="item_description">
                                 <p>{{ gift.itemInfo.itemName }}</p>
                                 <p class="category">{{ gift.itemInfo.itemCategory }}</p>

@@ -189,8 +189,17 @@
                                             <!--포춘쿠키-->
                                             <button class="itembtn" onclick="showUseModal('포춘쿠키')">사용</button>
                                             {% elif item.itemInfo.itemName == '타임터너' %}
-                                            <!--포춘쿠키-->
+                                            <!--타임터너-->
                                             <button class="itembtn" onclick="showUseModal2('타임터너')">사용</button>
+                                            {% elif item.itemInfo.itemName == '마법 주머니' %}
+                                            <!--마법주머니-->
+                                            <button class="itembtn" onclick="showUseModal3('마법주머니')">사용</button>
+                                            {% elif item.itemInfo.itemName == '고급 마법 주머니' %}
+                                            <!--고급마법주머니-->
+                                            <button class="itembtn" onclick="showUseModal4('고급마법주머니')">사용</button>
+                                            {% elif item.itemInfo.itemCategory == '마법 재료' %}
+                                            <!-- 양도 버튼 추가 -->
+                                            <button class="itembtn" onclick="openTransferModal('{{ item.itemInfo.itemName }}')">양도</button>
                                             {% else %}
                                             {% endif %}
                                         </div>
@@ -259,6 +268,77 @@
     </div>
 </div>
 
+<div class="modal fade" id="MagicItemModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
+        <div class="modal-content" id="pm">
+            <div class="modal-body">
+                <form method="POST" action="">
+                {% csrf_token %}
+                    <input type="hidden" name="boxtype" value="magic">
+                    <div class="selected_image_box">
+                        <div class="selected_image">
+                            {% for mitem in magicItem %}
+                            <input type="hidden" name="magic_item_names" value="{{ mitem.itemName }}">
+                            <span><img src="{% static 'img/store/' %}{{ mitem.itemName }}.png"></span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="plscenter2">
+                    <p id="fortuneMessage">마법 재료를 획득했습니다.</p>  
+                    <button type="submit" id="yesbtn2">확인</button> 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="GoldMagicItemModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
+        <div class="modal-content" id="pm">
+            <div class="modal-body">
+                <form method="POST" action="">
+                {% csrf_token %}
+                <input type="hidden" name="boxtype" value="goldmagic">
+                    <div class="selected_image_box">
+                        <div class="selected_image2">
+                            {% for mitem in magicItem2 %}
+                            <input type="hidden" name="magic_item_names" value="{{ mitem.itemName }}">
+                            <span><img src="{% static 'img/store/' %}{{ mitem.itemName }}.png"></span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="plscenter2">
+                    <p id="fortuneMessage">마법 재료를 획득했습니다.</p>  
+                    <button type="submit" id="yesbtn2">확인</button> 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
+        <div class="modal-content" id="pm">
+            <div class="modal-body">
+                <div class="character_select">
+                    <label for="characterSelect">양도할 대상</label>
+                    <select id="characterSelect" class="form-control">
+                        {% for character in charnames %}
+                            <option value="{{character}}">{{character}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="hidden" id="itemName"></div>
+                <button type="button" class="yesbtn2" onclick="transferItem()" id="confirmBtn">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <script>
 
@@ -324,7 +404,37 @@
             closeModal2();
             location.reload();
         }
+
+        function openModal3() {
+            $('#MagicItemModal').modal('show');
+        }
+    
+        function closeModal3() {
+            $('#MagicItemModal').modal('hide');
+        }
+    
+        // "사용" 버튼 클릭 시 모달 열기
+        function showUseModal3(itemName) {
+            if (itemName === "마법주머니") {
+                openModal3();  // 모달 열기
+            }
+        }
    
+        function openModal4() {
+            $('#GoldMagicItemModal').modal('show');
+        }
+    
+        function closeModal4() {
+            $('#GoldMagicItemModal').modal('hide');
+        }
+    
+        // "사용" 버튼 클릭 시 모달 열기
+        function showUseModal4(itemName) {
+            if (itemName === "고급마법주머니") {
+                openModal4();  // 모달 열기
+            }
+        }
+    
 
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -368,6 +478,54 @@
         document.getElementById('inventory-section').classList.remove('hidden');
     }
 
+    let selectedItem = '';  // 양도할 아이템 이름
+
+// "양도" 버튼 클릭 시 호출되는 함수
+function openTransferModal(itemName) {
+    selectedItem = itemName;  // 양도할 아이템 이름 저장
+    document.getElementById('itemName').innerText = itemName;  // 아이템 이름 표시
+    console.log(itemName);
+
+    $('#transferModal').modal('show');  // 모달 열기
+}
+
+// 모달 닫기
+function closeTransferModal() {
+    $('#transferModal').modal('hide');
+}
+
+// 양도 확인 버튼 클릭 시 서버로 데이터 전송
+function transferItem() {
+    const selectedCharacterId = document.getElementById('characterSelect').value;  // 선택된 캐릭터 ID
+
+    // AJAX로 서버에 양도 요청 보내기
+    fetch('/transfer_item/', {  // 양도 요청을 처리할 서버 엔드포인트
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}',  // CSRF 토큰 포함
+        },
+        body: JSON.stringify({
+            'item_name': selectedItem,
+            'character_id': selectedCharacterId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('양도가 완료되었습니다.');
+            location.reload();  // 페이지 새로고침
+        } else {
+            alert('양도 실패: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('서버 오류');
+    });
+
+    closeTransferModal();  // 모달 닫기
+}
 
 </script>
 
