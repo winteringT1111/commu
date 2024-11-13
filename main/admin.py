@@ -1,7 +1,7 @@
 from django.contrib import admin
 from users.models import CharInfo
-from member.models import Inventory, Inventory_magic, Characters,Gift
-from store.models import Item, Item_magic
+from member.models import Inventory, Inventory_magic, Characters,Gift,MagicGift,GachaGift
+from store.models import Item, Item_magic, Potion
 
 # Register your models here.
 admin.site.register(CharInfo)
@@ -11,3 +11,4 @@ admin.site.register(Inventory)
 admin.site.register(Inventory_magic)
 admin.site.register(Characters)
 admin.site.register(Gift)
+admin.site.register(Potion)

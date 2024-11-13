@@ -175,7 +175,7 @@
                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
                         <div class="item_wrap">
                             <div class="item_wrap2">
-                            {% for item in inven %}
+                            {% for item in items %}
                                 <div class="item">
                                     <p class="item_count">x{{item.itemCount}}</p>
                                     <img src="{% static 'img/store/' %}{{ item.itemInfo.itemName }}.png">
@@ -197,9 +197,15 @@
                                             {% elif item.itemInfo.itemName == '고급 마법 주머니' %}
                                             <!--고급마법주머니-->
                                             <button class="itembtn" onclick="showUseModal4('고급마법주머니')">사용</button>
-                                            {% elif item.itemInfo.itemCategory == '마법 재료' %}
+                                            {% elif item.itemInfo.itemName == '가챠' %}
+                                            <!--가챠-->
+                                            <button class="itembtn" onclick="showUseModal6('가챠')">뽑기</button>
+                                            {% elif item.itemInfo.itemCategory == '마법 재료' or item.itemInfo.itemCategory == '가챠' %}
                                             <!-- 양도 버튼 추가 -->
                                             <button class="itembtn" onclick="openTransferModal('{{ item.itemInfo.itemName }}')">양도</button>
+                                            {% elif item.itemInfo.itemCategory == '마법 약' %}
+                                            <!--마법 약 판매-->
+                                            <button class="itembtn" onclick="showUseModal5('{{ item.itemInfo.itemName }}','{{ item.itemInfo.price }}')">판매</button>
                                             {% else %}
                                             {% endif %}
                                         </div>
@@ -268,6 +274,21 @@
     </div>
 </div>
 
+<div class="modal fade" id="potionModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
+        <div class="modal-content" id="pm">
+            <div class="modal-body">
+                <div class="plscenter">
+                <div class="hidden" id="potionName"></div>
+                <h4><span id="potionPrice"></span>갈레온을 획득했습니다.</h4>
+                <button type="button" onclick="useItem5()" id="yesbtn">확인</button>  <!-- 사용 버튼 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="MagicItemModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered mw-100 w-75">
         <div class="modal-content" id="pm">
@@ -299,7 +320,7 @@
             <div class="modal-body">
                 <form method="POST" action="">
                 {% csrf_token %}
-                <input type="hidden" name="boxtype" value="goldmagic">
+                    <input type="hidden" name="boxtype" value="goldmagic">
                     <div class="selected_image_box">
                         <div class="selected_image2">
                             {% for mitem in magicItem2 %}
@@ -309,8 +330,8 @@
                         </div>
                     </div>
                     <div class="plscenter2">
-                    <p id="fortuneMessage">마법 재료를 획득했습니다.</p>  
-                    <button type="submit" id="yesbtn2">확인</button> 
+                        <p id="fortuneMessage">마법 재료를 획득했습니다.</p>  
+                        <button type="submit" id="yesbtn2">확인</button> 
                     </div>
                 </form>
             </div>
@@ -318,6 +339,28 @@
     </div>
 </div>
 
+<div class="modal fade" id="GachaModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
+        <div class="modal-content" id="pm">
+            <div class="modal-body">
+                <form method="POST" action="">
+                {% csrf_token %}
+                    <input type="hidden" name="boxtype" value="gacha">
+                    <div class="selected_image_box">
+                        <div class="selected_image2">
+                            <input type="hidden" name="gachaName" value="{{ gachaItem.itemName }}">
+                            <span><img src="{% static 'img/store/' %}{{ gachaItem.itemName }}.png"></span>
+                        </div>
+                    </div>
+                    <div class="plscenter2">
+                        <p id="fortuneMessage">{{ gachaItem.itemName }}을 획득했습니다.</p>  
+                        <button type="submit" id="yesbtn2">확인</button> 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered mw-100 w-75">
@@ -435,6 +478,54 @@
             }
         }
     
+        function openModal6() {
+            $('#GachaModal').modal('show');
+        }
+    
+        function closeModal6() {
+            $('#GachaModal').modal('hide');
+        }
+    
+        // "사용" 버튼 클릭 시 모달 열기
+        function showUseModal6(itemName) {
+            if (itemName === "가챠") {
+                openModal6();  // 모달 열기
+            }
+        }
+
+        function closeModal5() {
+            $('#potionModal').modal('hide');
+        }
+    
+        // "사용" 버튼 클릭 시 모달 열기
+        function showUseModal5(itemName, price) {
+            selectedPotion = itemName;  // 양도할 아이템 이름 저장
+            
+            document.getElementById('potionName').innerText = itemName;  // 아이템 이름 표시
+            document.getElementById('potionPrice').innerText = price;  // 아이템 이름 표시
+            $('#potionModal').modal('show');
+        }
+    
+        // "확인" 버튼 클릭 시 서버로 요청 보내기
+        function useItem5() {
+            // 포춘쿠키 사용 처리하는 AJAX 요청 보내기
+            const getpotion = document.getElementById('potionName').innerText;  
+            const getprice = document.getElementById('potionPrice').innerText;  
+
+            fetch('/use_fortune_cookie/', {  // 포춘쿠키 사용을 위한 서버 엔드포인트
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',  // CSRF 토큰을 포함
+                },
+                body: JSON.stringify({ 'item_name': 'potion',
+                                        'potionName': getpotion,
+                                        'price' : getprice })  // 아이템 이름을 서버로 전송
+            })
+            // 모달 닫기
+            closeModal();
+            location.reload();
+        }
 
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -484,7 +575,6 @@
 function openTransferModal(itemName) {
     selectedItem = itemName;  // 양도할 아이템 이름 저장
     document.getElementById('itemName').innerText = itemName;  // 아이템 이름 표시
-    console.log(itemName);
 
     $('#transferModal').modal('show');  // 모달 열기
 }
@@ -526,6 +616,35 @@ function transferItem() {
 
     closeTransferModal();  // 모달 닫기
 }
+
+// 캐러셀 움직임
+const prevButton = document.querySelector('.carousel-control-prev');
+const nextButton = document.querySelector('.carousel-control-next');
+const itemWrap = document.querySelector('.carousel-inner');
+// 화살표 버튼 클릭 이벤트 처리
+function handleCarouselTransition() {
+    // 1초 동안 overflow hidden을 적용
+    itemWrap.style.overflow = 'hidden';
+    console.log("rgwwerg");
+
+    // 1초 후에 overflow를 다시 기본값으로 변경
+    setTimeout(() => {
+        itemWrap.style.overflow = 'visible';  // 기본값 (혹은 원하는 상태로 변경)
+    }, 1000);  // 1000ms = 1초
+}
+
+// 이전 버튼 클릭 시
+prevButton.addEventListener('click', () => {
+    handleCarouselTransition();
+    // 추가적인 캐러셀 이동 로직 (예: 현재 슬라이드 이전으로 이동)
+});
+
+// 다음 버튼 클릭 시
+nextButton.addEventListener('click', () => {
+    handleCarouselTransition();
+    console.log("rgwwsadfwefwfweerg");
+    // 추가적인 캐러셀 이동 로직 (예: 현재 슬라이드 다음으로 이동)
+});
 
 </script>
 

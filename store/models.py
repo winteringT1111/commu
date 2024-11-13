@@ -31,13 +31,14 @@ class Item_magic(models.Model):
         
 class Potion(models.Model):
     itemID = models.AutoField(primary_key=True)  
-    potion = models.TextField()
-    potionInfo = models.TextField()
+    itemName = models.TextField()
+    itemInfo = models.TextField()
     potionRecipe = models.TextField()
     degree = models.IntegerField()
     price = models.IntegerField()
     discovered = models.BooleanField()
     discoverer = models.TextField(null=True)
+    itemCategory= models.TextField(default="마법 약")
     
     class Meta:
         db_table = "potion"

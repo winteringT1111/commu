@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from member.models import Characters,Inventory_magic,Attendance,Inventory
+from member.models import Characters,Inventory_magic,Attendance,Inventory,Inventory_potion
 from users.models import CharInfo
 from store.models import Item_magic,Potion,Item,PotionStatus
 from django.utils import timezone
@@ -125,6 +125,7 @@ def check_combination(request):
     
     char = CharInfo.objects.get(user=request.user)  # Get character data
     status = PotionStatus.objects.get(user=request.user)
+    getUser = request.user
     
     try:
         # Parse the selected items from the request body
@@ -144,18 +145,36 @@ def check_combination(request):
         for potion in potions:
             potion_recipe = set(ast.literal_eval(potion.potionRecipe))
             if selected_items_set == potion_recipe:
+                # 등급 조정
+                if status.degree > potion.degree:
+                    break
+                
                 result = "success"
-                image = f"img/store/{potion.potion}.png" 
+                image = f"img/store/{potion.itemName}.png" 
                 if potion.discovered:
-                    message = f"{potion.potion} 조합에 성공했습니다!"
+                    message = f"{potion.itemName} 조합에 성공했습니다!"
                     status.xp +=15
                     status.save()
                 else:
-                    message = f"{potion.potion} 조합에 최초 성공했습니다!"
+                    message = f"{potion.itemName} 조합에 최초 성공했습니다!"
                     potion.discovered = True
                     potion.discoverer = request.user.username
                     status.xp +=30
                     status.save()
+                
+                # 인벤토리에 넣어주기
+                target = potion
+                all_items = Inventory_potion.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
+                
+                if target.itemID in all_items:
+                    update_item = Inventory_potion.objects.get(itemInfo=target, user=getUser)
+                    update_item.itemCount += 1
+                    update_item.save()
+                else:
+                    inven = Inventory_potion(itemCount=1,
+                                    itemInfo=target,
+                                    user=getUser)
+                    inven.save()    
                 break 
 
         if result == 'failure':
