@@ -283,10 +283,22 @@ def shifter(request):
             user.classToken -= 1
             user.save()
             
+            if attendance.total_attendance == 7 and not attendance.broom_item_received:
+                broom = Item.objects.get(itemName="빗자루")
+                inven = Inventory(itemCount=1,
+                            itemInfo=broom,
+                            user=request.user)
+                inven.save()
+                attendance.broom_item_received = True
+                attendance.save()
+                show_modal = "modal1"
+                modal_message = "빗자루 아이템이 인벤토리에 수령되었습니다."
+            
         return JsonResponse({
         'show_modal': show_modal, 
         'modal_message': modal_message,
         'attendance_count': attendance.total_attendance,  # 누적 출석 일 수
+        'got_broom': attendance.broom_item_received,
         'token':user.classToken
         })
     

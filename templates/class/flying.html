@@ -39,7 +39,13 @@
 
     <div class="modal_info2">
         <p>누적 출석 수: <span id="attendance-count">{{attendance_count}}일</span></p>
-        <p>빗자루 수령 여부: <span id="broom-status">X</span></p>
+        <p>빗자루 수령 여부: <span id="broom-status">
+            {% if attendance.broom_item_received %}
+                O
+            {% else %}
+                X
+            {% endif %}
+        </span></p>
     </div>
 
 

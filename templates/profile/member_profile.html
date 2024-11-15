@@ -176,6 +176,17 @@
                         <div class="item_wrap">
                             <div class="item_wrap2">
                             {% for item in items %}
+                                {% if item.itemInfo.itemName == "빗자루" %}
+                                <div class="item">
+                                    <p class="item_count">x{{item.itemCount}}</p>
+                                    <img src="{% static 'img/store/' %}{{ item.itemInfo.itemName }}.png">
+                                    <div class="item_description">
+                                        <p>{{ item.itemInfo.itemName }}</p>
+                                        <p class="category">{{ item.itemInfo.itemCategory }}</p>
+                                        <p class="item_info">{{characinfo.user.username}}{{ item.itemInfo.itemInfo }}</p>
+                                    </div>                                
+                                </div>
+                                {% else %}
                                 <div class="item">
                                     <p class="item_count">x{{item.itemCount}}</p>
                                     <img src="{% static 'img/store/' %}{{ item.itemInfo.itemName }}.png">
@@ -212,7 +223,8 @@
                                         {% else %}
                                         {% endif %}
                                     </div>                                
-                            </div>
+                                </div>
+                                {% endif %}
                             {% endfor %}
                             </div>
                         </div>
