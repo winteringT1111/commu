@@ -55,6 +55,7 @@
                             {% else %}
                             <form method="post" id="giftIDForm">
                                 {% csrf_token %}
+                                <input type="hidden" id="show_gift_modal" name="giftcategory" value="{{ gift.itemInfo.itemCategory }}">
                                 <input type="hidden" id="show_gift_modal" name="giftidnum" value="{{ gift.giftID }}">
                                 <button class="not_accepted" data-toggle="modal" data-target="#exampleModal">수락</button>
                             </form>
@@ -104,6 +105,7 @@
                         {% else %}
                         <form method="post" id="giftIDForm">
                             {% csrf_token %}
+                            <input type="hidden" id="show_gift_modal" name="giftcategory" value="{{ gift.itemInfo.itemCategory }}">
                             <input type="hidden" id="show_gift_modal" name="giftidnum" value="{{ gift.giftID }}">
                             <button class="not_accepted" data-toggle="modal" data-target="#exampleModal">수락</button>
                         </form>

@@ -305,7 +305,8 @@ def shifter(request):
     context = {
         'attendance_count': attendance.total_attendance,  # 템플릿에 누적 출석 일 수 전달
         'got_broom': attendance.broom_item_received,  # 템플릿에 금일 출석 여부 전달
-        'token':user.classToken
+        'token':user.classToken,
+        'got_broom': attendance.broom_item_received,
     }
     
     return render(request, "class/flying.html", context)

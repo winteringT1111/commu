@@ -282,16 +282,59 @@ def giftbox(request):
     magicgift_list = MagicGift.objects.filter(receiver_user=request.user).order_by('orderDate')
 
     combined_gifts = list(gachagift_list) + list(gift_list) + list(magicgift_list)
-    combined_gifts.sort(key=lambda x: x.orderDate or '1900-01-01')
+    combined_gifts.sort(key=lambda x: x.orderDate, reverse=True)
     
     if request.method == "POST":
         gift_id = request.POST['giftidnum']
+        gift_category = request.POST['giftcategory']
         
-        try:
+        if gift_category == "마법 재료":
+            target = MagicGift.objects.get(giftID=gift_id)
+                
+            if not target.accepted:
+
+                all_items = Inventory_magic.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
+                item = target.itemInfo
+                        
+                if item.itemID in all_items:
+                    update_item = Inventory_magic.objects.get(itemInfo=item, user=getUser)
+                    update_item.itemCount += target.itemCount
+                    update_item.save()
+                else:
+                    inven = Inventory_magic(itemCount=target.itemCount,
+                                        itemInfo=item,
+                                        user=getUser)
+                    inven.save()        
+
+                target.accepted = True
+                target.save()
+        
+        elif gift_category == "가챠":
+            target = GachaGift.objects.get(giftID=gift_id)
+                
+            if not target.accepted:
+
+                all_items = Inventory_gacha.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
+                item = target.itemInfo
+                        
+                if item.itemID in all_items:
+                    update_item = Inventory_gacha.objects.get(itemInfo=item, user=getUser)
+                    update_item.itemCount += target.itemCount
+                    update_item.save()
+                else:
+                    inven = Inventory_gacha(itemCount=target.itemCount,
+                                    itemInfo=item,
+                                    user=getUser)
+                    inven.save()        
+
+                target.accepted = True
+                target.save()
+            
+        
+        else:
             target = Gift.objects.get(giftID=gift_id)
             
             if not target.accepted:
-
                 all_items = Inventory.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
                 item = target.itemInfo
                     
@@ -307,48 +350,6 @@ def giftbox(request):
 
                 target.accepted = True
                 target.save()
-
-        except:
-            try:
-                target = MagicGift.objects.get(giftID=gift_id)
-                
-                if not target.accepted:
-
-                    all_items = Inventory_magic.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
-                    item = target.itemInfo
-                        
-                    if item.itemID in all_items:
-                        update_item = Inventory_magic.objects.get(itemInfo=item, user=getUser)
-                        update_item.itemCount += target.itemCount
-                        update_item.save()
-                    else:
-                        inven = Inventory_magic(itemCount=target.itemCount,
-                                        itemInfo=item,
-                                        user=getUser)
-                        inven.save()        
-
-                    target.accepted = True
-                    target.save()
-            except:
-                target = GachaGift.objects.get(giftID=gift_id)
-                
-                if not target.accepted:
-
-                    all_items = Inventory_gacha.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
-                    item = target.itemInfo
-                        
-                    if item.itemID in all_items:
-                        update_item = Inventory_gacha.objects.get(itemInfo=item, user=getUser)
-                        update_item.itemCount += target.itemCount
-                        update_item.save()
-                    else:
-                        inven = Inventory_gacha(itemCount=target.itemCount,
-                                        itemInfo=item,
-                                        user=getUser)
-                        inven.save()        
-
-                    target.accepted = True
-                    target.save()
                 
                 
 
