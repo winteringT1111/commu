@@ -124,7 +124,7 @@
     </div>
 
 
-    <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+    <div class="modal fade" id="resultModal" tabindex="-1"  data-backdrop="static" aria-labelledby="resultModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" id="secondmodal">
                 <h5 class="modal-title" id="resultModalTitle">조합 결과</h5>
@@ -133,6 +133,7 @@
                 <div class="modal-body" id="resultModalBody">
                     
                 </div>
+                <button type="button" class="xbtn" id="xbtn" data-dismiss="modal">x</button>
             </div>
         </div>
     </div>
@@ -338,7 +339,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.getElementById('xbtn').addEventListener('click', () => {
 
-    location.reload();
+    location.reload(true);
 });
 </script>
     
