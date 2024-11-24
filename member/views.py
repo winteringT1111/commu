@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
-from member.models import Characters, Inventory, Gift,Inventory_magic, MagicGift,GachaGift,Inventory_potion,Inventory_gacha
+from member.models import *
 from users.models import CharInfo
-from store.models import Cookie,Item,Item_magic,Potion,Gacha
+from store.models import *
 import random
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -11,12 +11,16 @@ from django.core.paginator import Paginator
 @login_required(login_url='/')
 def member_profile(request, charName):
     getUser = request.user
-    char = Characters.objects.get(charFirstName=charName.capitalize())
-    characinfo = CharInfo.objects.get(char=char)
+    # 1학년 캐릭터
+    char01 = Characters.objects.get(charFirstName=charName.capitalize(), charGrade=1)
+    char04 = Characters.objects.get(charFirstName=charName.capitalize(), charGrade=4)
+    characinfo = CharInfo.objects.get(char=char01)
     
     if request.method == 'POST':       
         box = request.POST['boxtype']
+        print("ddd",box)
         
+        # 가챠 인형
         if box == "gacha":
             gachaname = request.POST['gachaName']
             target = Gacha.objects.get(itemName=gachaname)
@@ -33,6 +37,7 @@ def member_profile(request, charName):
                 inven.save()
                 
             gachaitem = Item.objects.get(itemName="가챠")
+            
             try:
                 inven = Inventory.objects.get(itemInfo=gachaitem, user=getUser)
                 
@@ -46,6 +51,7 @@ def member_profile(request, charName):
                         
         else:
             magic_item_names = request.POST.getlist('magic_item_names')
+            print(magic_item_names)
             
             for itemname in magic_item_names:
                 target = Item_magic.objects.get(itemName=itemname)
@@ -88,6 +94,7 @@ def member_profile(request, charName):
                     pass
             
     random_fortune = random.choice(Cookie.objects.all()).itemInfo
+    random_scroll = random.choice(Scroll.objects.all()).itemInfo
 
     inven = Inventory.objects.filter(user_id=characinfo.user)    
     inven2 = Inventory_magic.objects.filter(user_id=characinfo.user)
@@ -104,8 +111,8 @@ def member_profile(request, charName):
     items2 = Item_magic.objects.filter(itemDegree__in=[1, 2], itemCategory='마법 재료')
     selected_items2 = random.sample(list(items2), num_items_to_pick)
     
-     # 가챠
-    selected_items3 = Gacha.objects.filter(itemCategory='가챠').order_by('?').first()
+    # 가챠
+    selected_items3 = Gacha.objects.filter(itemCategory='가챠').exclude(itemName="사라 인형").order_by('?').first()
         
     paginator = Paginator(combined, 25) 
     page_number = request.GET.get('page', 1)
@@ -116,12 +123,14 @@ def member_profile(request, charName):
     
     context = {
         'charname': charName,
-        'char': char,
+        'char': char01,
+        'char04': char04,
         'inven':combined,
         "page_obj": page_obj, 
         "pages_items": pages_items,
         "characinfo":characinfo,
         "random_fortune":random_fortune,
+        "random_scroll":random_scroll,
         "magicItem":selected_items,
         "magicItem2":selected_items2,
         "gachaItem":selected_items3,
@@ -131,9 +140,11 @@ def member_profile(request, charName):
     return render(request, "profile/member_profile.html", context)
 
 
+            
+from django.http import JsonResponse
 import json
+
 def use_fortune_cookie(request):
-    # 1. 요청이 POST일 때만 처리
     if request.method == 'POST':
         getUser = request.user
         data = json.loads(request.body)
@@ -143,20 +154,19 @@ def use_fortune_cookie(request):
             item = Item.objects.get(itemName="포춘쿠키")
             try:
                 inven = Inventory.objects.get(itemInfo=item, user=getUser)
-                
                 if inven.itemCount == 1:
                     inven.delete()
                 else:
                     inven.itemCount -= 1
                     inven.save()
-            except:
-                pass
+            except Inventory.DoesNotExist:
+                return JsonResponse({'error': 'Item not found in inventory'}, status=404)
+
         elif item_name == 'time_turner':
             item = Item.objects.get(itemName="타임터너")
             char = CharInfo.objects.get(user=getUser)
             try:
                 inven = Inventory.objects.get(itemInfo=item, user=getUser)
-                
                 if inven.itemCount == 1:
                     inven.delete()
                 else:
@@ -164,18 +174,16 @@ def use_fortune_cookie(request):
                     inven.save()
                 char.classToken += 1
                 char.save()
-            except:
-                pass
+            except Inventory.DoesNotExist:
+                return JsonResponse({'error': 'Item not found in inventory'}, status=404)
+
         elif item_name == 'potion':
             potionName = data.get('potionName')
             price = data.get('price')
-            print(potionName,int(price))
-            
             item = Potion.objects.get(itemName=potionName)
             char = CharInfo.objects.get(user=getUser)
             try:
                 inven = Inventory_potion.objects.get(itemInfo=item, user=getUser)
-                
                 if inven.itemCount == 1:
                     inven.delete()
                 else:
@@ -183,9 +191,25 @@ def use_fortune_cookie(request):
                     inven.save()
                 char.galeon += int(price)
                 char.save()
-            except:
-                pass
-        
+            except Inventory_potion.DoesNotExist:
+                return JsonResponse({'error': 'Potion not found in inventory'}, status=404)
+
+        elif item_name == 'scroll':
+            item = Item.objects.get(itemName="스크롤")
+            try:
+                inven = Inventory.objects.get(itemInfo=item, user=getUser)
+                if inven.itemCount == 1:
+                    inven.delete()
+                else:
+                    inven.itemCount -= 1
+                    inven.save()
+            except Inventory.DoesNotExist:
+                return JsonResponse({'error': 'Item not found in inventory'}, status=404)
+
+        return JsonResponse({'success': 'Item used successfully'})
+
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
 
 from django.http import JsonResponse
 from datetime import datetime
@@ -265,8 +289,7 @@ def transfer_item(request):
 
 @login_required(login_url='/')
 def member_main(request):
-    chars = Characters.objects.all().order_by('charFirstName')
-    
+    chars = Characters.objects.filter(charGrade=4).order_by('charFirstName')
     context = {
         'chars': chars
     }

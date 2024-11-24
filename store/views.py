@@ -26,10 +26,19 @@ def store_main(request):
     item11 = Item.objects.get(itemID=11)
     item12 = Item.objects.get(itemID=12)
     
+    item13 = Item.objects.get(itemID=13)
+    item14 = Item.objects.get(itemID=14)
+    item15 = Item.objects.get(itemID=15)
+    item16 = Item.objects.get(itemID=16)
+    item17 = Item.objects.get(itemID=17)
+    item18 = Item.objects.get(itemID=18)
+    
     page1_row1 = [item1,item2,item3]
     page1_row2 = [item4,item5,item6]
     page2_row1 = [item7,item8,item9]
     page2_row2 = [item10,item11,item12]
+    page3_row1 = [item13,item14,item15]
+    page3_row2 = [item16,item17,item18]
     
     
     if request.method == "POST":
@@ -98,6 +107,8 @@ def store_main(request):
                'page1_row2':page1_row2,
                'page2_row1':page2_row1,
                'page2_row2':page2_row2,
+               'page3_row1':page3_row1,
+               'page3_row2':page3_row2,
                'user2':userinfo,
                'charnames': charnames}
 

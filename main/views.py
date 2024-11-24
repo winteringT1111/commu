@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from member.models import Characters,Inventory_magic,Attendance,Inventory,Inventory_potion
 from users.models import CharInfo
+from main.models import *
 from store.models import Item_magic,Potion,Item,PotionStatus
 from django.utils import timezone
 from datetime import datetime
@@ -34,6 +35,7 @@ def system(request):
 @login_required(login_url='/login')
 def totalsystem(request):
     return render(request, "notice/total_system.html")
+
 
 
 @login_required(login_url='/login')
@@ -88,13 +90,49 @@ def attendance(request):
     return render(request, "class/attendance.html", context)
 
 
+# 조사 페이지
+@login_required(login_url='/login')
+def search(request):
+    postlist = Article.objects.all()
+    context = {'postlist':postlist}
+    return render(request, "class/search_main.html",context)
+
+
+@login_required(login_url='/login')
+def search_create(request):
+    getUser = request.user
+    current_time = timezone.localtime(timezone.now())
+    today_date = current_time.date()
+    
+    if request.method == 'POST':
+        # 업로드된 파일을 가져오기 위해 request.FILES 사용
+        if 'mainphoto' in request.FILES:
+            image = request.FILES['mainphoto']
+            new_article = Article.objects.create(
+                title=request.POST['postname'],
+                content=request.POST['contents'],
+                image=image,  # 업로드된 파일을 저장
+                user=getUser,
+                date=today_date
+            )
+        else:
+            new_article = Article.objects.create(
+                title=request.POST['postname'],
+                content=request.POST['contents'],
+                image=None,  # 이미지가 없는 경우
+                user=getUser,
+                date=today_date
+            )
+        return redirect('/search')
+    
+    return render(request, "class/search_create.html")
+
 
     
 # 수업 페이지
 @login_required(login_url='/login')
 def class_main(request):
     return render(request, "class/class_main.html")
-
 
 
 # 마법의 약
@@ -160,6 +198,7 @@ def check_combination(request):
                     potion.discovered = True
                     potion.discoverer = request.user.username
                     status.xp +=30
+                    potion.save()
                     status.save()
                 
                 # 인벤토리에 넣어주기
@@ -252,6 +291,44 @@ def herb(request):
                'token':user.classToken}
     
     return render(request, "class/herbology.html", context)
+
+
+# 신비한 동물 다루기
+@login_required(login_url='/login')
+def creature(request):
+    random_creature_item = Item_magic.objects.filter(itemCategory2='신비한 동물').order_by('?').first()
+    random_number = random.randint(1, 3)
+    getUser = request.user
+    user = CharInfo.objects.get(user=getUser)
+    
+    if request.method == "POST":
+        itemname = request.POST['herbname']
+        count = int(request.POST['count'])
+        print(itemname,count)
+        
+        target = Item_magic.objects.get(itemName=itemname)
+
+        all_items = Inventory_magic.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
+        
+        if target.itemID in all_items:
+            update_item = Inventory_magic.objects.get(itemInfo=target, user=getUser)
+            update_item.itemCount += count
+            update_item.save()
+        else:
+            inven = Inventory_magic(itemCount=count,
+                            itemInfo=target,
+                            user=getUser)
+            inven.save()
+            
+        user.classToken -= 1
+        user.save()
+    
+    
+    context = {'herb': random_creature_item,
+               'count': random_number,
+               'token':user.classToken}
+    
+    return render(request, "class/creature.html", context)
 
     
 # 비행

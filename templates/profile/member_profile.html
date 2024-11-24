@@ -16,7 +16,7 @@
 <div class="content">
 
 <!-- 캐릭터 -->
-<div class="character_wrap">
+<div class="character_wrap hidden" id="grade1">
     <div class="cha">
         {% if char.charFirstName == "Yvonne" or char.charFirstName == "Finley" or char.charFirstName == "Ezekiel" or char.charFirstName == "Nathan" or char.charFirstName == "Ezell"  or char.charFirstName == "Rebecca"  or char.charFirstName == "Remia"%}
         <img class="character2" id=""src="{% static 'img/charac/01/02/' %}{{ char.charImageA }}.png"></img>
@@ -24,6 +24,16 @@
         <img class="character3" src="{% static 'img/charac/01/02/' %}{{ char.charImageA }}.png"></img>
         {% else %}
         <img class="character" src="{% static 'img/charac/01/02/' %}{{ char.charImageA }}.png"></img>
+        {% endif %}
+    </div>
+</div>
+
+<div class="character_wrap" id="grade4">
+    <div class="cha">
+        {% if char.charFirstName == "Yvonne" or char04.charFirstName == "Finley" or char04.charFirstName == "Kayden"%}
+        <img class="character2" id=""src="{% static 'img/charac/04/01/' %}{{ char04.charImageA }}.png"></img>
+        {% else %}
+        <img class="character" src="{% static 'img/charac/04/01/' %}{{ char04.charImageA }}.png"></img>
         {% endif %}
     </div>
 </div>
@@ -36,11 +46,13 @@
 <div class="wrap fade-in-right">
     <div class="inven">
         <button class="transbtn" onclick="show1grade()">Grade 1</button>
+        <button class="transbtn" onclick="show4grade()">Grade 4</button>
         <button class="transbtn" onclick="showInventory()">인벤토리</button>
     </div>
 
- <!-- 기본정보 -->
- <div class="info_wrap" id="profile-section">
+
+ <!-- 1학년 기본정보 -->
+ <div class="info_wrap hidden" id="profile-section">
     <div class="info_content">
         <div class="catchphrase">
             [ {{char.charCatchPhrase}} ]
@@ -156,246 +168,48 @@
 
 </div>
 
+<!-- 4학년 기본정보 -->
+{% include "profile/grade4.html" %}
 
- <!-- 인벤토리 -->
- <div class="inventory_wrap hidden" id="inventory-section">
-    <div class="inven_banner">
-        <img src={% static "img/인벤토리 배너.png" %}>
-    </div>
 
-    <div class="inventory_content">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
-            <ol class="carousel-indicators">
-                {% for i in pages_items %}
-                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
-                {% endfor %}
-            </ol>
-            <div class="carousel-inner">
-                {% for items in pages_items %}
-                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                        <div class="item_wrap">
-                            <div class="item_wrap2">
-                            {% for item in items %}
-                                {% if item.itemInfo.itemName == "빗자루" %}
-                                <div class="item">
-                                    <p class="item_count">x{{item.itemCount}}</p>
-                                    <img src="{% static 'img/store/' %}{{ item.itemInfo.itemName }}.png">
-                                    <div class="item_description">
-                                        <p>{{ item.itemInfo.itemName }}</p>
-                                        <p class="category">{{ item.itemInfo.itemCategory }}</p>
-                                        <p class="item_info">{{characinfo.user.username}}{{ item.itemInfo.itemInfo }}</p>
-                                    </div>                                
-                                </div>
-                                {% else %}
-                                <div class="item">
-                                    <p class="item_count">x{{item.itemCount}}</p>
-                                    <img src="{% static 'img/store/' %}{{ item.itemInfo.itemName }}.png">
-                                    <div class="item_description">
-                                        <p>{{ item.itemInfo.itemName }}</p>
-                                        <p class="category">{{ item.itemInfo.itemCategory }}</p>
-                                        <p class="item_info">{{ item.itemInfo.itemInfo }}</p>
-                                        {% if characinfo.user == user %}
-                                        <div class="ibtn_wrap">
-                                            {% if item.itemInfo.itemName == '포춘쿠키' %}
-                                            <!--포춘쿠키-->
-                                            <button class="itembtn" onclick="showUseModal('포춘쿠키')">사용</button>
-                                            {% elif item.itemInfo.itemName == '타임터너' %}
-                                            <!--타임터너-->
-                                            <button class="itembtn" onclick="showUseModal2('타임터너')">사용</button>
-                                            {% elif item.itemInfo.itemName == '마법 주머니' %}
-                                            <!--마법주머니-->
-                                            <button class="itembtn" onclick="showUseModal3('마법주머니')">사용</button>
-                                            {% elif item.itemInfo.itemName == '고급 마법 주머니' %}
-                                            <!--고급마법주머니-->
-                                            <button class="itembtn" onclick="showUseModal4('고급마법주머니')">사용</button>
-                                            {% elif item.itemInfo.itemName == '가챠' %}
-                                            <!--가챠-->
-                                            <button class="itembtn" onclick="showUseModal6('가챠')">뽑기</button>
-                                            {% elif item.itemInfo.itemCategory == '마법 재료' or item.itemInfo.itemCategory == '가챠' %}
-                                            <!-- 양도 버튼 추가 -->
-                                            <button class="itembtn" onclick="openTransferModal('{{ item.itemInfo.itemName }}')">양도</button>
-                                            {% elif item.itemInfo.itemCategory == '마법 약' %}
-                                            <!--마법 약 판매-->
-                                            <button class="itembtn" onclick="showUseModal5('{{ item.itemInfo.itemName }}','{{ item.itemInfo.price }}')">판매</button>
-                                            {% else %}
-                                            {% endif %}
-                                        </div>
-                                        {% else %}
-                                        {% endif %}
-                                    </div>                                
-                                </div>
-                                {% endif %}
-                            {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </button>
-        </div>
-    </div>
-
-    <div class="inventory_token">
-        <img src={% static "img/갈레온.png" %}>
-        <div class="inventoken">
-            {{characinfo.galeon}}
-        </div>
-        <img src={% static "img/토큰.png" %}>
-        <div class="inventoken">
-            {{characinfo.classToken}}
-        </div>
-    </div>
-</div>
+{% include "profile/inventory.html" %}
 
 </div>
 
-
-
-<div class="modal fade" id="fortuneCookieModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
-        <div class="modal-content" id="pm">
-            <div class="modal-body">
-                <div class="plscenter">
-                <h2>포춘쿠키</h2>
-                <p id="fortuneMessage">{{ random_fortune }}</p>  <!-- 랜덤 메시지 -->
-                <button type="button" onclick="useItem()" id="yesbtn">확인</button>  <!-- 사용 버튼 -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="TimeTurnerModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
-        <div class="modal-content" id="pm">
-            <div class="modal-body">
-                <div class="plscenter">
-                <h2>타임터너</h2>
-                <p id="fortuneMessage">수업 토큰 1개를 획득했습니다.</p>  <!-- 랜덤 메시지 -->
-                <button type="button" onclick="useItem2()" id="yesbtn">확인</button>  <!-- 사용 버튼 -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="potionModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
-        <div class="modal-content" id="pm">
-            <div class="modal-body">
-                <div class="plscenter">
-                <div class="hidden" id="potionName"></div>
-                <h4><span id="potionPrice"></span>갈레온을 획득했습니다.</h4>
-                <button type="button" onclick="useItem5()" id="yesbtn">확인</button>  <!-- 사용 버튼 -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="MagicItemModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
-        <div class="modal-content" id="pm">
-            <div class="modal-body">
-                <form method="POST" action="">
-                {% csrf_token %}
-                    <input type="hidden" name="boxtype" value="magic">
-                    <div class="selected_image_box">
-                        <div class="selected_image">
-                            {% for mitem in magicItem %}
-                            <input type="hidden" name="magic_item_names" value="{{ mitem.itemName }}">
-                            <span><img src="{% static 'img/store/' %}{{ mitem.itemName }}.png"></span>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="plscenter2">
-                    <p id="fortuneMessage">마법 재료를 획득했습니다.</p>  
-                    <button type="submit" id="yesbtn2">확인</button> 
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="GoldMagicItemModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
-        <div class="modal-content" id="pm">
-            <div class="modal-body">
-                <form method="POST" action="">
-                {% csrf_token %}
-                    <input type="hidden" name="boxtype" value="goldmagic">
-                    <div class="selected_image_box">
-                        <div class="selected_image2">
-                            {% for mitem in magicItem2 %}
-                            <input type="hidden" name="magic_item_names" value="{{ mitem.itemName }}">
-                            <span><img src="{% static 'img/store/' %}{{ mitem.itemName }}.png"></span>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="plscenter2">
-                        <p id="fortuneMessage">마법 재료를 획득했습니다.</p>  
-                        <button type="submit" id="yesbtn2">확인</button> 
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="GachaModal"  data-backdrop="static" tabindex="-1" aria-labelledby="fortuneCookieModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
-        <div class="modal-content" id="pm">
-            <div class="modal-body">
-                <form method="POST" action="">
-                {% csrf_token %}
-                    <input type="hidden" name="boxtype" value="gacha">
-                    <div class="selected_image_box">
-                        <div class="selected_image2">
-                            <input type="hidden" name="gachaName" value="{{ gachaItem.itemName }}">
-                            <span><img src="{% static 'img/store/' %}{{ gachaItem.itemName }}.png"></span>
-                        </div>
-                    </div>
-                    <div class="plscenter2">
-                        <p id="fortuneMessage">{{ gachaItem.itemName }}을 획득했습니다.</p>  
-                        <button type="submit" id="yesbtn2">확인</button> 
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
-        <div class="modal-content" id="pm">
-            <div class="modal-body">
-                <div class="character_select">
-                    <label for="characterSelect">양도할 대상</label>
-                    <select id="characterSelect" class="form-control">
-                        {% for character in charnames %}
-                            <option value="{{character}}">{{character}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="hidden" id="itemName"></div>
-                <button type="button" class="yesbtn2" onclick="transferItem()" id="confirmBtn">확인</button>
-            </div>
-        </div>
-    </div>
-</div>
-
+{% include "profile/modal.html" %}
 
 
 <script>
+
+
+    function openModal7() {
+        $('#ScrollModal').modal('show');
+    }
+
+    function closeModal7() {
+        $('#ScrollModal').modal('hide');
+    }
+
+    // "사용" 버튼 클릭 시 모달 열기
+    function showUseModal7(itemName) {
+        openModal7();  // 모달 열기
+    }
+
+    // "확인" 버튼 클릭 시 서버로 요청 보내기
+    function useItem7() {
+        // 포춘쿠키 사용 처리하는 AJAX 요청 보내기
+        fetch('/use_fortune_cookie/', {  // 포춘쿠키 사용을 위한 서버 엔드포인트
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',  // CSRF 토큰을 포함
+            },
+            body: JSON.stringify({ 'item_name': 'scroll' })  // 아이템 이름을 서버로 전송
+        })
+        // 모달 닫기
+        closeModal7();
+        location.reload(true);
+    }
 
         // 모달 열기 및 닫기 (Bootstrap 방식)
         function openModal() {
@@ -426,7 +240,7 @@
             })
             // 모달 닫기
             closeModal();
-            location.reload();
+            location.reload(true);
         }
 
         function openModal2() {
@@ -457,7 +271,7 @@
             })
             // 모달 닫기
             closeModal2();
-            location.reload();
+            location.reload(true);
         }
 
         function openModal3() {
@@ -536,7 +350,7 @@
             })
             // 모달 닫기
             closeModal();
-            location.reload();
+            location.reload(true);
         }
 
 
@@ -565,19 +379,53 @@
         document.getElementById('wand_section').classList.add('hidden');
     }
 
-    function showWand() {
-        document.getElementById('imgInfo_section').classList.add('hidden');
-        document.getElementById('personality_section').classList.add('hidden');
-        document.getElementById('etc_section').classList.add('hidden');
-        document.getElementById('wand_section').classList.remove('hidden');
+    function showImgInfo4() {
+        document.getElementById('imgInfo_section4').classList.remove('hidden');
+        document.getElementById('personality_section4').classList.add('hidden');
+        document.getElementById('etc_section4').classList.add('hidden');
+        document.getElementById('wand_section4').classList.add('hidden');
+    }
+
+    function showProfile4() {
+        document.getElementById('imgInfo_section4').classList.add('hidden');
+        document.getElementById('personality_section4').classList.remove('hidden');
+        document.getElementById('etc_section4').classList.add('hidden');
+        document.getElementById('wand_section4').classList.add('hidden');
+    }
+
+    function showEtc4() {
+        document.getElementById('imgInfo_section4').classList.add('hidden');
+        document.getElementById('personality_section4').classList.add('hidden');
+        document.getElementById('etc_section4').classList.remove('hidden');
+        document.getElementById('wand_section4').classList.add('hidden');
+    }
+
+    function showWand4() {
+        document.getElementById('imgInfo_section4').classList.add('hidden');
+        document.getElementById('personality_section4').classList.add('hidden');
+        document.getElementById('etc_section4').classList.add('hidden');
+        document.getElementById('wand_section4').classList.remove('hidden');
     }
 
     function show1grade() {
         document.getElementById('profile-section').classList.remove('hidden');
+        document.getElementById('profile-section4').classList.add('hidden');
         document.getElementById('inventory-section').classList.add('hidden');
+        document.getElementById('grade4').classList.add('hidden');
+        document.getElementById('grade1').classList.remove('hidden');
     }
+
+    function show4grade() {
+        document.getElementById('profile-section').classList.add('hidden');
+        document.getElementById('profile-section4').classList.remove('hidden');
+        document.getElementById('inventory-section').classList.add('hidden');
+        document.getElementById('grade4').classList.remove('hidden');
+        document.getElementById('grade1').classList.add('hidden');
+    }
+
     function showInventory() {
         document.getElementById('profile-section').classList.add('hidden');
+        document.getElementById('profile-section4').classList.add('hidden');
         document.getElementById('inventory-section').classList.remove('hidden');
     }
 
@@ -627,7 +475,10 @@ function transferItem() {
     });
 
     closeTransferModal();  // 모달 닫기
+    location.reload(true)
 }
+
+
 
 // 캐러셀 움직임
 const prevButton = document.querySelector('.carousel-control-prev');

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/class/search_main.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="content_wrap">
+    <div class="content_box">
+        <h1>Hogwart Investigation</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            제목<br>
+            <input type="text" name="postname"><br>
+            내용<br>
+            <textarea rows="10" cols="50" name="contents"></textarea><br>
+            <input type="file" name="mainphoto"><br>
+            <input type="submit" value="글쓰기">
+        </form>
+    </div>
+</div>
+
+
+<div class="">
+ 
+</div>
+
+
+{% endblock %}

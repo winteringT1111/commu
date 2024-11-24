@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/class/search_main.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="content_wrap">
+    <div class="content_box">
+            {% for post in postlist %}
+            <div class="postbox">
+                <div class="postbox_content">
+                    <h2>{{post.title}}</h2>
+                    <div class="post_profile">
+                        <img src="{% static 'img/charac/04/03/' %}{{ post.user.username }}04-1.png" alt="User Profile Image">
+                        <div class="user_info">
+                            <p>{{post.user.username}}</p>
+                            <p>{{post.date}}</p>
+                        </div>
+                    </div>
+                    <div class="post_content">
+                        <div class="post_word">{{post.content}}</div>
+                        {% if post.image %}
+                        <img src = "{{ post.image.url }}" alt="" width="800">
+                        {% endif %}
+                    </div>    
+                </div>
+                <div class="postbox_result">
+                    dfsf
+                </div>          
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<div class="">
+ 
+</div>
+
+
+{% endblock %}
