@@ -69,13 +69,17 @@
             </div>
             <hr/>
             <div class="info_scrollbox">
+                {% if char04.charImageInfo %}
                 {{char04.charImageInfo|linebreaksbr|safe}}
+                {% endif %}
             </div>
             <hr/>
             {% else %}
             <hr class="mod"/>
             <div class="info_scrollbox2">
+                {% if char04.charImageInfo %}
                 {{char04.charImageInfo|linebreaksbr|safe}}
+                {% endif %}
             </div>
             <hr/>
             {% endif %}
