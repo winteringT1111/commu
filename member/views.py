@@ -222,7 +222,7 @@ def transfer_item(request):
 
         try:
             # 양도할 아이템과 캐릭터 가져오기
-            receiver_char = Characters.objects.get(charName=character_name)
+            receiver_char = Characters.objects.get(charName=character_name, charGrade=1)
             count = 1
             item_message = "캐릭터 인벤토리에서 양도된 물품입니다."
             
