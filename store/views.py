@@ -82,7 +82,7 @@ def store_main(request):
             
             if_anonymous = request.POST.get('anonymous') == 'on'
             receiver = request.POST['receiver']
-            receiver_char = Characters.objects.get(charName=receiver)
+            receiver_char = Characters.objects.get(charName=receiver, charGrade=1)
             item_message = request.POST.get('message')
             
             print(item_name,itemPrice,count,if_anonymous,receiver,item_message,datetime.today())
