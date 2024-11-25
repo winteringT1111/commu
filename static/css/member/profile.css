@@ -483,6 +483,10 @@ hr {
     overflow: visible;
 }
 
+.carousel-indicators {
+    overflow: visible;
+}
+
 .carousel-inner {
     width: 80%;
     height: 90%;
@@ -561,8 +565,8 @@ hr {
     background-color: rgba(219, 219, 219, 0.85); 
     padding: 10px 10px 13px 10px;
     border-radius: 5px;
-    display: none; /* Hide by default */
-    z-index: 3; 
+    display: none; /* 기본적으로 숨겨짐 */
+    z-index: 10; /* z-index를 높여서 다른 요소 위에 표시 */
     width: 170px; 
     height: auto;
     text-align: center;
@@ -571,11 +575,33 @@ hr {
     font-weight: 400;
 }
 
-.item:hover .item_description {
-    display: block; /* Show on hover */
-    top: 102%; /* Position it below the item */
-    left: 50%; /* Center horizontally */
+.item:hover .item_description,
+.item .item_description:hover {
+    display: block; /* item hover 시, item_description 표시, item_description 위에 hover 시에도 표시 유지 */
+    top: 102%; /* 아이템 바로 아래에 위치 */
+    left: 50%; /* 수평 중앙에 위치 */
     transform: translateX(-50%);
+}
+/* 마지막 줄의 아이템을 위한 스타일 */
+.carousel-inner .item_wrap .item:nth-child(21),  /* 21번째 아이템 */
+.carousel-inner .item_wrap .item:nth-child(22),  /* 22번째 아이템 */
+.carousel-inner .item_wrap .item:nth-child(23),  /* 23번째 아이템 */
+.carousel-inner .item_wrap .item:nth-child(24),  /* 24번째 아이템 */
+.carousel-inner .item_wrap .item:nth-child(25)   /* 25번째 아이템 */
+{
+    position: relative; /* 필수: 자식 요소인 item_description의 위치 조정을 위해 */
+}
+
+/* 마지막 줄의 아이템에 속한 description의 위치 조정 */
+.carousel-inner .item_wrap .item:nth-child(21) .item_description,
+.carousel-inner .item_wrap .item:nth-child(22) .item_description,
+.carousel-inner .item_wrap .item:nth-child(23) .item_description,
+.carousel-inner .item_wrap .item:nth-child(24) .item_description,
+.carousel-inner .item_wrap .item:nth-child(25) .item_description {
+    position: absolute; /* 절대 위치로 설정 */
+    top: 0%; /* 아이템 바로 아래에 위치 */
+    left: 50%; /* 수평 중앙에 위치 */
+    transform: translate(-50%,-100%);
 }
 
 .item_description p {

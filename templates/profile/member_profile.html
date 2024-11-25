@@ -257,6 +257,37 @@
                 openModal2();  // 모달 열기
             }
         }
+
+        function openModal8() {
+            $('#GownModal').modal('show');
+        }
+    
+        function closeModal8() {
+            $('#GownModal').modal('hide');
+        }
+    
+        // "사용" 버튼 클릭 시 모달 열기
+        function showUseModal8(itemName) {
+            if (itemName === "투명 망토") {
+                openModal8();  // 모달 열기
+            }
+        }
+
+        // "확인" 버튼 클릭 시 서버로 요청 보내기
+        function useItem8() {
+            // 포춘쿠키 사용 처리하는 AJAX 요청 보내기
+            fetch('/use_fortune_cookie/', {  // 포춘쿠키 사용을 위한 서버 엔드포인트
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',  // CSRF 토큰을 포함
+                },
+                body: JSON.stringify({ 'item_name': 'gown' })  // 아이템 이름을 서버로 전송
+            })
+            // 모달 닫기
+            closeModal8();
+            location.reload(true);
+        }
     
         // "확인" 버튼 클릭 시 서버로 요청 보내기
         function useItem2() {

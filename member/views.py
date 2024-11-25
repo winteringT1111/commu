@@ -176,7 +176,20 @@ def use_fortune_cookie(request):
                 char.save()
             except Inventory.DoesNotExist:
                 return JsonResponse({'error': 'Item not found in inventory'}, status=404)
+        elif item_name == 'gown':
+            item = Item.objects.get(itemName="투명 망토")
+            char = CharInfo.objects.get(user=getUser)
+            try:
+                inven = Inventory.objects.get(itemInfo=item, user=getUser)
+                if inven.itemCount == 1:
+                    inven.delete()
+                else:
+                    inven.itemCount -= 1
+                    inven.save()
 
+            except Inventory.DoesNotExist:
+                return JsonResponse({'error': 'Item not found in inventory'}, status=404)
+            
         elif item_name == 'potion':
             potionName = data.get('potionName')
             price = data.get('price')

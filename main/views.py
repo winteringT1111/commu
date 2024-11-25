@@ -93,7 +93,7 @@ def attendance(request):
 # 조사 페이지
 @login_required(login_url='/login')
 def search(request):
-    postlist = Article.objects.all()
+    postlist = Article.objects.all().order_by('-id')
     context = {'postlist':postlist}
     return render(request, "class/search_main.html",context)
 
@@ -101,8 +101,11 @@ def search(request):
 @login_required(login_url='/login')
 def search_create(request):
     getUser = request.user
+    char = CharInfo.objects.get(user=getUser)
     current_time = timezone.localtime(timezone.now())
     today_date = current_time.date()
+    
+    comment = random.choice(Comment.objects.all())
     
     if request.method == 'POST':
         # 업로드된 파일을 가져오기 위해 request.FILES 사용
@@ -113,16 +116,90 @@ def search_create(request):
                 content=request.POST['contents'],
                 image=image,  # 업로드된 파일을 저장
                 user=getUser,
-                date=today_date
+                date=today_date,
+                comment=comment
             )
+            
+            if comment.category == '갈레온':
+                random_number = random.randint(1, 3)
+                info = CharInfo.objects.get(user=request.user)
+                info.galeon += random_number
+                info.save()
+                
+            elif comment.category == '상점':
+                if comment.itemName == '마법 재료':
+                    target = random.choice(Item_magic.objects.all())
+
+                    all_items = Inventory_magic.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
+                    
+                    if target.itemID in all_items:
+                        update_item = Inventory_magic.objects.get(itemInfo=target, user=getUser)
+                        update_item.itemCount += 1
+                        update_item.save()
+                    else:
+                        inven = Inventory_magic(itemCount=1,
+                                        itemInfo=target,
+                                        user=getUser)
+                        inven.save()
+                else:
+                    target = Item.objects.get(itemName=comment.itemName)
+
+                    all_items = Inventory.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
+                    
+                    if target.itemID in all_items:
+                        update_item = Inventory.objects.get(itemInfo=target, user=getUser)
+                        update_item.itemCount += 1
+                        update_item.save()
+                    else:
+                        inven = Inventory(itemCount=1,
+                                        itemInfo=target,
+                                        user=getUser)
+                        inven.save()
         else:
             new_article = Article.objects.create(
                 title=request.POST['postname'],
                 content=request.POST['contents'],
                 image=None,  # 이미지가 없는 경우
                 user=getUser,
-                date=today_date
+                date=today_date,
+                comment=comment
             )
+            
+            if comment.category == '갈레온':
+                random_number = random.randint(1, 3)
+                info = CharInfo.objects.get(user=request.user)
+                info.galeon += random_number
+                info.save()
+                
+            if comment.category == '상점':
+                if comment.itemName == '마법 재료':
+                    target = random.choice(Item_magic.objects.all())
+
+                    all_items = Inventory_magic.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
+                    
+                    if target.itemID in all_items:
+                        update_item = Inventory_magic.objects.get(itemInfo=target, user=getUser)
+                        update_item.itemCount += 1
+                        update_item.save()
+                    else:
+                        inven = Inventory_magic(itemCount=1,
+                                        itemInfo=target,
+                                        user=getUser)
+                        inven.save()
+                else:
+                    target = Item.objects.get(itemName=comment.itemName)
+
+                    all_items = Inventory.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
+                    
+                    if target.itemID in all_items:
+                        update_item = Inventory.objects.get(itemInfo=target, user=getUser)
+                        update_item.itemCount += 1
+                        update_item.save()
+                    else:
+                        inven = Inventory(itemCount=1,
+                                        itemInfo=target,
+                                        user=getUser)
+                        inven.save()
         return redirect('/search')
     
     return render(request, "class/search_create.html")

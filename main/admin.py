@@ -2,6 +2,7 @@ from django.contrib import admin
 from users.models import CharInfo
 from member.models import *
 from store.models import *
+from main.models import *
 
 # Register your models here.
 admin.site.register(CharInfo)
@@ -18,3 +19,5 @@ admin.site.register(GachaGift)
 admin.site.register(Potion)
 admin.site.register(PotionStatus)
 admin.site.register(Attendance)
+
+admin.site.register(Article)
