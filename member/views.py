@@ -112,7 +112,7 @@ def member_profile(request, charName):
     selected_items2 = random.sample(list(items2), num_items_to_pick)
     
     # 가챠
-    selected_items3 = Gacha.objects.filter(itemCategory='가챠').exclude(itemName="사라 인형").order_by('?').first()
+    selected_items3 = Gacha.objects.filter(itemCategory='가챠').exclude(itemName="사라 인형").exclude(itemName="아일라 인형").order_by('?').first()
         
     paginator = Paginator(combined, 25) 
     page_number = request.GET.get('page', 1)
