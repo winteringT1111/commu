@@ -511,6 +511,54 @@ function transferItem() {
 
 
 
+// "양도" 버튼 클릭 시 호출되는 함수
+function openTransferModal2(itemName) {
+    selectedItem = itemName;  // 양도할 아이템 이름 저장
+    document.getElementById('itemName2').innerText = itemName;  // 아이템 이름 표시
+
+    $('#transferModal2').modal('show');  // 모달 열기
+}
+
+// 모달 닫기
+function closeTransferModal2() {
+    $('#transferModal2').modal('hide');
+}
+
+// 양도 확인 버튼 클릭 시 서버로 데이터 전송
+function transferItem2() {
+    const selectedCharacterId = document.getElementById('characterSelect2').value;  // 선택된 캐릭터 ID
+
+    // AJAX로 서버에 양도 요청 보내기
+    fetch('/transfer_item/', {  // 양도 요청을 처리할 서버 엔드포인트
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}',  // CSRF 토큰 포함
+        },
+        body: JSON.stringify({
+            'item_name': selectedItem,
+            'character_id': selectedCharacterId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('양도가 완료되었습니다.');
+            location.reload();  // 페이지 새로고침
+        } else {
+            alert('양도 실패: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('서버 오류');
+    });
+
+    closeTransferModal2();  // 모달 닫기
+    location.reload(true)
+}
+
+
 // 캐러셀 움직임
 const prevButton = document.querySelector('.carousel-control-prev');
 const nextButton = document.querySelector('.carousel-control-next');

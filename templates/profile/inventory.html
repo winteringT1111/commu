@@ -29,6 +29,16 @@
                                         <p class="item_info">{{characinfo.user.username}}{{ item.itemInfo.itemInfo }}</p>
                                     </div>                                
                                 </div>
+                                {% elif item.itemInfo.itemName == "우정 반지(完)" %}
+                                <div class="item">
+                                    <p class="item_count">x{{item.itemCount}}</p>
+                                    <img src="{% static 'img/store/' %}{{ item.itemInfo.itemName }}.png">
+                                    <div class="item_description">
+                                        <p>{{ item.itemInfo.itemName }}</p>
+                                        <p class="category">{{ item.itemInfo.itemCategory }}</p>
+                                        <p class="item_info">{{ item.user2.username }}{{ item.itemInfo.itemInfo }}</p>
+                                    </div>                                
+                                </div>
                                 {% else %}
                                 <div class="item">
                                     <p class="item_count">x{{item.itemCount}}</p>
@@ -63,6 +73,9 @@
                                             {% elif item.itemInfo.itemCategory == '마법 재료' or item.itemInfo.itemCategory == '가챠' %}
                                             <!-- 양도 버튼 추가 -->
                                             <button class="itembtn" onclick="openTransferModal('{{ item.itemInfo.itemName }}')">양도</button>
+                                            {% elif item.itemInfo.itemName == '우정 반지' %}
+                                            <!-- 양도 버튼 추가 -->
+                                            <button class="itembtn" onclick="openTransferModal2('{{ item.itemInfo.itemName }}')">보내기</button>
                                             {% elif item.itemInfo.itemCategory == '마법 약' %}
                                             <!--마법 약 판매-->
                                             <button class="itembtn" onclick="showUseModal5('{{ item.itemInfo.itemName }}','{{ item.itemInfo.price }}')">판매</button>

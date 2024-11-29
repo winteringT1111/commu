@@ -163,6 +163,26 @@
     </div>
 </div>
 
+<!-- 양도 -->
+<div class="modal fade" id="transferModal2" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75">
+        <div class="modal-content" id="pm">
+            <div class="modal-body">
+                <div class="character_select">
+                    <label for="characterSelect2">보낼 대상</label>
+                    <select id="characterSelect2" class="form-control">
+                        {% for character in charnames %}
+                            <option value="{{character}}">{{character}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="hidden" id="itemName2"></div>
+                <button type="button" class="yesbtn2" onclick="transferItem2()" id="confirmBtn">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- 스크롤 -->
 <div class="modal fade" id="ScrollModal"  data-backdrop="static" tabindex="-1" aria-labelledby="ScrollModal" aria-hidden="true">

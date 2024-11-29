@@ -97,10 +97,11 @@ def member_profile(request, charName):
     random_scroll = random.choice(Scroll.objects.all()).itemInfo
 
     inven = Inventory.objects.filter(user_id=characinfo.user)    
-    inven2 = Inventory_magic.objects.filter(user_id=characinfo.user)
-    inven3 = Inventory_potion.objects.filter(user_id=characinfo.user)
-    inven4 = Inventory_gacha.objects.filter(user_id=characinfo.user)
-    combined = list(inven) + list(inven4) + list(inven3) + list(inven2) 
+    inven2 = Inventory_ring.objects.filter(user_id=characinfo.user)    
+    inven3 = Inventory_magic.objects.filter(user_id=characinfo.user)
+    inven4 = Inventory_potion.objects.filter(user_id=characinfo.user)
+    inven5 = Inventory_gacha.objects.filter(user_id=characinfo.user)
+    combined = list(inven) + list(inven2) + list(inven4) + list(inven5) + list(inven3) 
     
     # 마법 주머니
     items = Item_magic.objects.filter(itemDegree__in=[2, 3], itemCategory='마법 재료')
@@ -112,7 +113,7 @@ def member_profile(request, charName):
     selected_items2 = random.sample(list(items2), num_items_to_pick)
     
     # 가챠
-    selected_items3 = Gacha.objects.filter(itemCategory='가챠').exclude(itemName="사라 인형").exclude(itemName="아일라 인형").order_by('?').first()
+    selected_items3 = Gacha.objects.filter(itemCategory='가챠').exclude(itemName="사라 인형").exclude(itemName="아일라 인형").exclude(itemName="아가사 인형").exclude(itemName="소냐 인형").exclude(itemName="시에나 인형").order_by('?').first()
         
     paginator = Paginator(combined, 25) 
     page_number = request.GET.get('page', 1)
@@ -232,30 +233,37 @@ def transfer_item(request):
         item_name = data.get('item_name')  # 양도할 아이템 이름
         character_name = data.get('character_id')  # 양도할 캐릭터 ID
         print(item_name,character_name)
-
-        try:
-            # 양도할 아이템과 캐릭터 가져오기
+        
+        if item_name == "우정 반지":
             receiver_char = Characters.objects.get(charName=character_name, charGrade=1)
             count = 1
             item_message = "캐릭터 인벤토리에서 양도된 물품입니다."
-            
+                
             print(item_name,receiver_char.charName,item_message,datetime.today())
-            
+                
             # 양도내역 저장
-            char = MagicGift(anonymous=False,
+            char = Gift(anonymous=False,
                         message=item_message,
                         orderDate=datetime.today(),
                         itemCount=count,
-                        itemInfo=Item_magic.objects.get(itemName=item_name),
+                        itemInfo=Item.objects.get(itemName="우정 반지(完)"),
                         giver_user=request.user,
                         receiver_user=CharInfo.objects.get(char=receiver_char).user)
             char.save()
             
+            # 자기도 가짐
+            getinven = Inventory_ring(itemCount=1,
+                                        itemInfo=Item.objects.get(itemName="우정 반지(完)"),
+                                        user=request.user,
+                                        user2=CharInfo.objects.get(char=receiver_char).user)
+            getinven.save()        
+            
             # 물품 차감
-            item = Item_magic.objects.get(itemName=item_name)
+            item = Item.objects.get(itemName=item_name)
+            
             try:
-                inven = Inventory_magic.objects.get(itemInfo=item, user=request.user)
-                
+                inven = Inventory.objects.get(itemInfo=item, user=request.user)
+                    
                 if inven.itemCount == 1:
                     inven.delete()
                 else:
@@ -264,39 +272,71 @@ def transfer_item(request):
             except:
                 pass
             return JsonResponse({'success': True})
-
-        except:
-            # 양도할 아이템과 캐릭터 가져오기
-            receiver_char = Characters.objects.get(charName=character_name, charGrade=1)
-            count = 1
-            item_message = "캐릭터 인벤토리에서 양도된 물품입니다."
-            
-            print(item_name,receiver_char.charName,item_message,datetime.today())
-            
-            # 양도내역 저장
-            char = GachaGift(anonymous=False,
-                        message=item_message,
-                        orderDate=datetime.today(),
-                        itemCount=count,
-                        itemInfo=Gacha.objects.get(itemName=item_name),
-                        giver_user=request.user,
-                        receiver_user=CharInfo.objects.get(char=receiver_char).user)
-            char.save()
-            
-            # 물품 차감
-            item = Gacha.objects.get(itemName=item_name)
+        else:
             try:
-                inven = Inventory_gacha.objects.get(itemInfo=item, user=request.user)
+                # 양도할 아이템과 캐릭터 가져오기
+                receiver_char = Characters.objects.get(charName=character_name, charGrade=1)
+                count = 1
+                item_message = "캐릭터 인벤토리에서 양도된 물품입니다."
                 
-                if inven.itemCount == 1:
-                    inven.delete()
-                else:
-                    inven.itemCount -= 1
-                    inven.save()
+                print(item_name,receiver_char.charName,item_message,datetime.today())
+                
+                # 양도내역 저장
+                char = MagicGift(anonymous=False,
+                            message=item_message,
+                            orderDate=datetime.today(),
+                            itemCount=count,
+                            itemInfo=Item_magic.objects.get(itemName=item_name),
+                            giver_user=request.user,
+                            receiver_user=CharInfo.objects.get(char=receiver_char).user)
+                char.save()
+                
+                # 물품 차감
+                item = Item_magic.objects.get(itemName=item_name)
+                try:
+                    inven = Inventory_magic.objects.get(itemInfo=item, user=request.user)
+                    
+                    if inven.itemCount == 1:
+                        inven.delete()
+                    else:
+                        inven.itemCount -= 1
+                        inven.save()
+                except:
+                    pass
+                return JsonResponse({'success': True})
+
             except:
-                pass
-            return JsonResponse({'success': True})
-            
+                # 양도할 아이템과 캐릭터 가져오기
+                receiver_char = Characters.objects.get(charName=character_name, charGrade=1)
+                count = 1
+                item_message = "캐릭터 인벤토리에서 양도된 물품입니다."
+                
+                print(item_name,receiver_char.charName,item_message,datetime.today())
+                
+                # 양도내역 저장
+                char = GachaGift(anonymous=False,
+                            message=item_message,
+                            orderDate=datetime.today(),
+                            itemCount=count,
+                            itemInfo=Gacha.objects.get(itemName=item_name),
+                            giver_user=request.user,
+                            receiver_user=CharInfo.objects.get(char=receiver_char).user)
+                char.save()
+                
+                # 물품 차감
+                item = Gacha.objects.get(itemName=item_name)
+                try:
+                    inven = Inventory_gacha.objects.get(itemInfo=item, user=request.user)
+                    
+                    if inven.itemCount == 1:
+                        inven.delete()
+                    else:
+                        inven.itemCount -= 1
+                        inven.save()
+                except:
+                    pass
+                return JsonResponse({'success': True})
+                
 
     return JsonResponse({'success': False, 'error': '잘못된 요청입니다.'})
 
@@ -365,27 +405,38 @@ def giftbox(request):
 
                 target.accepted = True
                 target.save()
-            
-        
+                
         else:
             target = Gift.objects.get(giftID=gift_id)
             
             if not target.accepted:
-                all_items = Inventory.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
-                item = target.itemInfo
-                    
-                if item.itemID in all_items:
-                    update_item = Inventory.objects.get(itemInfo=item, user=getUser)
-                    update_item.itemCount += target.itemCount
-                    update_item.save()
-                else:
-                    inven = Inventory(itemCount=target.itemCount,
-                                    itemInfo=item,
-                                    user=getUser)
+                
+                if target.itemInfo.itemName == "우정 반지(完)":
+                    inven = Inventory_ring(itemCount=1,
+                                        itemInfo=Item.objects.get(itemName="우정 반지(完)"),
+                                        user=getUser,
+                                        user2=target.giver_user)
                     inven.save()        
 
-                target.accepted = True
-                target.save()
+                    target.accepted = True
+                    target.save()
+                
+                else:
+                    all_items = Inventory.objects.filter(user_id=getUser).values_list('itemInfo', flat=True)
+                    item = target.itemInfo
+                        
+                    if item.itemID in all_items:
+                        update_item = Inventory.objects.get(itemInfo=item, user=getUser)
+                        update_item.itemCount += target.itemCount
+                        update_item.save()
+                    else:
+                        inven = Inventory(itemCount=target.itemCount,
+                                        itemInfo=item,
+                                        user=getUser)
+                        inven.save()        
+
+                    target.accepted = True
+                    target.save()
                 
                 
 

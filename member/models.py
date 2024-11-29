@@ -157,6 +157,24 @@ class Inventory_gacha(models.Model):
 
     class Meta:
         db_table = "inventory_gacha"
+        
+class Inventory_ring(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='owner'  # Custom related name for the giver
+    )
+    user2 = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='user2'  # Custom related name for the receiver
+    )
+    itemInfo = models.ForeignKey(itemModels.Item, on_delete=models.CASCADE)
+    itemCount = models.IntegerField()
+
+    class Meta:
+        db_table = "inventory_ring"
+          
           
           
 class Attendance(models.Model):
