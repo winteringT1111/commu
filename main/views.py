@@ -324,6 +324,9 @@ def check_combination(request):
         if status.xp >= 170:
             status.degree = 2
             status.save()
+        if status.xp >= 400:
+            status.degree = 1
+            status.save()
 
         # Return the result as a JSON response
         return JsonResponse({'result': result, 'image': image, 'message':message})
