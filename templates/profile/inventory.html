@@ -29,7 +29,7 @@
                                         <p class="item_info">{{characinfo.user.username}}{{ item.itemInfo.itemInfo }}</p>
                                     </div>                                
                                 </div>
-                                {% elif item.itemInfo.itemName == "우정 반지(完)" %}
+                                {% elif item.itemInfo.itemName == "우정 반지" %}
                                 <div class="item">
                                     <p class="item_count">x{{item.itemCount}}</p>
                                     <img src="{% static 'img/store/' %}{{ item.itemInfo.itemName }}.png">
@@ -73,7 +73,7 @@
                                             {% elif item.itemInfo.itemCategory == '마법 재료' or item.itemInfo.itemCategory == '가챠' %}
                                             <!-- 양도 버튼 추가 -->
                                             <button class="itembtn" onclick="openTransferModal('{{ item.itemInfo.itemName }}')">양도</button>
-                                            {% elif item.itemInfo.itemName == '우정 반지' %}
+                                            {% elif item.itemInfo.itemName == '우정 반지(상자)' %}
                                             <!-- 양도 버튼 추가 -->
                                             <button class="itembtn" onclick="openTransferModal2('{{ item.itemInfo.itemName }}')">보내기</button>
                                             {% elif item.itemInfo.itemCategory == '마법 약' %}

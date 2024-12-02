@@ -234,7 +234,7 @@ def transfer_item(request):
         character_name = data.get('character_id')  # 양도할 캐릭터 ID
         print(item_name,character_name)
         
-        if item_name == "우정 반지":
+        if item_name == "우정 반지(상자)":
             receiver_char = Characters.objects.get(charName=character_name, charGrade=1)
             count = 1
             item_message = "캐릭터 인벤토리에서 양도된 물품입니다."
@@ -246,14 +246,14 @@ def transfer_item(request):
                         message=item_message,
                         orderDate=datetime.today(),
                         itemCount=count,
-                        itemInfo=Item.objects.get(itemName="우정 반지(完)"),
+                        itemInfo=Item.objects.get(itemName="우정 반지"),
                         giver_user=request.user,
                         receiver_user=CharInfo.objects.get(char=receiver_char).user)
             char.save()
             
             # 자기도 가짐
             getinven = Inventory_ring(itemCount=1,
-                                        itemInfo=Item.objects.get(itemName="우정 반지(完)"),
+                                        itemInfo=Item.objects.get(itemName="우정 반지"),
                                         user=request.user,
                                         user2=CharInfo.objects.get(char=receiver_char).user)
             getinven.save()        
@@ -411,9 +411,9 @@ def giftbox(request):
             
             if not target.accepted:
                 
-                if target.itemInfo.itemName == "우정 반지(完)":
+                if target.itemInfo.itemName == "우정 반지":
                     inven = Inventory_ring(itemCount=1,
-                                        itemInfo=Item.objects.get(itemName="우정 반지(完)"),
+                                        itemInfo=Item.objects.get(itemName="우정 반지"),
                                         user=getUser,
                                         user2=target.giver_user)
                     inven.save()        
