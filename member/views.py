@@ -18,7 +18,6 @@ def member_profile(request, charName):
     
     if request.method == 'POST':       
         box = request.POST['boxtype']
-        print("ddd",box)
         
         # 가챠 인형
         if box == "gacha":
@@ -327,12 +326,15 @@ def transfer_item(request):
                 item = Gacha.objects.get(itemName=item_name)
                 try:
                     inven = Inventory_gacha.objects.get(itemInfo=item, user=request.user)
+                    print("-------------111111111")
                     
                     if inven.itemCount == 1:
                         inven.delete()
+                        print("-------------22222222222")
                     else:
                         inven.itemCount -= 1
                         inven.save()
+                        print("-------------33333333333")
                 except:
                     pass
                 return JsonResponse({'success': True})
