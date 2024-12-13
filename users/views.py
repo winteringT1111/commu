@@ -20,7 +20,7 @@ def signup(request):
 
             user = request.user
             char = CharInfo(user=user,
-                            char=Characters.objects.get(charFirstName=request.POST['username']),
+                            char=Characters.objects.get(charFirstName=request.POST['username'], charGrade='1'),
                             galeon=5,
                             classToken=0,
                             searchDone=0,)

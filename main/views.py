@@ -469,3 +469,60 @@ def shifter(request):
     return render(request, "class/flying.html", context)
     
     
+# 순간이동
+@login_required(login_url='/login')
+def teleport(request):
+    user = CharInfo.objects.get(user=request.user)
+    
+    try:
+        attendance = Attendance.objects.get(user=request.user)
+    except Attendance.DoesNotExist:
+        attendance = Attendance(user=request.user, attendance_date=None, total_attendance=0, broom_item_received=False)
+        attendance.save()
+        
+    # 현재 시간 확인
+    current_time = timezone.localtime(timezone.now())
+    today_date = current_time.date()
+        
+    if request.method == "POST":
+        if attendance.attendance_date == today_date:
+            show_modal = "modal2"
+            modal_message = "오늘은 이미 수업을 이수했습니다."
+        else:
+            attendance.attendance_date = today_date  # 출석일 업데이트
+            attendance.total_attendance += 1
+            attendance.save()
+                
+            show_modal = "modal1"
+            modal_message = "비행 수업이 완료되었습니다."
+            user.classToken -= 1
+            user.save()
+            
+            if attendance.total_attendance == 7 and not attendance.broom_item_received:
+                broom = Item.objects.get(itemName="빗자루")
+                inven = Inventory(itemCount=1,
+                            itemInfo=broom,
+                            user=request.user)
+                inven.save()
+                attendance.broom_item_received = True
+                attendance.save()
+                show_modal = "modal1"
+                modal_message = "빗자루 아이템이 인벤토리에 수령되었습니다."
+            
+        return JsonResponse({
+        'show_modal': show_modal, 
+        'modal_message': modal_message,
+        'attendance_count': attendance.total_attendance,  # 누적 출석 일 수
+        'got_broom': attendance.broom_item_received,
+        'token':user.classToken
+        })
+    
+    context = {
+        'attendance_count': attendance.total_attendance,  # 템플릿에 누적 출석 일 수 전달
+        'got_broom': attendance.broom_item_received,  # 템플릿에 금일 출석 여부 전달
+        'token':user.classToken,
+        'got_broom': attendance.broom_item_received,
+    }
+    
+    return render(request, "class/teleport.html", context)
+    

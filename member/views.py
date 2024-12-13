@@ -12,8 +12,13 @@ from django.core.paginator import Paginator
 def member_profile(request, charName):
     getUser = request.user
     # 1학년 캐릭터
-    char01 = Characters.objects.get(charFirstName=charName.capitalize(), charGrade=1)
-    char04 = Characters.objects.get(charFirstName=charName.capitalize(), charGrade=4)
+    if charName == 'Werner' or charName == 'Tillman':
+        char01 = Characters.objects.get(charFirstName=charName.capitalize(), charGrade=1)
+        char04= ''
+    else:
+        char01 = Characters.objects.get(charFirstName=charName.capitalize(), charGrade=1)
+        char04 = Characters.objects.get(charFirstName=charName.capitalize(), charGrade=4)
+    char07 = Characters.objects.get(charFirstName=charName.capitalize(), charGrade=7)
     characinfo = CharInfo.objects.get(char=char01)
     
     if request.method == 'POST':       
@@ -112,19 +117,20 @@ def member_profile(request, charName):
     selected_items2 = random.sample(list(items2), num_items_to_pick)
     
     # 가챠
-    selected_items3 = Gacha.objects.filter(itemCategory='가챠').exclude(itemName="사라 인형").exclude(itemName="아일라 인형").exclude(itemName="아가사 인형").exclude(itemName="소냐 인형").exclude(itemName="시에나 인형").order_by('?').first()
+    selected_items3 = Gacha.objects.filter(itemCategory='가챠').exclude(itemName="사라 인형").order_by('?').first()
         
     paginator = Paginator(combined, 25) 
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
     
     pages_items = [paginator.page(i).object_list for i in paginator.page_range]
-    charnames = Characters.objects.values_list('charName', flat=True)    
+    charnames = Characters.objects.filter(charGrade=7).values_list('charName', flat=True)
     
     context = {
         'charname': charName,
         'char': char01,
         'char04': char04,
+        'char07': char07,
         'inven':combined,
         "page_obj": page_obj, 
         "pages_items": pages_items,
@@ -344,7 +350,7 @@ def transfer_item(request):
 
 @login_required(login_url='/')
 def member_main(request):
-    chars = Characters.objects.filter(charGrade=4).order_by('charFirstName')
+    chars = Characters.objects.filter(charGrade=7).order_by('charFirstName')
     context = {
         'chars': chars
     }

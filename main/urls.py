@@ -20,6 +20,7 @@ urlpatterns = [
     path('class/herbology', views.herb, name='herb'),
     path('class/creature', views.creature, name='creature'),
     path('class/flying', views.shifter, name='shifter'),
+    path('class/teleport', views.teleport, name='teleport'),
     path('class/potion/', views.potion, name='potion'),
     path('check_combination/', views.check_combination, name='check_combination'),
 ] 

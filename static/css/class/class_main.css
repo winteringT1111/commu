@@ -44,6 +44,10 @@ html, body {
     animation-delay: 0.2s; /* 두 번째 이미지는 0.2초 후에 나타남 */
 }
 
+.notice_wrap a:nth-child(4) {
+    animation-delay: 0.3s; /* 두 번째 이미지는 0.2초 후에 나타남 */
+}
+
 @keyframes fadeInUp {
     to {
         opacity: 1;

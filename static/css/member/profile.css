@@ -45,7 +45,15 @@
     height: 140vh;
 } .character2 {
     height: 95vh;
-} 
+} .character3 {
+    height: 180vh;
+}.character4 {
+    margin-left: -12vw;
+    height: 100vh;
+} .character5 {
+    margin-left: 27vw;
+    height: 100vh;
+}
 
 
 

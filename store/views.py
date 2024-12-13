@@ -91,7 +91,7 @@ def store_main(request):
             userinfo.galeon = int(userinfo.galeon) - int(itemPrice)
             userinfo.save()            
             
-    charnames = Characters.objects.values_list('charName', flat=True)        
+    charnames = Characters.objects.filter(charGrade=7).values_list('charName', flat=True)   
         
     context = {'page1_row1':page1_row1,
                'page1_row2':page1_row2,

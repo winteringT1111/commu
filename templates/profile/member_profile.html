@@ -18,25 +18,40 @@
 <!-- 캐릭터 -->
 <div class="character_wrap hidden" id="grade1">
     <div class="cha">
-        {% if char.charFirstName == "Yvonne" or char.charFirstName == "Finley" or char.charFirstName == "Ezekiel" or char.charFirstName == "Nathan" or char.charFirstName == "Ezell"  or char.charFirstName == "Rebecca"  or char.charFirstName == "Remia"%}
+        {% if char.charFirstName == "Yvonne" or char.charFirstName == "Ezekiel" or char.charFirstName == "Ezell"  or char.charFirstName == "Rebecca"  or char.charFirstName == "Remia"%}
         <img class="character2" id=""src="{% static 'img/charac/01/02/' %}{{ char.charImageA }}.png"></img>
         {% elif char.charFirstName == "Sophia" %}
-        <img class="character3" src="{% static 'img/charac/01/02/' %}{{ char.charImageA }}.png"></img>
+        <img class="character4" src="{% static 'img/charac/01/02/' %}{{ char.charImageA }}.png"></img>
         {% else %}
         <img class="character" src="{% static 'img/charac/01/02/' %}{{ char.charImageA }}.png"></img>
         {% endif %}
     </div>
 </div>
 
-<div class="character_wrap" id="grade4">
+<div class="character_wrap hidden" id="grade4">
     <div class="cha">
-        {% if char.charFirstName == "Yvonne" or char04.charFirstName == "Finley" or char04.charFirstName == "Kayden"%}
+        {% if char.charFirstName == "Yvonne"%}
         <img class="character2" id=""src="{% static 'img/charac/04/01/' %}{{ char04.charImageA }}.png"></img>
         {% else %}
         <img class="character" src="{% static 'img/charac/04/01/' %}{{ char04.charImageA }}.png"></img>
         {% endif %}
     </div>
 </div>
+
+<div class="character_wrap" id="grade7">
+    <div class="cha">
+        {% if char.charFirstName == "Yvonne" or char.charFirstName == "Ezell" or char.charFirstName == "Werner" or char.charFirstName == "Tillman" %}
+        <img class="character2" id=""src="{% static 'img/charac/07/01/' %}{{ char07.charImageA }}.png"></img>
+        {% elif char.charFirstName == "Agatha" %}
+        <img class="character3" id=""src="{% static 'img/charac/07/01/' %}{{ char07.charImageA }}.png"></img>
+        {% elif char.charFirstName == "Patch" %}
+        <img class="character5" id=""src="{% static 'img/charac/07/01/' %}{{ char07.charImageA }}.png"></img>
+        {% else %}
+        <img class="character" src="{% static 'img/charac/07/01/' %}{{ char07.charImageA }}.png"></img>
+        {% endif %}
+    </div>
+</div>
+
 
 {% if char.charProfileMusic %}
 <div id="profile_music" class="hidden" data-music="{{char.charProfileMusic}}.mp3"></div>
@@ -45,12 +60,19 @@
 
 <div class="wrap fade-in-right">
     <div class="inven">
+        {% if char.charFirstName == "Werner" or char.charFirstName == "Tillman" %}
+        <button class="transbtn" onclick="show7grade2()">Grade 7</button>
+        <button class="transbtn" onclick="showInventory2()">인벤토리</button>
+        {% else %}
         <button class="transbtn" onclick="show1grade()">Grade 1</button>
         <button class="transbtn" onclick="show4grade()">Grade 4</button>
+        <button class="transbtn" onclick="show7grade()">Grade 7</button>
         <button class="transbtn" onclick="showInventory()">인벤토리</button>
+        {% endif %}
     </div>
 
-
+{% if char.charFirstName == "Werner" or char.charFirstName == "Tillman" %}
+{% else %}
  <!-- 1학년 기본정보 -->
  <div class="info_wrap hidden" id="profile-section">
     <div class="info_content">
@@ -170,6 +192,12 @@
 
 <!-- 4학년 기본정보 -->
 {% include "profile/grade4.html" %}
+
+{% endif %}
+
+
+<!-- 7학년 기본정보 -->
+{% include "profile/grade7.html" %}
 
 
 {% include "profile/inventory.html" %}
@@ -446,10 +474,42 @@
         document.getElementById('wand_section4').classList.remove('hidden');
     }
 
+
+    function showImgInfo7() {
+        document.getElementById('imgInfo_section7').classList.remove('hidden');
+        document.getElementById('personality_section7').classList.add('hidden');
+        document.getElementById('etc_section7').classList.add('hidden');
+        document.getElementById('wand_section7').classList.add('hidden');
+    }
+
+    function showProfile7() {
+        document.getElementById('imgInfo_section7').classList.add('hidden');
+        document.getElementById('personality_section7').classList.remove('hidden');
+        document.getElementById('etc_section7').classList.add('hidden');
+        document.getElementById('wand_section7').classList.add('hidden');
+    }
+
+    function showEtc7() {
+        document.getElementById('imgInfo_section7').classList.add('hidden');
+        document.getElementById('personality_section7').classList.add('hidden');
+        document.getElementById('etc_section7').classList.remove('hidden');
+        document.getElementById('wand_section7').classList.add('hidden');
+    }
+
+    function showWand7() {
+        document.getElementById('imgInfo_section7').classList.add('hidden');
+        document.getElementById('personality_section7').classList.add('hidden');
+        document.getElementById('etc_section7').classList.add('hidden');
+        document.getElementById('wand_section7').classList.remove('hidden');
+    }
+
+
     function show1grade() {
         document.getElementById('profile-section').classList.remove('hidden');
         document.getElementById('profile-section4').classList.add('hidden');
+        document.getElementById('profile-section7').classList.add('hidden');
         document.getElementById('inventory-section').classList.add('hidden');
+        document.getElementById('grade7').classList.add('hidden');
         document.getElementById('grade4').classList.add('hidden');
         document.getElementById('grade1').classList.remove('hidden');
     }
@@ -457,15 +517,46 @@
     function show4grade() {
         document.getElementById('profile-section').classList.add('hidden');
         document.getElementById('profile-section4').classList.remove('hidden');
+        document.getElementById('profile-section7').classList.add('hidden');
         document.getElementById('inventory-section').classList.add('hidden');
+        document.getElementById('grade7').classList.add('hidden');
         document.getElementById('grade4').classList.remove('hidden');
         document.getElementById('grade1').classList.add('hidden');
     }
 
+    function show7grade() {
+        document.getElementById('profile-section').classList.add('hidden');
+        document.getElementById('profile-section4').classList.add('hidden');
+        document.getElementById('profile-section7').classList.remove('hidden');
+        document.getElementById('inventory-section').classList.add('hidden');
+        document.getElementById('grade7').classList.remove('hidden');
+        document.getElementById('grade4').classList.add('hidden');
+        document.getElementById('grade1').classList.add('hidden');
+    }
+
+
     function showInventory() {
         document.getElementById('profile-section').classList.add('hidden');
         document.getElementById('profile-section4').classList.add('hidden');
+        document.getElementById('profile-section7').classList.add('hidden');
         document.getElementById('inventory-section').classList.remove('hidden');
+        document.getElementById('grade7').classList.remove('hidden');
+        document.getElementById('grade4').classList.add('hidden');
+        document.getElementById('grade1').classList.add('hidden');
+    }
+
+
+    function show7grade2() {
+        document.getElementById('profile-section7').classList.remove('hidden');
+        document.getElementById('inventory-section').classList.add('hidden');
+        document.getElementById('grade7').classList.remove('hidden');
+    }
+
+
+    function showInventory2() {
+        document.getElementById('profile-section7').classList.add('hidden');
+        document.getElementById('inventory-section').classList.remove('hidden');
+        document.getElementById('grade7').classList.remove('hidden');
     }
 
     let selectedItem = '';  // 양도할 아이템 이름
