@@ -492,14 +492,18 @@ def teleport(request):
             attendance.attendance_date = today_date  # 출석일 업데이트
             attendance.total_attendance += 1
             attendance.save()
+            
+            if attendance.total_attendance == 1:
+                user.galeon -= 12
+                user.save()
                 
             show_modal = "modal1"
-            modal_message = "비행 수업이 완료되었습니다."
+            modal_message = "순간이동 수업이 완료되었습니다."
             user.classToken -= 1
             user.save()
             
             if attendance.total_attendance == 7 and not attendance.broom_item_received:
-                broom = Item.objects.get(itemName="빗자루")
+                broom = Item.objects.get(itemName="면허증")
                 inven = Inventory(itemCount=1,
                             itemInfo=broom,
                             user=request.user)
@@ -507,7 +511,7 @@ def teleport(request):
                 attendance.broom_item_received = True
                 attendance.save()
                 show_modal = "modal1"
-                modal_message = "빗자루 아이템이 인벤토리에 수령되었습니다."
+                modal_message = "면허증 아이템이 인벤토리에 수령되었습니다."
             
         return JsonResponse({
         'show_modal': show_modal, 
