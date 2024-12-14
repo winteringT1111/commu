@@ -34,7 +34,7 @@
 
     <div class="modal_info">
         <p><span><img src="{% static 'img/star.png' %}"></span>수업 이수 시 1 수업 토큰이 소모됩니다.</p>
-        <p>누적 출석 5회 시 면허증 아이템을 획득할 수 있습니다.</p>
+        <p>누적 출석 7회 시 면허증 아이템을 획득할 수 있습니다.</p>
     </div>
 
     <div class="modal_info2">
@@ -98,7 +98,7 @@
 
     document.getElementById('submitAttendance').addEventListener('click', function() {
         // Send AJAX request to handle attendance
-        fetch("{% url 'main:shifter' %}", {
+        fetch("{% url 'main:teleport' %}", {
             method: "POST",
             headers: {
                 "X-CSRFToken": "{{ csrf_token }}"
