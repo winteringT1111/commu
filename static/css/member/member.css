@@ -52,6 +52,11 @@
     border-radius: 7px;
 }
 
+.b {
+    margin-right: 6px;
+    margin-bottom: 5px;
+}
+
 .member_house img {
     width: 60px;
     position: absolute;

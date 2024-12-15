@@ -23,6 +23,9 @@
                 <img class="member_img" src="{% static 'img/charac/07/02/' %}{{ char04.charImageP }}.png">
             </div>
             <div class="member_card_down">
+                {% if char04.charFirstName == "Agatha" or char04.charFirstName == "Margot" or char04.charFirstName == "Ezekiel" or char04.charFirstName == "Soniya" %}
+                <img class="b" src="{% static 'img/badge.png' %}">                
+                {% endif %}
                 {{char04.charName}}
             </div>
         </div>
